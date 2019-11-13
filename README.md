@@ -1,2 +1,3 @@
-# pandax
-This is our REST project !! \o/
+# PandaX
+
+Because this is our REST project !! \o/
