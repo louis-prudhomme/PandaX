@@ -1,10 +1,10 @@
 # What is Git ? 
 
-google
+Git permet de gérer le développement concurrent d’un projet.
 
 # Comment ça marche ?
 
-Metal is forever
+Oui
 
 # Les commandes utiles
 
@@ -43,4 +43,8 @@ Utilisation : `git push`
 
 ## git checkout
 
-//todo
+Permet de passer d’une branche à l’autre.
+
+Pour créer une branche `git checkout -b <nom_branche>`
+
+Pour passer sur une branche existante `git checkout <nom_branche>`
