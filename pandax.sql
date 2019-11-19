@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Sam 16 Novembre 2019 à 11:43
+-- GÃ©nÃ©rÃ© le :  Mar 19 Novembre 2019 Ã  14:40
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données :  `pandax`
+-- Base de donnÃ©es :  `pandax`
 --
 
 -- --------------------------------------------------------
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `id` int(128) NOT NULL AUTO_INCREMENT,
   `user` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `token` varchar(100) NOT NULL,
+  `isAdmin` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
