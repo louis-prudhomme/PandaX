@@ -1,9 +1,9 @@
-Note : PUT when object URL is used
+NoteÂ : PUT when object URL is used
 
 List display:
 
 -General: for all media id, GET localhost/api/media/{id}
-	Gather each media data and show the important parts (title, creator…)
+	Gather each media data and show the important parts (title, creatorâ€¦)
 	Mayhap sort them later depending on their data
 
 -By user: GET localhost/api/users/{user_id}/media_reviewed
@@ -47,4 +47,32 @@ Delete review:
 Delete media:
 
 -DELETE localhost/api/media/{id}
-	Remove a media from its id (if there’s no other user’s review on it)
+	Remove a media from its id (if thereâ€™s no other userâ€™s review on it)
+
+
+Realization of the ParamConverter
+
+/*
+public class MyParamConverter implements ParamConverter<MyObject>{
+  @Override
+  public MyObject fromString(String s){
+    //imagine MyObject is a third party class
+    return MyObjectFactory.get(s);
+  }
+  @Override
+  public String toString(MyObject mo){
+    return mo.toString();
+  }
+}
+
+@Provider
+public class MyParamConverterProvider implements ParamConverterProvider{
+    @Override
+    public <T> ParamConverter<T> getConverter(Class<T> rawType, Type genericType, Annotation[] annotations) {
+        if(rawType.equals(MyObject.class)){
+            return (ParamConverter<T>) new MyParamConverter();
+        }
+        return null;
+    }
+}*/
+
