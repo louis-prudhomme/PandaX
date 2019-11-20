@@ -17,18 +17,19 @@ public class GeneralResource {
     private UserDAO us;
     
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response ping() {
     	us = new UserDAO();
         User s = new User("Louis", "ARRETE DE CRAQUER TES PUTAIN DE DOIGTS", true);
-        us.create((User)s);
-        return Response.ok("Pong !").build();
+        return Response.ok(s).build();
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response authenticateUser(@FormParam("user")User u) {
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    //test me with
+    // curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d '{"admin":true,"password":"ARRETE DE CRAQUER TES PUTAIN DE DOIGTS","user":"Louis"}' localhost:8080/PandaX_war_exploded
+    public Response authenticateUser(@FormParam("user") User u) {
         return Response.ok("Pong !").build();
     }
 }
