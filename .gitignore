@@ -1,3 +1,6 @@
+.project
+.classpath
+*.iml
 # Compiled class file
 *.class
 
