@@ -22,7 +22,6 @@ public class GeneralResource {
     @Produces(MediaType.TEXT_PLAIN)
     public Response ping() {
     	us = new UserDAO();
-    	
         User s = new User("Louis", "ARRETE DE CRAQUER TES PUTAIN DE DOIGTS", true);
         us.create((User)s);
         return Response.ok("Pong !").build();
