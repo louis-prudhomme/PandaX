@@ -18,6 +18,8 @@ public class GeneralResource {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    //test me with
+    // curl localhost:8080/PandaX_war_exploded
     public Response ping() {
     	us = new UserDAO();
         User s = new User("Louis", "ARRETE DE CRAQUER TES PUTAIN DE DOIGTS", true);
