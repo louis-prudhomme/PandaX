@@ -6,6 +6,7 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 
+//todo refactor open/close with lambda ?
 public class AbstractDAO<T> {
     
     private Class<T> managedKlazz;
@@ -20,56 +21,56 @@ public class AbstractDAO<T> {
     }
 
     public T read(int id) {
-        TypedQuery<T> query = em.createNamedQuery(managedKlazz.getName() + ".findById", managedKlazz);    
-        emf= Persistence.createEntityManagerFactory("my_persistence_unit") ;
-        em= emf.createEntityManager();
-        query.setParameter("id",id); 
+        openEntityManager();
+        TypedQuery<T> query = em.createNamedQuery(managedKlazz.getSimpleName() + ".findById", managedKlazz);
+        query.setParameter("id", id);
         T x = query.getSingleResult();
-        em.close();
-        emf.close();
-        return x; 
+        closeEntityManager();
+        return x;
     }
 
     public void delete(T managedObject) {
-        emf= Persistence.createEntityManagerFactory("my_persistence_unit") ;
-        em= emf.createEntityManager();
+        openEntityManager();
         em.getTransaction().begin();
         if (!em.contains(managedObject)) {
             managedObject = em.merge(managedObject);
         }
         em.remove(managedObject);
-        em.getTransaction().commit() ;
-        em.close();
-        emf.close();
+        em.getTransaction().commit();
+        closeEntityManager();
     }
 
     public void modify(T managedObject) {
-        emf= Persistence.createEntityManagerFactory("my_persistence_unit") ;
-        em= emf.createEntityManager();
+        openEntityManager();
         em.getTransaction().begin();
         em.merge(managedObject);
-        em.getTransaction().commit() ;
-        em.close();
-        emf.close();
+        em.getTransaction().commit();
+        closeEntityManager();
     }
 
-    public void create(T managedObject) {  
-        emf= Persistence.createEntityManagerFactory("my_persistence_unit") ;
-        em= emf.createEntityManager();
+    public void create(T managedObject) {
+        openEntityManager();
         em.getTransaction().begin();
         em.persist(managedObject);
-        em.getTransaction().commit() ;
-        em.close();
-        emf.close();
+        em.getTransaction().commit();
+        closeEntityManager();
     }
 
     public ArrayList<T> getAll() {
-        TypedQuery<T> query = em.createNamedQuery(managedKlazz.getName() + ".findAll", managedKlazz);      
-        emf= Persistence.createEntityManagerFactory("my_persistence_unit") ;
-        em= emf.createEntityManager();
+        openEntityManager();
+        TypedQuery<T> query = em.createNamedQuery(managedKlazz.getSimpleName() + ".findAll", managedKlazz);
         all = new ArrayList<>(query.getResultList());
+        closeEntityManager();
+        return all; 
+    }
+
+    public void openEntityManager() {
+        emf = Persistence.createEntityManagerFactory("my_persistence_unit");
+        em = emf.createEntityManager();
+    }
+
+    public void closeEntityManager() {
         em.close();
         emf.close();
-        return all; 
     }
 }
