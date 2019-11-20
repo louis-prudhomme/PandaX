@@ -11,10 +11,11 @@ import javax.ws.rs.core.Response;
 
 /**
  * Default-case rest entry, useless except for verification purposes
+ * Serves as both a prof-of-concept and an exemple case for the rest of the project
+ * //todo delete at the end of the project
  */
 @Path("/")
 public class GeneralResource {
-	
     UserDAO us;
     
     @GET
@@ -22,7 +23,7 @@ public class GeneralResource {
     public Response ping() {
     	us = new UserDAO();
     	
-        User s = new User("Louis", "ARRETE DE CRAQUER TES PUTAIN DE DOIGTS","coucou");
+        User s = new User("Louis", "ARRETE DE CRAQUER TES PUTAIN DE DOIGTS", true);
         us.create((User)s);
         return Response.ok("Pong !").build();
     }

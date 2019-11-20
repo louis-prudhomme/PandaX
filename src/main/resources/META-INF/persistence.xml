@@ -11,10 +11,10 @@
     <class>fr.efrei.pandax.model.business.User</class>
 
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:8889/pandax"/>
-      <property name="javax.persistence.jdbc.user" value="jee"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pandax"/>
+      <property name="javax.persistence.jdbc.user" value="test"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="jee"/>    
+      <property name="javax.persistence.jdbc.password" value="password"/>
     </properties>
   </persistence-unit>
 </persistence>
