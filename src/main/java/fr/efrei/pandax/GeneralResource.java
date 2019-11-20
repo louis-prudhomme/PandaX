@@ -22,7 +22,7 @@ public class GeneralResource {
     public Response ping() {
     	us = new UserDAO();
     	
-        User s = new User("Louis", "ARRETE DE CRAQUER TES PUTAIN DE DOIGTS","coucou");
+        User s = new User("Louis", "ARRETE DE CRAQUER TES PUTAIN DE DOIGTS");
         us.create((User)s);
         return Response.ok("Pong !").build();
     }

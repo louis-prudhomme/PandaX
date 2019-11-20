@@ -26,8 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
     @NamedQuery(name = "User.findByUser", query = "SELECT u FROM User u WHERE u.user = :user"),
-    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
-    @NamedQuery(name = "User.findByToken", query = "SELECT u FROM User u WHERE u.token = :token")})
+    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,11 +45,6 @@ public class User implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "password")
     private String password;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "token")
-    private String token;
 
     public User() {
     }
@@ -59,17 +53,12 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(Integer id, String user, String password, String token) {
+    public User(Integer id, String user, String password) {
         this.id = id;
         this.user = user;
         this.password = password;
-        this.token = token;
     }
-    public User(String user, String password, String token) {
-        this.user = user;
-        this.password = password;
-        this.token = token;
-    }
+
     
     public User(String user, String password){
         this.user = user;
@@ -98,14 +87,6 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 
     @Override
