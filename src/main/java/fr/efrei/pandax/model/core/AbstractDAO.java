@@ -64,12 +64,12 @@ public class AbstractDAO<T> {
         return all; 
     }
 
-    public void openEntityManager() {
+    protected void openEntityManager() {
         emf = Persistence.createEntityManagerFactory("my_persistence_unit");
         em = emf.createEntityManager();
     }
 
-    public void closeEntityManager() {
+    protected void closeEntityManager() {
         em.close();
         emf.close();
     }
