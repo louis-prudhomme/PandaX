@@ -1,11 +1,9 @@
-package fr.efrei.pandax;
+package fr.efrei.pandax.resource;
 
 import fr.efrei.pandax.model.business.User;
 import fr.efrei.pandax.model.core.UserDAO;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -16,7 +14,7 @@ import javax.ws.rs.core.Response;
  */
 @Path("/")
 public class GeneralResource {
-    UserDAO us;
+    private UserDAO us;
     
     @GET
     @Produces(MediaType.TEXT_PLAIN)
@@ -24,6 +22,13 @@ public class GeneralResource {
     	us = new UserDAO();
         User s = new User("Louis", "ARRETE DE CRAQUER TES PUTAIN DE DOIGTS", true);
         us.create((User)s);
+        return Response.ok("Pong !").build();
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response authenticateUser(@FormParam("user")User u) {
         return Response.ok("Pong !").build();
     }
 }
