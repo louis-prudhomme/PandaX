@@ -5,8 +5,11 @@ import fr.efrei.pandax.model.business.User;
 
 import javax.ws.rs.ext.ParamConverter;
 
+/**
+ * Converts {@link User} to JSON (and vice-versa).
+ */
 public class UserConverter implements ParamConverter<User> {
-    Gson cypher = new Gson();
+    private Gson cypher = new Gson();
 
     @Override
     public User fromString(String s) {

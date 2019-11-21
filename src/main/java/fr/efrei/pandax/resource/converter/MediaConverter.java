@@ -5,6 +5,9 @@ import fr.efrei.pandax.model.business.Media;
 
 import javax.ws.rs.ext.ParamConverter;
 
+/**
+ * Converts {@link Media} to JSON (and vice-versa).
+ */
 public class MediaConverter implements ParamConverter<Media> {
     private Gson cypher = new Gson();
 

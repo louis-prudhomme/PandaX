@@ -7,19 +7,40 @@ import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 
 //todo refactor open/close with lambda ?
+
+/**
+ * Represents an general Database Access Object.
+ * Can generically read, delete, update, create and get all records of a generic type.
+ * @param <T> Generic type that will be queried in database. Should be a fr.efrei.pandax.model.business class.
+ */
 public class AbstractDAO<T> {
-    
+    /**
+     * Target class managed by the DAO.
+     */
     private Class<T> managedKlazz;
 
+    /**
+     * FUK U TOMCAT
+     */
     private EntityManagerFactory emf;
-    private EntityManager em;
-    
-    private ArrayList<T> all;
+    /**
+     * DITTO
+     */
+    protected EntityManager em;
 
+    /**
+     * Standard constructor.
+     * @param klazz managed entity.
+     */
     public AbstractDAO(Class<T> klazz) {
         managedKlazz = klazz;
     }
 
+    /**
+     * Reads the entity corresponding to the provided {@param id} in the database.
+     * @param id of the desired entity in database.
+     * @return a {@param T}-typed class matching database records for the provided {@param id}.
+     */
     public T read(int id) {
         openEntityManager();
         TypedQuery<T> query = em.createNamedQuery(managedKlazz.getSimpleName() + ".findById", managedKlazz);
@@ -29,6 +50,10 @@ public class AbstractDAO<T> {
         return x;
     }
 
+    /**
+     * Deletes the specified entity from the database.
+     * @param managedObject entity to delete.
+     */
     public void delete(T managedObject) {
         openEntityManager();
         em.getTransaction().begin();
@@ -40,6 +65,10 @@ public class AbstractDAO<T> {
         closeEntityManager();
     }
 
+    /**
+     * Modifies the specified entity from the database.
+     * @param managedObject entity to modify.
+     */
     public void modify(T managedObject) {
         openEntityManager();
         em.getTransaction().begin();
@@ -48,6 +77,10 @@ public class AbstractDAO<T> {
         closeEntityManager();
     }
 
+    /**
+     * Creates the specified entity from the database.
+     * @param managedObject entity to create.
+     */
     public void create(T managedObject) {
         openEntityManager();
         em.getTransaction().begin();
@@ -56,10 +89,14 @@ public class AbstractDAO<T> {
         closeEntityManager();
     }
 
+    /**
+     * Obtains all the entities in database.
+     * @return all the entities.
+     */
     public ArrayList<T> getAll() {
         openEntityManager();
         TypedQuery<T> query = em.createNamedQuery(managedKlazz.getSimpleName() + ".findAll", managedKlazz);
-        all = new ArrayList<>(query.getResultList());
+        ArrayList<T> all = new ArrayList<>(query.getResultList());
         closeEntityManager();
         return all; 
     }

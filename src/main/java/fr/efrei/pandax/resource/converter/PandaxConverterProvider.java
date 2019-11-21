@@ -14,7 +14,19 @@ import java.lang.reflect.Type;
     <param-value>true</param-value>
 </init-param>
  */
+
+/**
+ * The {@link ParamConverterProvider} which links the application to its entities converters.
+ */
 public class PandaxConverterProvider implements ParamConverterProvider {
+    /**
+     * Links the program to the corresponding PandaX entity {@link ParamConverter}.
+     * @param aClass Raw type of the parameter provided, should be {@link String}.
+     * @param type To which the conversion should be executed.
+     * @param annotations Annotations of the caller context.
+     * @param <T> Genericity provided by parent method.
+     * @return
+     */
     @Override
     public <T> ParamConverter<T> getConverter(Class<T> aClass, Type type, Annotation[] annotations) {
         if(aClass == User.class) {
@@ -22,7 +34,7 @@ public class PandaxConverterProvider implements ParamConverterProvider {
         } else if (aClass == Media.class) {
             return (ParamConverter<T>) new MediaConverter();
         } else {
-            return null;
+            throw new ClassCastException("Could not find a converter for " + type.toString());
         }
     }
 }
