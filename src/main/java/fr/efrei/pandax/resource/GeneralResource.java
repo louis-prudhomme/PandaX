@@ -16,7 +16,7 @@ public class GeneralResource {
     /**
      * Allows one to test if the application responds correctly.
      * It should respond with "Pong !".
-     * Tested with : curl localhost:8080/PandaX_war_exploded
+     * Test with : curl localhost:8080/PandaX_war_exploded
      * @return "Pong !"
      */
     @GET
@@ -28,7 +28,7 @@ public class GeneralResource {
     /**
      * Allows one to test if the application reacts correctly with security.
      * Responds with "Pong !" if the provided {@link String}-represented JWT is valid.
-     * Tested with : curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d 'token=<token>' localhost:8080/PandaX_war_exploded
+     * Test with : curl localhost:8080/PandaX_war_exploded -X POST -H 'Authorization: <token>'
      * @return "Pong !"
      */
     @POST

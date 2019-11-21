@@ -23,7 +23,7 @@ public class TokenResource {
      * Provides a JWT if the provided {@param login} and {@param password} match a {@link User} in database.
      * @param login claimed login of the {@link User}
      * @param password claimed password of the {@link User}
-     * Test with : curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d 'login=<login>&password=<pass>' localhost:8080/PandaX_war_exploded/token
+     * Test with : curl localhost:8080/PandaX_war_exploded/token -X POST -H "Content-Type: application/x-www-form-urlencoded" -d 'login=<login>&password=<pass>' localhost:8080/PandaX_war_exploded/token
      * @return a {@link String}-represented base64-encoded JWT
      */
     @POST

@@ -29,12 +29,12 @@ public class PandaxConverterProvider implements ParamConverterProvider {
      */
     @Override
     public <T> ParamConverter<T> getConverter(Class<T> aClass, Type type, Annotation[] annotations) {
-        if(aClass == User.class) {
+        if(type == User.class) {
             return (ParamConverter<T>) new UserConverter();
-        } else if (aClass == Media.class) {
+        } else if (type == Media.class) {
             return (ParamConverter<T>) new MediaConverter();
         } else {
-            throw new ClassCastException("Could not find a converter for " + type.toString());
+            return null;
         }
     }
 }
