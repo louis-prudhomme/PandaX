@@ -25,11 +25,11 @@ Users have
 # The work that remains
 
 - [ ] Part I – Attack of the Configs
-  - [ ] Build the database
+  - [x] Build the database
     - [x] design it
-    - [ ] put the script on git
-  - [ ] implement jpa
-  - [ ] implement security tokens
+    - [x] put the script on git
+  - [x] implement jpa
+  - [x] implement security tokens
   - [ ] postman test for the general use case
 - [ ] Part II – Revenge of the REST
   - [ ] plan routes
