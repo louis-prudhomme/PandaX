@@ -1,6 +1,5 @@
 package fr.efrei.pandax.resource;
 
-import com.google.gson.Gson;
 import fr.efrei.pandax.model.business.Media;
 import fr.efrei.pandax.model.core.MediaDAO;
 import fr.efrei.pandax.security.Secured;

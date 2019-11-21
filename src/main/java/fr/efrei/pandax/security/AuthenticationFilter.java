@@ -5,12 +5,15 @@ import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 
+import javax.annotation.Priority;
+import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.Provider;
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,6 +23,9 @@ import java.util.List;
  * Acts as a security filter and checks every incoming request before actual processing.
  * Checks JWTs and {@link Role}s
  */
+@Secured
+@Provider
+@Priority(Priorities.AUTHENTICATION)
 public class AuthenticationFilter implements ContainerRequestFilter {
     @Context
     private ResourceInfo resourceInfo;
@@ -51,7 +57,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
             if(!checkPermission(methodAuthorizedRoles, extractRoleFromJwt(jwt))) {
                 context.abortWith(Response.status(Response.Status.FORBIDDEN).build());
             }
-        } else {
+        } else if(!classAuthorizedRoles.isEmpty()) {
             // if the role of the request is included in the authorized roles
             if(!checkPermission(classAuthorizedRoles, extractRoleFromJwt(jwt))) {
                 context.abortWith(Response.status(Response.Status.FORBIDDEN).build());
