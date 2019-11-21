@@ -34,8 +34,7 @@ public class GeneralResource {
     @POST
     @Secured
     @Produces(MediaType.TEXT_PLAIN)
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response testUserToken(@FormParam("token")String token) {
+    public Response testUserToken() {
         return Response.ok("Pong !").build();
     }
 }
