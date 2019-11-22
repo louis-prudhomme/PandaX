@@ -30,8 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Possesion.findAll", query = "SELECT p FROM Possesion p"),
-    @NamedQuery(name = "Possesion.findByIdUser", query = "SELECT p FROM Possesion p WHERE p.possesionPK.idUser = :idUser"),
-    @NamedQuery(name = "Possesion.findByIdMedia", query = "SELECT p FROM Possesion p WHERE p.possesionPK.idMedia = :idMedia"),
+    @NamedQuery(name = "Possesion.findByUser", query = "SELECT p FROM Possesion p WHERE p.possesionPK.user = :user"),
+    @NamedQuery(name = "Possesion.findByMedia", query = "SELECT p FROM Possesion p WHERE p.possesionPK.media = :media"),
     @NamedQuery(name = "Possesion.findByDateAcquired", query = "SELECT p FROM Possesion p WHERE p.dateAcquired = :dateAcquired")})
 public class Possesion implements Serializable {
 
@@ -40,15 +40,15 @@ public class Possesion implements Serializable {
     protected PossesionPK possesionPK;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "dateAcquired")
+    @Column(name = "date_acquired")
     @Temporal(TemporalType.DATE)
     private Date dateAcquired;
-    @JoinColumn(name = "idUser", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "user", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private User user;
-    @JoinColumn(name = "idMedia", referencedColumnName = "id", insertable = false, updatable = false)
+    private User user1;
+    @JoinColumn(name = "media", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Media media;
+    private Media media1;
 
     public Possesion() {
     }
@@ -62,8 +62,8 @@ public class Possesion implements Serializable {
         this.dateAcquired = dateAcquired;
     }
 
-    public Possesion(int idUser, int idMedia) {
-        this.possesionPK = new PossesionPK(idUser, idMedia);
+    public Possesion(int user, int media) {
+        this.possesionPK = new PossesionPK(user, media);
     }
 
     public PossesionPK getPossesionPK() {
@@ -82,20 +82,20 @@ public class Possesion implements Serializable {
         this.dateAcquired = dateAcquired;
     }
 
-    public User getUser() {
-        return user;
+    public User getUser1() {
+        return user1;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser1(User user1) {
+        this.user1 = user1;
     }
 
-    public Media getMedia() {
-        return media;
+    public Media getMedia1() {
+        return media1;
     }
 
-    public void setMedia(Media media) {
-        this.media = media;
+    public void setMedia1(Media media1) {
+        this.media1 = media1;
     }
 
     @Override

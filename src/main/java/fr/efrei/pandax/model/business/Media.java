@@ -70,23 +70,23 @@ public class Media implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
-    @Column(name = "imageUrl")
+    @Column(name = "image_url")
     private String imageUrl;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
     @Column(name = "city")
     private String city;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "media")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "media1")
     private Collection<Possesion> possesionCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "media")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "media1")
     private Collection<Comment> commentCollection;
-    @JoinColumn(name = "idPublisher", referencedColumnName = "id")
+    @JoinColumn(name = "publisher", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Publisher idPublisher;
-    @JoinColumn(name = "idMediaType", referencedColumnName = "id")
+    private Publisher publisher;
+    @JoinColumn(name = "media_type", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private MediaType idMediaType;
+    private MediaType mediaType;
 
     public Media() {
     }
@@ -170,20 +170,20 @@ public class Media implements Serializable {
         this.commentCollection = commentCollection;
     }
 
-    public Publisher getIdPublisher() {
-        return idPublisher;
+    public Publisher getPublisher() {
+        return publisher;
     }
 
-    public void setIdPublisher(Publisher idPublisher) {
-        this.idPublisher = idPublisher;
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
 
-    public MediaType getIdMediaType() {
-        return idMediaType;
+    public MediaType getMediaType() {
+        return mediaType;
     }
 
-    public void setIdMediaType(MediaType idMediaType) {
-        this.idMediaType = idMediaType;
+    public void setMediaType(MediaType mediaType) {
+        this.mediaType = mediaType;
     }
 
     @Override

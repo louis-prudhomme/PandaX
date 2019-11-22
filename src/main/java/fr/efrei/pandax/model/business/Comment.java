@@ -32,8 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Comment.findAll", query = "SELECT c FROM Comment c"),
-    @NamedQuery(name = "Comment.findByIdUser", query = "SELECT c FROM Comment c WHERE c.commentPK.idUser = :idUser"),
-    @NamedQuery(name = "Comment.findByIdMedia", query = "SELECT c FROM Comment c WHERE c.commentPK.idMedia = :idMedia"),
+    @NamedQuery(name = "Comment.findByUser", query = "SELECT c FROM Comment c WHERE c.commentPK.user = :user"),
+    @NamedQuery(name = "Comment.findByMedia", query = "SELECT c FROM Comment c WHERE c.commentPK.media = :media"),
     @NamedQuery(name = "Comment.findById", query = "SELECT c FROM Comment c WHERE c.commentPK.id = :id"),
     @NamedQuery(name = "Comment.findByDateMade", query = "SELECT c FROM Comment c WHERE c.dateMade = :dateMade")})
 public class Comment implements Serializable {
@@ -43,7 +43,7 @@ public class Comment implements Serializable {
     protected CommentPK commentPK;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "dateMade")
+    @Column(name = "date_made")
     @Temporal(TemporalType.DATE)
     private Date dateMade;
     @Basic(optional = false)
@@ -52,12 +52,12 @@ public class Comment implements Serializable {
     @Size(min = 1, max = 65535)
     @Column(name = "content")
     private String content;
-    @JoinColumn(name = "idUser", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "user", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private User user;
-    @JoinColumn(name = "idMedia", referencedColumnName = "id", insertable = false, updatable = false)
+    private User user1;
+    @JoinColumn(name = "media", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Media media;
+    private Media media1;
 
     public Comment() {
     }
@@ -72,8 +72,8 @@ public class Comment implements Serializable {
         this.content = content;
     }
 
-    public Comment(int idUser, int idMedia, int id) {
-        this.commentPK = new CommentPK(idUser, idMedia, id);
+    public Comment(int user, int media, int id) {
+        this.commentPK = new CommentPK(user, media, id);
     }
 
     public CommentPK getCommentPK() {
@@ -100,20 +100,20 @@ public class Comment implements Serializable {
         this.content = content;
     }
 
-    public User getUser() {
-        return user;
+    public User getUser1() {
+        return user1;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser1(User user1) {
+        this.user1 = user1;
     }
 
-    public Media getMedia() {
-        return media;
+    public Media getMedia1() {
+        return media1;
     }
 
-    public void setMedia(Media media) {
-        this.media = media;
+    public void setMedia1(Media media1) {
+        this.media1 = media1;
     }
 
     @Override

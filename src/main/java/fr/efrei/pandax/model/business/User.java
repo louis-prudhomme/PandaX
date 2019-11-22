@@ -37,8 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByPwd", query = "SELECT u FROM User u WHERE u.pwd = :pwd"),
     @NamedQuery(name = "User.findByFirstName", query = "SELECT u FROM User u WHERE u.firstName = :firstName"),
     @NamedQuery(name = "User.findByLastName", query = "SELECT u FROM User u WHERE u.lastName = :lastName"),
-    @NamedQuery(name = "User.findByIsAdmin", query = "SELECT u FROM User u WHERE u.isAdmin = :isAdmin"),
-    @NamedQuery(name = "User.checkCred", query = "SELECT u FROM User u WHERE u.pseudo = :pseudo AND u.pwd = :pwd")})
+    @NamedQuery(name = "User.findByIsAdmin", query = "SELECT u FROM User u WHERE u.isAdmin = :isAdmin")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -60,20 +59,20 @@ public class User implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     private String firstName;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     private String lastName;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "isAdmin")
+    @Column(name = "is_admin")
     private boolean isAdmin;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1")
     private Collection<Possesion> possesionCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1")
     private Collection<Comment> commentCollection;
 
     public User() {

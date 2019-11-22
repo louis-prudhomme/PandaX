@@ -20,12 +20,12 @@ public class CommentPK implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "idUser")
-    private int idUser;
+    @Column(name = "user")
+    private int user;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "idMedia")
-    private int idMedia;
+    @Column(name = "media")
+    private int media;
     @Basic(optional = false)
     @Column(name = "id")
     private int id;
@@ -33,26 +33,26 @@ public class CommentPK implements Serializable {
     public CommentPK() {
     }
 
-    public CommentPK(int idUser, int idMedia, int id) {
-        this.idUser = idUser;
-        this.idMedia = idMedia;
+    public CommentPK(int user, int media, int id) {
+        this.user = user;
+        this.media = media;
         this.id = id;
     }
 
-    public int getIdUser() {
-        return idUser;
+    public int getUser() {
+        return user;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setUser(int user) {
+        this.user = user;
     }
 
-    public int getIdMedia() {
-        return idMedia;
+    public int getMedia() {
+        return media;
     }
 
-    public void setIdMedia(int idMedia) {
-        this.idMedia = idMedia;
+    public void setMedia(int media) {
+        this.media = media;
     }
 
     public int getId() {
@@ -66,8 +66,8 @@ public class CommentPK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) idUser;
-        hash += (int) idMedia;
+        hash += (int) user;
+        hash += (int) media;
         hash += (int) id;
         return hash;
     }
@@ -79,10 +79,10 @@ public class CommentPK implements Serializable {
             return false;
         }
         CommentPK other = (CommentPK) object;
-        if (this.idUser != other.idUser) {
+        if (this.user != other.user) {
             return false;
         }
-        if (this.idMedia != other.idMedia) {
+        if (this.media != other.media) {
             return false;
         }
         if (this.id != other.id) {
@@ -93,7 +93,7 @@ public class CommentPK implements Serializable {
 
     @Override
     public String toString() {
-        return "fr.efrei.pandax.model.business.CommentPK[ idUser=" + idUser + ", idMedia=" + idMedia + ", id=" + id + " ]";
+        return "fr.efrei.pandax.model.business.CommentPK[ user=" + user + ", media=" + media + ", id=" + id + " ]";
     }
     
 }

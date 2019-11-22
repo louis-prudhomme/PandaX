@@ -47,7 +47,7 @@ public class MediaType implements Serializable {
     @Size(min = 1, max = 128)
     @Column(name = "label")
     private String label;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMediaType")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mediaType")
     private Collection<Media> mediaCollection;
 
     public MediaType() {

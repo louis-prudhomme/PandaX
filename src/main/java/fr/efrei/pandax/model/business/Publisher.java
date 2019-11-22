@@ -47,7 +47,7 @@ public class Publisher implements Serializable {
     @Size(min = 1, max = 128)
     @Column(name = "denomination")
     private String denomination;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPublisher")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "publisher")
     private Collection<Media> mediaCollection;
 
     public Publisher() {

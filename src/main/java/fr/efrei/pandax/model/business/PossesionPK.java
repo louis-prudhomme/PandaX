@@ -20,42 +20,42 @@ public class PossesionPK implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "idUser")
-    private int idUser;
+    @Column(name = "user")
+    private int user;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "idMedia")
-    private int idMedia;
+    @Column(name = "media")
+    private int media;
 
     public PossesionPK() {
     }
 
-    public PossesionPK(int idUser, int idMedia) {
-        this.idUser = idUser;
-        this.idMedia = idMedia;
+    public PossesionPK(int user, int media) {
+        this.user = user;
+        this.media = media;
     }
 
-    public int getIdUser() {
-        return idUser;
+    public int getUser() {
+        return user;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setUser(int user) {
+        this.user = user;
     }
 
-    public int getIdMedia() {
-        return idMedia;
+    public int getMedia() {
+        return media;
     }
 
-    public void setIdMedia(int idMedia) {
-        this.idMedia = idMedia;
+    public void setMedia(int media) {
+        this.media = media;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) idUser;
-        hash += (int) idMedia;
+        hash += (int) user;
+        hash += (int) media;
         return hash;
     }
 
@@ -66,10 +66,10 @@ public class PossesionPK implements Serializable {
             return false;
         }
         PossesionPK other = (PossesionPK) object;
-        if (this.idUser != other.idUser) {
+        if (this.user != other.user) {
             return false;
         }
-        if (this.idMedia != other.idMedia) {
+        if (this.media != other.media) {
             return false;
         }
         return true;
@@ -77,7 +77,7 @@ public class PossesionPK implements Serializable {
 
     @Override
     public String toString() {
-        return "fr.efrei.pandax.model.business.PossesionPK[ idUser=" + idUser + ", idMedia=" + idMedia + " ]";
+        return "fr.efrei.pandax.model.business.PossesionPK[ user=" + user + ", media=" + media + " ]";
     }
     
 }
