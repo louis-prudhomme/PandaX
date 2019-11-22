@@ -75,7 +75,7 @@ CREATE TABLE comment
 -- Table structure for table possesion
 --
 
-CREATE TABLE possesion
+CREATE TABLE possession
 (user int(32) NOT NULL
 ,media int(32) NOT NULL
 ,date_acquired date NOT NULL
