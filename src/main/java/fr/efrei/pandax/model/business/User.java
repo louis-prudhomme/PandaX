@@ -1,7 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package fr.efrei.pandax.model.business;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,18 +16,29 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
+/**
+ *
+ * @author melaniemarques
+ */
 @Entity
 @Table(name = "user")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
-    @NamedQuery(name = "User.findByCredentials", query = "SELECT u FROM User u WHERE u.password = :password AND u.user = :user")})
+    @NamedQuery(name = "User.findByPseudo", query = "SELECT u FROM User u WHERE u.pseudo = :pseudo"),
+    @NamedQuery(name = "User.findByPwd", query = "SELECT u FROM User u WHERE u.pwd = :pwd"),
+    @NamedQuery(name = "User.findByFirstName", query = "SELECT u FROM User u WHERE u.firstName = :firstName"),
+    @NamedQuery(name = "User.findByLastName", query = "SELECT u FROM User u WHERE u.lastName = :lastName"),
+    @NamedQuery(name = "User.findByIsAdmin", query = "SELECT u FROM User u WHERE u.isAdmin = :isAdmin"),
+    @NamedQuery(name = "User.checkCred", query = "SELECT u FROM User u WHERE u.pseudo = :pseudo AND u.pwd = :pwd")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -31,36 +49,46 @@ public class User implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "user")
-    private String user;
+    @Size(min = 1, max = 128)
+    @Column(name = "pseudo")
+    private String pseudo;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "password")
-    private String password;
-    @NotNull
+    @Size(min = 1, max = 128)
+    @Column(name = "pwd")
+    private String pwd;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 128)
+    @Column(name = "firstName")
+    private String firstName;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 128)
+    @Column(name = "lastName")
+    private String lastName;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "isAdmin")
-    private
-    boolean isAdmin;
+    private boolean isAdmin;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Collection<Possesion> possesionCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Collection<Comment> commentCollection;
 
-    public User() { }
+    public User() {
+    }
 
     public User(Integer id) {
         this.id = id;
     }
 
-    public User(Integer id, String user, String password, boolean isAdmin) {
+    public User(Integer id, String pseudo, String pwd, String firstName, String lastName, boolean isAdmin) {
         this.id = id;
-        this.user = user;
-        this.password = password;
-        this.isAdmin = isAdmin;
-    }
-
-    public User(String user, String password, boolean isAdmin) {
-        this.user = user;
-        this.password = password;
+        this.pseudo = pseudo;
+        this.pwd = pwd;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.isAdmin = isAdmin;
     }
 
@@ -72,28 +100,62 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getUser() {
-        return user;
+    public String getPseudo() {
+        return pseudo;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPwd() {
+        return pwd;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public boolean isAdmin() {
         return isAdmin;
     }
 
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    @XmlTransient
+    public Collection<Possesion> getPossesionCollection() {
+        return possesionCollection;
+    }
+
+    public void setPossesionCollection(Collection<Possesion> possesionCollection) {
+        this.possesionCollection = possesionCollection;
+    }
+
+    @XmlTransient
+    public Collection<Comment> getCommentCollection() {
+        return commentCollection;
+    }
+
+    public void setCommentCollection(Collection<Comment> commentCollection) {
+        this.commentCollection = commentCollection;
     }
 
     @Override
@@ -118,7 +180,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "fr.efrei.pandax.User[ id=" + id + " ]";
+        return "fr.efrei.pandax.model.business.User[ id=" + id + " ]";
     }
     
 }

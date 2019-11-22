@@ -28,13 +28,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author melaniemarques
  */
 @Entity
-@Table(name = "media_type")
+@Table(name = "publisher")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "MediaType.findAll", query = "SELECT m FROM MediaType m"),
-    @NamedQuery(name = "MediaType.findById", query = "SELECT m FROM MediaType m WHERE m.id = :id"),
-    @NamedQuery(name = "MediaType.findByLabel", query = "SELECT m FROM MediaType m WHERE m.label = :label")})
-public class MediaType implements Serializable {
+    @NamedQuery(name = "Publisher.findAll", query = "SELECT p FROM Publisher p"),
+    @NamedQuery(name = "Publisher.findById", query = "SELECT p FROM Publisher p WHERE p.id = :id"),
+    @NamedQuery(name = "Publisher.findByDenomination", query = "SELECT p FROM Publisher p WHERE p.denomination = :denomination")})
+public class Publisher implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,21 +45,21 @@ public class MediaType implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
-    @Column(name = "label")
-    private String label;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMediaType")
+    @Column(name = "denomination")
+    private String denomination;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPublisher")
     private Collection<Media> mediaCollection;
 
-    public MediaType() {
+    public Publisher() {
     }
 
-    public MediaType(Integer id) {
+    public Publisher(Integer id) {
         this.id = id;
     }
 
-    public MediaType(Integer id, String label) {
+    public Publisher(Integer id, String denomination) {
         this.id = id;
-        this.label = label;
+        this.denomination = denomination;
     }
 
     public Integer getId() {
@@ -70,12 +70,12 @@ public class MediaType implements Serializable {
         this.id = id;
     }
 
-    public String getLabel() {
-        return label;
+    public String getDenomination() {
+        return denomination;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public void setDenomination(String denomination) {
+        this.denomination = denomination;
     }
 
     @XmlTransient
@@ -97,10 +97,10 @@ public class MediaType implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof MediaType)) {
+        if (!(object instanceof Publisher)) {
             return false;
         }
-        MediaType other = (MediaType) object;
+        Publisher other = (Publisher) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -109,7 +109,7 @@ public class MediaType implements Serializable {
 
     @Override
     public String toString() {
-        return "fr.efrei.pandax.model.business.MediaType[ id=" + id + " ]";
+        return "fr.efrei.pandax.model.business.Publisher[ id=" + id + " ]";
     }
     
 }

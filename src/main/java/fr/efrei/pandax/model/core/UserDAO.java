@@ -12,9 +12,9 @@ public class UserDAO extends AbstractDAO<User> {
 
     public User checkCredentials(String login, String password) {
         openEntityManager();
-        TypedQuery<User> query = em.createNamedQuery("User.findByCredentials", User.class);
-        query.setParameter("user", login);
-        query.setParameter("password", password);
+        TypedQuery<User> query = em.createNamedQuery("User.checkCred", User.class);
+        query.setParameter("pseudo", login);
+        query.setParameter("pwd", password);
         User x = query.getSingleResult();
         closeEntityManager();
         return x;

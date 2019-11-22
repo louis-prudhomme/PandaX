@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package fr.efrei.pandax.model.business;
 
 import java.io.Serializable;
@@ -6,36 +11,28 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 
+/**
+ *
+ * @author melaniemarques
+ */
 @Embeddable
-public class CommentsPK implements Serializable {
+public class PossesionPK implements Serializable {
 
     @Basic(optional = false)
-    @Column(name = "id")
-    private int id;
-    @Basic(optional = false)
     @NotNull
-    @Column(name = "id_user")
+    @Column(name = "idUser")
     private int idUser;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_media")
+    @Column(name = "idMedia")
     private int idMedia;
 
-    public CommentsPK() {
+    public PossesionPK() {
     }
 
-    public CommentsPK(int id, int idUser, int idMedia) {
-        this.id = id;
+    public PossesionPK(int idUser, int idMedia) {
         this.idUser = idUser;
         this.idMedia = idMedia;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getIdUser() {
@@ -57,7 +54,6 @@ public class CommentsPK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) id;
         hash += (int) idUser;
         hash += (int) idMedia;
         return hash;
@@ -66,13 +62,10 @@ public class CommentsPK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CommentsPK)) {
+        if (!(object instanceof PossesionPK)) {
             return false;
         }
-        CommentsPK other = (CommentsPK) object;
-        if (this.id != other.id) {
-            return false;
-        }
+        PossesionPK other = (PossesionPK) object;
         if (this.idUser != other.idUser) {
             return false;
         }
@@ -84,7 +77,7 @@ public class CommentsPK implements Serializable {
 
     @Override
     public String toString() {
-        return "fr.efrei.pandax.model.business.CommentsPK[ id=" + id + ", idUser=" + idUser + ", idMedia=" + idMedia + " ]";
+        return "fr.efrei.pandax.model.business.PossesionPK[ idUser=" + idUser + ", idMedia=" + idMedia + " ]";
     }
     
 }
