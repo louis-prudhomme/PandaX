@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6fb6aeac-f456-466e-a380-ecfdf59eacce",
+		"_postman_id": "f04e3b8a-b41f-491d-8e3d-cc0d4a9d447a",
 		"name": "PandaX",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -154,16 +154,36 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "75e431e7-abd2-4079-8fd6-6e618eb478c0",
+						"id": "3cbd8481-61b2-4dca-8ccc-741bea743993",
 						"exec": [
+							"let mediaType = '{'",
+							"+ '\"id\":\"1\",'",
+							"+ '\"label\":\"Animation\"'",
+							"+'}'",
+							"",
+							"let user = '{'",
+							"+'\"id\":\"5\",'",
+							"+'\"pseudo\":\"panda\",'",
+							"+'\"pwd\":\"panda\",'",
+							"+'\"firstName\":\"Xi\",'",
+							"+'\"lastName\":\"Jinping\",'",
+							"+'\"isAdmin\":\"1\"'",
+							"+'}'",
+							"",
+							"let publisher = '{'",
+							"+'\"id\":\"11\",'",
+							"+'\"denomination\":\"Metal Records\"'",
+							"+'}'",
+							"",
 							"let media = '{'",
-							"    + '\"name\" : \"machin\",'",
-							"    + '\"pubisher\" : \"tamer\",'",
-							"    + '\"datepub\" : \"2019-11-11\",'",
-							"    + '\"city\" : \"tarass\",'",
-							"    + '\"description\" : \"nik\",'",
-							"    + '\"urlImage\" : \"http/vtff\",'",
-							"    + '\"type\" : \"put\"'",
+							"    + '\"title\" : \"Kung Fu Panda\",'",
+							"    + '\"published\" : \"2019-11-11\",'",
+							"    + '\"city\" : \"KungFuLand\",'",
+							"    + '\"descript\" : \"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",'",
+							"    + '\"imageUrl\" : \"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",'",
+							"    + '\"user\" : '+user+','",
+							"    + '\"publisher\" :'+publisher+','",
+							"    +'\"mediaType\" : '+mediaType",
 							"    + '}'",
 							"",
 							"pm.collectionVariables.set(\"media\", media);"
@@ -174,7 +194,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0a0c35ee-732c-43a9-93ee-7949c2233163",
+						"id": "382afe47-2d71-42a8-bf12-c9ddb04027d8",
 						"exec": [
 							"pm.test(\"Can create media\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -228,6 +248,41 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "http://localhost:8080/PandaX/media/3",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1IiwiZXhwIjoxNTc0ODQ4OTM5LCJpYXQiOjE1NzQ0MTY5MzksImlzcyI6IlBhbmRhWCBSRVNUIEFQSSIsInJvbCI6IkFETUlOIiwibmFtIjoicGFuZGEifQ.QtIbW9jr75g_ktOZieim1yAJEqwgKtntrtu156wmZw8YRF5xSauFt3mA38qm0PGyBOsRAetsA0H53u6ZQFKNdQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{url}}/media/{{deleteId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"media",
+						"{{deleteId}}"
+					]
+				},
+				"description": "DELETE the media with the id = 3"
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -254,33 +309,39 @@
 	],
 	"variable": [
 		{
-			"id": "db5c3ca2-30fd-4f63-9ddd-f3ef336b3a10",
+			"id": "bd32a13f-8466-485f-8946-ea0b7e74c9e7",
 			"key": "url",
 			"value": "localhost:8080/PandaX",
 			"type": "string"
 		},
 		{
-			"id": "91bde2a0-79c8-4e65-b952-da1f4f4e45ff",
+			"id": "6e7f581f-d3f2-4206-bcff-377070d22d2a",
 			"key": "token",
-			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0OSIsImV4cCI6MTU3NDg1NzM1MywiaWF0IjoxNTc0NDI1MzUzLCJpc3MiOiJQYW5kYVggUkVTVCBBUEkiLCJyb2wiOiJBRE1JTiIsIm5hbSI6ImxvdWlzIn0.d5iTlU5JJFq4OFVqU5YJyfqn1keQRWwah--1gs4qcV0AdVDhcmGBX2jvlqXFsx2hV8J2X3igQuMl5hCvgfi51Q",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTc0ODY3OTcxLCJpYXQiOjE1NzQ0MzU5NzEsImlzcyI6IlBhbmRhWCBSRVNUIEFQSSIsInJvbCI6IlVTRVIiLCJuYW0iOiJwYW5kYSJ9.FlBQWJMfh3gYoLqoJEAt-KJ4C72PNnK15aJ-cgdobcmZeu6td1jIvqRMCAFfQfVoFdbg2IEIGTduTYMJ2PYyPQ",
 			"type": "string"
 		},
 		{
-			"id": "d277aa3b-4967-43ad-84e8-108b4fd85524",
+			"id": "9af63631-cd5c-4582-99c5-c8b9eea931dd",
 			"key": "login",
-			"value": "louis",
+			"value": "panda",
 			"type": "string"
 		},
 		{
-			"id": "e32e03be-6792-4972-ba8a-fb29f75c6bdd",
+			"id": "e8f5c2c8-ec65-46bc-adc9-ff8dd8182bcd",
 			"key": "password",
-			"value": "lemmy-ftw",
+			"value": "panda",
 			"type": "string"
 		},
 		{
-			"id": "daef722e-aa47-420f-ae73-462d9461355a",
+			"id": "7a20c271-6dc5-4988-9da0-1e3bf7b7bf62",
 			"key": "media",
-			"value": "{\"name\" : \"machin\",\"pubisher\" : \"tamer\",\"datepub\" : \"2019-11-11\",\"city\" : \"tarass\",\"description\" : \"nik\",\"urlImage\" : \"http/vtff\",\"type\" : \"put\"}",
+			"value": "{\"title\" : \"Kung Fu Panda\",\"published\" : \"2019-11-11\",\"city\" : \"KungFuLand\",\"descript\" : \"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",\"imageUrl\" : \"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",\"user\" : {\"id\":\"5\",\"pseudo\":\"panda\",\"pwd\":\"panda\",\"firstName\":\"Xi\",\"lastName\":\"Jinping\",\"isAdmin\":\"1\"},\"publisher\" :{\"id\":\"11\",\"denomination\":\"Metal Records\"},\"mediaType\" : {\"id\":\"1\",\"label\":\"Animation\"}}",
+			"type": "string"
+		},
+		{
+			"id": "277f7617-8ec1-45cd-af51-b6aa1ab2ecbe",
+			"key": "deleteId",
+			"value": "3",
 			"type": "string"
 		}
 	],
