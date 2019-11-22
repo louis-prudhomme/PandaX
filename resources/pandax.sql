@@ -1,83 +1,141 @@
--- phpMyAdmin SQL Dump
--- version 4.1.14
--- http://www.phpmyadmin.net
---
--- Client :  127.0.0.1
--- GÃ©nÃ©rÃ© le :  Mar 19 Novembre 2019 Ã  14:40
--- Version du serveur :  5.6.17
--- Version de PHP :  5.5.12
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+DROP DATABASE pandax;
+CREATE DATABASE pandax;
 
 --
--- Base de donnÃ©es :  `pandax`
+-- Table structure for table publisher
 --
 
--- --------------------------------------------------------
+CREATE TABLE publisher
+(id int(32) NOT NULL AUTO_INCREMENT
+,denomination varchar(128) NOT NULL
+,PRIMARY KEY (id)
+);
 
 --
--- Structure de la table `comments`
+-- Table structure for table media_type
 --
 
-CREATE TABLE IF NOT EXISTS `comments` (
-  `id` int(128) NOT NULL AUTO_INCREMENT,
-  `id_user` int(128) NOT NULL,
-  `id_media` int(128) NOT NULL,
-  `comment` text NOT NULL,
-  PRIMARY KEY (`id`,`id_user`,`id_media`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
+CREATE TABLE media_type
+(id int(32) NOT NULL AUTO_INCREMENT
+,label varchar(128) NOT NULL
+,PRIMARY KEY (id)
+);
 
 --
--- Structure de la table `media`
+-- Table structure for table user
 --
 
-CREATE TABLE IF NOT EXISTS `media` (
-  `id` int(128) NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) NOT NULL,
-  `pubisher` varchar(30) NOT NULL,
-  `datepub` date NOT NULL,
-  `city` varchar(30) NOT NULL,
-  `description` text NOT NULL,
-  `url_image` varchar(100) NOT NULL,
-  `type` varchar(30) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
+CREATE TABLE user
+(id int(32) NOT NULL AUTO_INCREMENT
+,pseudo varchar(128) NOT NULL
+,pwd varchar(128) NOT NULL
+,first_name varchar(128) NOT NULL
+,last_name varchar(128) NOT NULL
+,is_admin boolean NOT NULL DEFAULT 0
+,PRIMARY KEY (id)
+,CONSTRAINT user_login UNIQUE (pseudo)
+);
 
 --
--- Structure de la table `media_type`
+-- Table structure for table media
 --
 
-CREATE TABLE IF NOT EXISTS `media_type` (
-  `id` int(100) NOT NULL AUTO_INCREMENT,
-  `type_name` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
+CREATE TABLE media
+(id int(32) NOT NULL AUTO_INCREMENT
+,title varchar(128) NOT NULL
+,published date NOT NULL
+,descript text NOT NULL
+,image_url varchar(128) NOT NULL
+,city varchar(128) NOT NULL
+,user int(32) NOT NULL
+,publisher int(32) NOT NULL
+,media_type int(32) NOT NULL
+,PRIMARY KEY (id)
+,FOREIGN KEY (user) REFERENCES user(id)
+,FOREIGN KEY (publisher) REFERENCES publisher(id)
+,FOREIGN KEY (media_type) REFERENCES media_type(id)
+);
 
 --
--- Structure de la table `user`
+-- Table structure for table comment
+--
+CREATE TABLE comment
+(user int(32) NOT NULL
+,media int(32) NOT NULL
+,id int(32) NOT NULL AUTO_INCREMENT
+,date_made date NOT NULL
+,content text NOT NULL
+,KEY (id)
+,PRIMARY KEY (user, media, id)
+,FOREIGN KEY (user) REFERENCES user(id)
+,FOREIGN KEY (media) REFERENCES media(id)
+);
+
+--
+-- Table structure for table possesion
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(128) NOT NULL AUTO_INCREMENT,
-  `user` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `isAdmin` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+CREATE TABLE possession
+(user int(32) NOT NULL
+,media int(32) NOT NULL
+,date_acquired date NOT NULL
+,PRIMARY KEY (user, media)
+,FOREIGN KEY (user) REFERENCES user(id)
+,FOREIGN KEY (media) REFERENCES media(id)
+);
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+--
+-- inserts for media type
+--
+INSERT INTO media_type (label) VALUES 
+('Animation'),
+('Animation série'),
+('Documentaire'),
+('Émission TV'),
+('Film'),
+('Série TV'),
+('Bande dessinée'),
+('Comic'),
+('Livre'),
+('Manga'),
+('Presse'),
+('Album'),
+('Album live'),
+('Compilation'),
+('Jeu vidéo'),
+('Peinture'),
+('Fond d’écran'),
+('Gravure');
+
+--
+-- inserts for publisher 
+--
+INSERT INTO publisher (denomination) VALUES
+('Evil Corp.'),
+('Metal Records'),
+('Studio Ghibli'),
+('VALVe'),
+('id Software'),
+('Motörhead-sued Motörhead label'),
+('BLU Corp.'),
+('RED Corp.'),
+('Weyland-Yutani'),
+('CyberDyne Systems'),
+('Black Mesa'),
+('Aperture Science');
+
+--
+-- inserts for user
+--
+INSERT INTO user (pseudo, pwd, first_name, last_name, is_admin) VALUES
+('louis','lemmy-ftw','Louis','Prud’homme',true),
+('melanie','chocolat','Mélanie','Marques',false),
+('sebastien','ghost-ftw','Sébastien','Bernard',true),
+('anil','rince-colon','Anil','Devadas',true),
+('panda','panda','Xi','Jinping',true);
+
+--
+-- What remains
+--
+
+COMMIT;

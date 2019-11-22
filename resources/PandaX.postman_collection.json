@@ -1,233 +1,289 @@
 {
 	"info": {
-		"_postman_id": "6fb6aeac-f456-466e-a380-ecfdf59eacce",
+		"_postman_id": "fc81d568-d5e4-4737-99f0-2d6f0950c362",
 		"name": "PandaX",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Auth – Obtain token",
-			"event": [
+			"name": "Medias",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "5104795f-8a74-4f82-a0ec-694b7fdac511",
-						"exec": [
-							"pm.test(\"Can log and request token\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Token is valid\", function () {",
-							"    pm.response.stream.toString().split(\".\").length",
-							"});",
-							"",
-							"if(pm.response.code == 200) {",
-							"    pm.collectionVariables.set(\"token\", pm.response.stream.toString());",
-							"}"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/x-www-form-urlencoded",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
+					"name": "Media – Get all",
+					"event": [
 						{
-							"key": "login",
-							"value": "{{login}}",
-							"type": "text"
+							"listen": "test",
+							"script": {
+								"id": "f8aff33e-e53f-45c3-922e-0c3c3d10d55f",
+								"exec": [
+									"pm.test(\"Can log and request token\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"let media = '{'",
+									"    + '\"name\" : \"raj\"'",
+									"    + '}';",
+									"    ",
+									"console.log(media);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/media",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"media"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Media – Create one",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3cbd8481-61b2-4dca-8ccc-741bea743993",
+								"exec": [
+									"let mediaType = '{'",
+									"+ '\"id\":\"1\",'",
+									"+ '\"label\":\"Animation\"'",
+									"+'}'",
+									"",
+									"let user = '{'",
+									"+'\"id\":\"5\",'",
+									"+'\"pseudo\":\"panda\",'",
+									"+'\"pwd\":\"panda\",'",
+									"+'\"firstName\":\"Xi\",'",
+									"+'\"lastName\":\"Jinping\",'",
+									"+'\"isAdmin\":\"1\"'",
+									"+'}'",
+									"",
+									"let publisher = '{'",
+									"+'\"id\":\"11\",'",
+									"+'\"denomination\":\"Metal Records\"'",
+									"+'}'",
+									"",
+									"let media = '{'",
+									"    + '\"title\" : \"Kung Fu Panda\",'",
+									"    + '\"published\" : \"2019-11-11\",'",
+									"    + '\"city\" : \"KungFuLand\",'",
+									"    + '\"descript\" : \"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",'",
+									"    + '\"imageUrl\" : \"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",'",
+									"    + '\"user\" : '+user+','",
+									"    + '\"publisher\" :'+publisher+','",
+									"    +'\"mediaType\" : '+mediaType",
+									"    + '}'",
+									"",
+									"pm.collectionVariables.set(\"media\", media);"
+								],
+								"type": "text/javascript"
+							}
 						},
 						{
-							"key": "password",
-							"value": "{{password}}",
-							"type": "text"
+							"listen": "test",
+							"script": {
+								"id": "382afe47-2d71-42a8-bf12-c9ddb04027d8",
+								"exec": [
+									"pm.test(\"Can create media\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					]
-				},
-				"url": {
-					"raw": "{{url}}/token",
-					"host": [
-						"{{url}}"
 					],
-					"path": [
-						"token"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Auth – Verify token",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "d1c32a53-56b2-4780-bb0d-9e6f54585357",
-						"exec": [
-							"pm.test(\"Answer is Pong !\", function () {",
-							"    pm.expect(pm.response.stream.toString()).to.equal(\"Pong !\");",
-							"});"
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
 						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "localhost:8080/PandaX/",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"PandaX",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Media – Get all",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "f8aff33e-e53f-45c3-922e-0c3c3d10d55f",
-						"exec": [
-							"pm.test(\"Can log and request token\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"let media = '{'",
-							"    + '\"name\" : \"raj\"'",
-							"    + '}';",
-							"    ",
-							"console.log(media);"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{url}}/media",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"media"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Media – Create one",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "75e431e7-abd2-4079-8fd6-6e618eb478c0",
-						"exec": [
-							"let media = '{'",
-							"    + '\"name\" : \"machin\",'",
-							"    + '\"pubisher\" : \"tamer\",'",
-							"    + '\"datepub\" : \"2019-11-11\",'",
-							"    + '\"city\" : \"tarass\",'",
-							"    + '\"description\" : \"nik\",'",
-							"    + '\"urlImage\" : \"http/vtff\",'",
-							"    + '\"type\" : \"put\"'",
-							"    + '}'",
-							"",
-							"pm.collectionVariables.set(\"media\", media);"
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "0a0c35ee-732c-43a9-93ee-7949c2233163",
-						"exec": [
-							"pm.test(\"Can create media\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{token}}"
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "media",
+									"value": "{{media}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/media",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"media"
+							]
+						}
 					},
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/x-www-form-urlencoded"
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "media",
-							"value": "{{media}}",
-							"type": "text"
-						}
-					],
-					"options": {
-						"raw": {
-							"language": "text"
-						}
-					}
+					"response": []
 				},
-				"url": {
-					"raw": "{{url}}/media",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"media"
-					]
+				{
+					"name": "Media – Delete one",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1IiwiZXhwIjoxNTc0ODQ4OTM5LCJpYXQiOjE1NzQ0MTY5MzksImlzcyI6IlBhbmRhWCBSRVNUIEFQSSIsInJvbCI6IkFETUlOIiwibmFtIjoicGFuZGEifQ.QtIbW9jr75g_ktOZieim1yAJEqwgKtntrtu156wmZw8YRF5xSauFt3mA38qm0PGyBOsRAetsA0H53u6ZQFKNdQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/media/{{deleteId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"media",
+								"{{deleteId}}"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Security - token",
+			"item": [
+				{
+					"name": "Auth – Obtain token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5104795f-8a74-4f82-a0ec-694b7fdac511",
+								"exec": [
+									"pm.test(\"Can log and request token\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Token is valid\", function () {",
+									"    pm.response.stream.toString().split(\".\").length",
+									"});",
+									"",
+									"if(pm.response.code == 200) {",
+									"    pm.collectionVariables.set(\"token\", pm.response.stream.toString());",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "login",
+									"value": "{{login}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/token",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Auth – Verify token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d1c32a53-56b2-4780-bb0d-9e6f54585357",
+								"exec": [
+									"pm.test(\"Answer is Pong !\", function () {",
+									"    pm.expect(pm.response.stream.toString()).to.equal(\"Pong !\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"event": [
@@ -254,33 +310,39 @@
 	],
 	"variable": [
 		{
-			"id": "db5c3ca2-30fd-4f63-9ddd-f3ef336b3a10",
+			"id": "db006523-d317-47b4-ad1c-af68f416891b",
 			"key": "url",
 			"value": "localhost:8080/PandaX",
 			"type": "string"
 		},
 		{
-			"id": "91bde2a0-79c8-4e65-b952-da1f4f4e45ff",
+			"id": "d6fa0bf6-a518-4f49-99ef-752bc2bd5501",
 			"key": "token",
-			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0OSIsImV4cCI6MTU3NDg1NzM1MywiaWF0IjoxNTc0NDI1MzUzLCJpc3MiOiJQYW5kYVggUkVTVCBBUEkiLCJyb2wiOiJBRE1JTiIsIm5hbSI6ImxvdWlzIn0.d5iTlU5JJFq4OFVqU5YJyfqn1keQRWwah--1gs4qcV0AdVDhcmGBX2jvlqXFsx2hV8J2X3igQuMl5hCvgfi51Q",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTc0ODg5NTI0LCJpYXQiOjE1NzQ0NTc1MjQsImlzcyI6IlBhbmRhWCBSRVNUIEFQSSIsInJvbCI6IlVTRVIiLCJuYW0iOiJtZWxhbmllIn0.BzbMy2kJa7qLvk1U272GrK7Fafba8rKJkiji8v8sXo-P7Py7vjsOQa4CGNUMlg8fLpARunxnM_Inh2lwDU6yKA",
 			"type": "string"
 		},
 		{
-			"id": "d277aa3b-4967-43ad-84e8-108b4fd85524",
+			"id": "f6df69a4-d400-499c-b178-8809aaf5490e",
 			"key": "login",
-			"value": "louis",
+			"value": "melanie",
 			"type": "string"
 		},
 		{
-			"id": "e32e03be-6792-4972-ba8a-fb29f75c6bdd",
+			"id": "bb442480-f2df-4009-85ff-e933a71fd04e",
 			"key": "password",
-			"value": "lemmy-ftw",
+			"value": "chocolat",
 			"type": "string"
 		},
 		{
-			"id": "daef722e-aa47-420f-ae73-462d9461355a",
+			"id": "1df47616-8d29-4827-b8fe-d7292e1028c0",
 			"key": "media",
-			"value": "{\"name\" : \"machin\",\"pubisher\" : \"tamer\",\"datepub\" : \"2019-11-11\",\"city\" : \"tarass\",\"description\" : \"nik\",\"urlImage\" : \"http/vtff\",\"type\" : \"put\"}",
+			"value": "{\"title\" : \"Kung Fu Panda\",\"published\" : \"2019-11-11\",\"city\" : \"KungFuLand\",\"descript\" : \"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",\"imageUrl\" : \"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",\"user\" : {\"id\":\"5\",\"pseudo\":\"panda\",\"pwd\":\"panda\",\"firstName\":\"Xi\",\"lastName\":\"Jinping\",\"isAdmin\":\"1\"},\"publisher\" :{\"id\":\"11\",\"denomination\":\"Metal Records\"},\"mediaType\" : {\"id\":\"1\",\"label\":\"Animation\"}}",
+			"type": "string"
+		},
+		{
+			"id": "0b30fe05-3905-438d-85ed-823d98448e9c",
+			"key": "deleteId",
+			"value": "3",
 			"type": "string"
 		}
 	],

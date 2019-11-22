@@ -41,7 +41,7 @@ public class TokenResource {
                 .setIssuedAt(new Date())
                 .setIssuer(getConstants().getProperty(PROP_APP_NAME))
                 .claim("rol", u.isAdmin() ? Role.ADMIN : Role.USER)
-                .claim("nam", u.getUser())
+                .claim("nam", u.getPseudo())
                 .compact();
 
         return Response.ok(token).build();
