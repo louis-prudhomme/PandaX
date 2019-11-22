@@ -29,9 +29,9 @@ CREATE TABLE user
 (id int(32) NOT NULL AUTO_INCREMENT
 ,pseudo varchar(128) NOT NULL
 ,pwd varchar(128) NOT NULL
-,firstName varchar(128) NOT NULL
-,lastName varchar(128) NOT NULL
-,isAdmin boolean NOT NULL DEFAULT 0
+,first_name varchar(128) NOT NULL
+,last_name varchar(128) NOT NULL
+,is_admin boolean NOT NULL DEFAULT 0
 ,PRIMARY KEY (id)
 ,CONSTRAINT user_login UNIQUE (pseudo)
 );
@@ -45,28 +45,28 @@ CREATE TABLE media
 ,title varchar(128) NOT NULL
 ,published date NOT NULL
 ,descript text NOT NULL
-,imageUrl varchar(128) NOT NULL
+,image_url varchar(128) NOT NULL
 ,city varchar(128) NOT NULL
-,idPublisher int(32) NOT NULL
-,idMediaType int(32) NOT NULL
+,publisher int(32) NOT NULL
+,media_type int(32) NOT NULL
 ,PRIMARY KEY (id)
-,FOREIGN KEY (idPublisher) REFERENCES publisher(id)
-,FOREIGN KEY (idMediaType) REFERENCES media_type(id)
+,FOREIGN KEY (publisher) REFERENCES publisher(id)
+,FOREIGN KEY (media_type) REFERENCES media_type(id)
 );
 
 --
 -- Table structure for table comment
 --
 CREATE TABLE comment
-(idUser int(32) NOT NULL
-,idMedia int(32) NOT NULL
+(user int(32) NOT NULL
+,media int(32) NOT NULL
 ,id int(32) NOT NULL AUTO_INCREMENT
-,dateMade date NOT NULL
+,date_made date NOT NULL
 ,content text NOT NULL
 ,KEY (id)
-,PRIMARY KEY (idUser, idMedia, id)
-,FOREIGN KEY (idUser) REFERENCES user(id)
-,FOREIGN KEY (idMedia) REFERENCES media(id)
+,PRIMARY KEY (user, media, id)
+,FOREIGN KEY (user) REFERENCES user(id)
+,FOREIGN KEY (media) REFERENCES media(id)
 );
 
 --
@@ -74,12 +74,12 @@ CREATE TABLE comment
 --
 
 CREATE TABLE possesion
-(idUser int(32) NOT NULL
-,idMedia int(32) NOT NULL
-,dateAcquired date NOT NULL
-,PRIMARY KEY (idUser, idMedia)
-,FOREIGN KEY (idUser) REFERENCES user(id)
-,FOREIGN KEY (idMedia) REFERENCES media(id)
+(user int(32) NOT NULL
+,media int(32) NOT NULL
+,date_acquired date NOT NULL
+,PRIMARY KEY (user, media)
+,FOREIGN KEY (user) REFERENCES user(id)
+,FOREIGN KEY (media) REFERENCES media(id)
 );
 
 --
@@ -125,7 +125,7 @@ INSERT INTO publisher (denomination) VALUES
 --
 -- inserts for user
 --
-INSERT INTO user (pseudo, pwd, firstName, lastName, isAdmin) VALUES
+INSERT INTO user (pseudo, pwd, first_name, last_name, is_admin) VALUES
 ('louis','lemmy-ftw','Louis','Prud’homme',true),
 ('melanie','chocolat','Mélanie','Marques',false),
 ('sebastien','ghost-ftw','Sébastien','Bernard',true),
