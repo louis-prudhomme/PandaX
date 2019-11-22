@@ -83,7 +83,7 @@ public class Media implements Serializable {
     private Collection<Comment> commentCollection;
     @JoinColumn(name = "user", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private MediaType user;
+    private User user;
     @JoinColumn(name = "publisher", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Publisher publisher;
@@ -173,11 +173,11 @@ public class Media implements Serializable {
         this.commentCollection = commentCollection;
     }
 
-    public MediaType getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(MediaType user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

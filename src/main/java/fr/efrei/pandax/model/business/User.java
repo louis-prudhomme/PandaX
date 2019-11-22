@@ -74,6 +74,8 @@ public class User implements Serializable {
     private Collection<Possession> possessionCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1")
     private Collection<Comment> commentCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Collection<Media> mediaCollection;
 
     public User() {
     }
@@ -155,6 +157,15 @@ public class User implements Serializable {
 
     public void setCommentCollection(Collection<Comment> commentCollection) {
         this.commentCollection = commentCollection;
+    }
+
+    @XmlTransient
+    public Collection<Media> getMediaCollection() {
+        return mediaCollection;
+    }
+
+    public void setMediaCollection(Collection<Media> mediaCollection) {
+        this.mediaCollection = mediaCollection;
     }
 
     @Override
