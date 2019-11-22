@@ -47,9 +47,11 @@ CREATE TABLE media
 ,descript text NOT NULL
 ,image_url varchar(128) NOT NULL
 ,city varchar(128) NOT NULL
+,user int(32) NOT NULL
 ,publisher int(32) NOT NULL
 ,media_type int(32) NOT NULL
 ,PRIMARY KEY (id)
+,FOREIGN KEY (user) REFERENCES media_type(id)
 ,FOREIGN KEY (publisher) REFERENCES publisher(id)
 ,FOREIGN KEY (media_type) REFERENCES media_type(id)
 );
