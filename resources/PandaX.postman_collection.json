@@ -6,283 +6,295 @@
 	},
 	"item": [
 		{
-			"name": "Auth – Obtain token",
-			"event": [
+			"name": "Medias",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "5104795f-8a74-4f82-a0ec-694b7fdac511",
-						"exec": [
-							"pm.test(\"Can log and request token\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Token is valid\", function () {",
-							"    pm.response.stream.toString().split(\".\").length",
-							"});",
-							"",
-							"if(pm.response.code == 200) {",
-							"    pm.collectionVariables.set(\"token\", pm.response.stream.toString());",
-							"}"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/x-www-form-urlencoded",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
+					"name": "Media – Get all",
+					"event": [
 						{
-							"key": "login",
-							"value": "{{login}}",
-							"type": "text"
+							"listen": "test",
+							"script": {
+								"id": "f8aff33e-e53f-45c3-922e-0c3c3d10d55f",
+								"exec": [
+									"pm.test(\"Can log and request token\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"let media = '{'",
+									"    + '\"name\" : \"raj\"'",
+									"    + '}';",
+									"    ",
+									"console.log(media);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/media",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"media"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Media – Create one",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3cbd8481-61b2-4dca-8ccc-741bea743993",
+								"exec": [
+									"let mediaType = '{'",
+									"+ '\"id\":\"1\",'",
+									"+ '\"label\":\"Animation\"'",
+									"+'}'",
+									"",
+									"let user = '{'",
+									"+'\"id\":\"5\",'",
+									"+'\"pseudo\":\"panda\",'",
+									"+'\"pwd\":\"panda\",'",
+									"+'\"firstName\":\"Xi\",'",
+									"+'\"lastName\":\"Jinping\",'",
+									"+'\"isAdmin\":\"1\"'",
+									"+'}'",
+									"",
+									"let publisher = '{'",
+									"+'\"id\":\"11\",'",
+									"+'\"denomination\":\"Metal Records\"'",
+									"+'}'",
+									"",
+									"let media = '{'",
+									"    + '\"title\" : \"Kung Fu Panda\",'",
+									"    + '\"published\" : \"2019-11-11\",'",
+									"    + '\"city\" : \"KungFuLand\",'",
+									"    + '\"descript\" : \"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",'",
+									"    + '\"imageUrl\" : \"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",'",
+									"    + '\"user\" : '+user+','",
+									"    + '\"publisher\" :'+publisher+','",
+									"    +'\"mediaType\" : '+mediaType",
+									"    + '}'",
+									"",
+									"pm.collectionVariables.set(\"media\", media);"
+								],
+								"type": "text/javascript"
+							}
 						},
 						{
-							"key": "password",
-							"value": "{{password}}",
-							"type": "text"
+							"listen": "test",
+							"script": {
+								"id": "382afe47-2d71-42a8-bf12-c9ddb04027d8",
+								"exec": [
+									"pm.test(\"Can create media\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					]
-				},
-				"url": {
-					"raw": "{{url}}/token",
-					"host": [
-						"{{url}}"
 					],
-					"path": [
-						"token"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Auth – Verify token",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "d1c32a53-56b2-4780-bb0d-9e6f54585357",
-						"exec": [
-							"pm.test(\"Answer is Pong !\", function () {",
-							"    pm.expect(pm.response.stream.toString()).to.equal(\"Pong !\");",
-							"});"
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
 						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "localhost:8080/PandaX/",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"PandaX",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Media – Get all",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "f8aff33e-e53f-45c3-922e-0c3c3d10d55f",
-						"exec": [
-							"pm.test(\"Can log and request token\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"let media = '{'",
-							"    + '\"name\" : \"raj\"'",
-							"    + '}';",
-							"    ",
-							"console.log(media);"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{url}}/media",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"media"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Media – Create one",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "3cbd8481-61b2-4dca-8ccc-741bea743993",
-						"exec": [
-							"let mediaType = '{'",
-							"+ '\"id\":\"1\",'",
-							"+ '\"label\":\"Animation\"'",
-							"+'}'",
-							"",
-							"let user = '{'",
-							"+'\"id\":\"5\",'",
-							"+'\"pseudo\":\"panda\",'",
-							"+'\"pwd\":\"panda\",'",
-							"+'\"firstName\":\"Xi\",'",
-							"+'\"lastName\":\"Jinping\",'",
-							"+'\"isAdmin\":\"1\"'",
-							"+'}'",
-							"",
-							"let publisher = '{'",
-							"+'\"id\":\"11\",'",
-							"+'\"denomination\":\"Metal Records\"'",
-							"+'}'",
-							"",
-							"let media = '{'",
-							"    + '\"title\" : \"Kung Fu Panda\",'",
-							"    + '\"published\" : \"2019-11-11\",'",
-							"    + '\"city\" : \"KungFuLand\",'",
-							"    + '\"descript\" : \"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",'",
-							"    + '\"imageUrl\" : \"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",'",
-							"    + '\"user\" : '+user+','",
-							"    + '\"publisher\" :'+publisher+','",
-							"    +'\"mediaType\" : '+mediaType",
-							"    + '}'",
-							"",
-							"pm.collectionVariables.set(\"media\", media);"
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "382afe47-2d71-42a8-bf12-c9ddb04027d8",
-						"exec": [
-							"pm.test(\"Can create media\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Authorization",
-						"type": "text",
-						"value": "{{token}}"
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "media",
+									"value": "{{media}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/media",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"media"
+							]
+						}
 					},
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/x-www-form-urlencoded"
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/PandaX/media/3",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1IiwiZXhwIjoxNTc0ODQ4OTM5LCJpYXQiOjE1NzQ0MTY5MzksImlzcyI6IlBhbmRhWCBSRVNUIEFQSSIsInJvbCI6IkFETUlOIiwibmFtIjoicGFuZGEifQ.QtIbW9jr75g_ktOZieim1yAJEqwgKtntrtu156wmZw8YRF5xSauFt3mA38qm0PGyBOsRAetsA0H53u6ZQFKNdQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/media/{{deleteId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"media",
+								"{{deleteId}}"
+							]
+						},
+						"description": "DELETE the media with the id = 3"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Security - token",
+			"item": [
+				{
+					"name": "Auth – Obtain token",
+					"event": [
 						{
-							"key": "media",
-							"value": "{{media}}",
-							"type": "text"
+							"listen": "test",
+							"script": {
+								"id": "5104795f-8a74-4f82-a0ec-694b7fdac511",
+								"exec": [
+									"pm.test(\"Can log and request token\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Token is valid\", function () {",
+									"    pm.response.stream.toString().split(\".\").length",
+									"});",
+									"",
+									"if(pm.response.code == 200) {",
+									"    pm.collectionVariables.set(\"token\", pm.response.stream.toString());",
+									"}"
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
-					"options": {
-						"raw": {
-							"language": "text"
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "login",
+									"value": "{{login}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/token",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"token"
+							]
 						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/media",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"media"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8080/PandaX/media/3",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/x-www-form-urlencoded",
-						"type": "text"
 					},
-					{
-						"key": "Authorization",
-						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1IiwiZXhwIjoxNTc0ODQ4OTM5LCJpYXQiOjE1NzQ0MTY5MzksImlzcyI6IlBhbmRhWCBSRVNUIEFQSSIsInJvbCI6IkFETUlOIiwibmFtIjoicGFuZGEifQ.QtIbW9jr75g_ktOZieim1yAJEqwgKtntrtu156wmZw8YRF5xSauFt3mA38qm0PGyBOsRAetsA0H53u6ZQFKNdQ",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": []
+					"response": []
 				},
-				"url": {
-					"raw": "{{url}}/media/{{deleteId}}",
-					"host": [
-						"{{url}}"
+				{
+					"name": "Auth – Verify token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d1c32a53-56b2-4780-bb0d-9e6f54585357",
+								"exec": [
+									"pm.test(\"Answer is Pong !\", function () {",
+									"    pm.expect(pm.response.stream.toString()).to.equal(\"Pong !\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
 					],
-					"path": [
-						"media",
-						"{{deleteId}}"
-					]
-				},
-				"description": "DELETE the media with the id = 3"
-			},
-			"response": []
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/PandaX/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"PandaX",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"event": [
@@ -309,37 +321,37 @@
 	],
 	"variable": [
 		{
-			"id": "bd32a13f-8466-485f-8946-ea0b7e74c9e7",
+			"id": "51fc70d6-6a73-41ef-9d1b-1748920a98fa",
 			"key": "url",
 			"value": "localhost:8080/PandaX",
 			"type": "string"
 		},
 		{
-			"id": "6e7f581f-d3f2-4206-bcff-377070d22d2a",
+			"id": "ed86b6d3-ec9e-491f-ae33-a83f02767cae",
 			"key": "token",
 			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTc0ODY3OTcxLCJpYXQiOjE1NzQ0MzU5NzEsImlzcyI6IlBhbmRhWCBSRVNUIEFQSSIsInJvbCI6IlVTRVIiLCJuYW0iOiJwYW5kYSJ9.FlBQWJMfh3gYoLqoJEAt-KJ4C72PNnK15aJ-cgdobcmZeu6td1jIvqRMCAFfQfVoFdbg2IEIGTduTYMJ2PYyPQ",
 			"type": "string"
 		},
 		{
-			"id": "9af63631-cd5c-4582-99c5-c8b9eea931dd",
+			"id": "f5082422-e3bd-45ae-ae38-a6a764980d17",
 			"key": "login",
 			"value": "panda",
 			"type": "string"
 		},
 		{
-			"id": "e8f5c2c8-ec65-46bc-adc9-ff8dd8182bcd",
+			"id": "0322809a-c279-4f34-9358-bfb2685fcfa7",
 			"key": "password",
 			"value": "panda",
 			"type": "string"
 		},
 		{
-			"id": "7a20c271-6dc5-4988-9da0-1e3bf7b7bf62",
+			"id": "5b0f6e5a-c477-43cb-8896-0d53bc283031",
 			"key": "media",
 			"value": "{\"title\" : \"Kung Fu Panda\",\"published\" : \"2019-11-11\",\"city\" : \"KungFuLand\",\"descript\" : \"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",\"imageUrl\" : \"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",\"user\" : {\"id\":\"5\",\"pseudo\":\"panda\",\"pwd\":\"panda\",\"firstName\":\"Xi\",\"lastName\":\"Jinping\",\"isAdmin\":\"1\"},\"publisher\" :{\"id\":\"11\",\"denomination\":\"Metal Records\"},\"mediaType\" : {\"id\":\"1\",\"label\":\"Animation\"}}",
 			"type": "string"
 		},
 		{
-			"id": "277f7617-8ec1-45cd-af51-b6aa1ab2ecbe",
+			"id": "912a076d-9e99-4b32-a049-23df83e4af2e",
 			"key": "deleteId",
 			"value": "3",
 			"type": "string"
