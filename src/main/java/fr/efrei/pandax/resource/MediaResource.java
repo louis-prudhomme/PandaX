@@ -4,12 +4,7 @@ import fr.efrei.pandax.model.business.Media;
 import fr.efrei.pandax.model.core.MediaDAO;
 import fr.efrei.pandax.security.Secured;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -31,10 +26,11 @@ public class MediaResource {
         return Response.ok(new GenericEntity<List<Media>>(medias) {}).build();
     }
     
-    @PUT
+    @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response putMedia(@FormParam("media")Media m) {
         new MediaDAO().create(m);
+        //todo return path of created resource like GET /media/{id}
         return Response.ok().build();
     }
     
