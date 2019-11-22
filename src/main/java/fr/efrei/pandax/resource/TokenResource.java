@@ -6,6 +6,7 @@ import fr.efrei.pandax.security.Role;
 import fr.efrei.pandax.security.TokenHelper;
 import io.jsonwebtoken.*;
 
+import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
