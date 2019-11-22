@@ -51,7 +51,7 @@ CREATE TABLE media
 ,publisher int(32) NOT NULL
 ,media_type int(32) NOT NULL
 ,PRIMARY KEY (id)
-,FOREIGN KEY (user) REFERENCES media_type(id)
+,FOREIGN KEY (user) REFERENCES user(id)
 ,FOREIGN KEY (publisher) REFERENCES publisher(id)
 ,FOREIGN KEY (media_type) REFERENCES media_type(id)
 );
