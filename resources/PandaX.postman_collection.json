@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f04e3b8a-b41f-491d-8e3d-cc0d4a9d447a",
+		"_postman_id": "fc81d568-d5e4-4737-99f0-2d6f0950c362",
 		"name": "PandaX",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -133,12 +133,7 @@
 									"value": "{{media}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"raw": {
-									"language": "text"
-								}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{url}}/media",
@@ -153,7 +148,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/PandaX/media/3",
+					"name": "Media – Delete one",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -182,8 +177,7 @@
 								"media",
 								"{{deleteId}}"
 							]
-						},
-						"description": "DELETE the media with the id = 3"
+						}
 					},
 					"response": []
 				}
@@ -280,14 +274,9 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:8080/PandaX/",
+							"raw": "{{url}}",
 							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"PandaX",
-								""
+								"{{url}}"
 							]
 						}
 					},
@@ -321,37 +310,37 @@
 	],
 	"variable": [
 		{
-			"id": "51fc70d6-6a73-41ef-9d1b-1748920a98fa",
+			"id": "db006523-d317-47b4-ad1c-af68f416891b",
 			"key": "url",
 			"value": "localhost:8080/PandaX",
 			"type": "string"
 		},
 		{
-			"id": "ed86b6d3-ec9e-491f-ae33-a83f02767cae",
+			"id": "d6fa0bf6-a518-4f49-99ef-752bc2bd5501",
 			"key": "token",
-			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTc0ODY3OTcxLCJpYXQiOjE1NzQ0MzU5NzEsImlzcyI6IlBhbmRhWCBSRVNUIEFQSSIsInJvbCI6IlVTRVIiLCJuYW0iOiJwYW5kYSJ9.FlBQWJMfh3gYoLqoJEAt-KJ4C72PNnK15aJ-cgdobcmZeu6td1jIvqRMCAFfQfVoFdbg2IEIGTduTYMJ2PYyPQ",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTc0ODg5NTI0LCJpYXQiOjE1NzQ0NTc1MjQsImlzcyI6IlBhbmRhWCBSRVNUIEFQSSIsInJvbCI6IlVTRVIiLCJuYW0iOiJtZWxhbmllIn0.BzbMy2kJa7qLvk1U272GrK7Fafba8rKJkiji8v8sXo-P7Py7vjsOQa4CGNUMlg8fLpARunxnM_Inh2lwDU6yKA",
 			"type": "string"
 		},
 		{
-			"id": "f5082422-e3bd-45ae-ae38-a6a764980d17",
+			"id": "f6df69a4-d400-499c-b178-8809aaf5490e",
 			"key": "login",
-			"value": "panda",
+			"value": "melanie",
 			"type": "string"
 		},
 		{
-			"id": "0322809a-c279-4f34-9358-bfb2685fcfa7",
+			"id": "bb442480-f2df-4009-85ff-e933a71fd04e",
 			"key": "password",
-			"value": "panda",
+			"value": "chocolat",
 			"type": "string"
 		},
 		{
-			"id": "5b0f6e5a-c477-43cb-8896-0d53bc283031",
+			"id": "1df47616-8d29-4827-b8fe-d7292e1028c0",
 			"key": "media",
 			"value": "{\"title\" : \"Kung Fu Panda\",\"published\" : \"2019-11-11\",\"city\" : \"KungFuLand\",\"descript\" : \"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",\"imageUrl\" : \"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",\"user\" : {\"id\":\"5\",\"pseudo\":\"panda\",\"pwd\":\"panda\",\"firstName\":\"Xi\",\"lastName\":\"Jinping\",\"isAdmin\":\"1\"},\"publisher\" :{\"id\":\"11\",\"denomination\":\"Metal Records\"},\"mediaType\" : {\"id\":\"1\",\"label\":\"Animation\"}}",
 			"type": "string"
 		},
 		{
-			"id": "912a076d-9e99-4b32-a049-23df83e4af2e",
+			"id": "0b30fe05-3905-438d-85ed-823d98448e9c",
 			"key": "deleteId",
 			"value": "3",
 			"type": "string"
