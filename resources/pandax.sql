@@ -129,7 +129,8 @@ INSERT INTO user (pseudo, pwd, firstName, lastName, isAdmin) VALUES
 ('louis','lemmy-ftw','Louis','Prud’homme',true),
 ('melanie','chocolat','Mélanie','Marques',false),
 ('sebastien','ghost-ftw','Sébastien','Bernard',true),
-('anil','rince-colon','Anil','Devadas',true);
+('anil','rince-colon','Anil','Devadas',true),
+('panda','panda','Xi','Jinping',true);
 
 --
 -- What remains
