@@ -31,7 +31,7 @@ CREATE TABLE user
 ,pwd varchar(128) NOT NULL
 ,firstName varchar(128) NOT NULL
 ,lastName varchar(128) NOT NULL
-,isAdmin int(1) NOT NULL DEFAULT 0
+,isAdmin boolean NOT NULL DEFAULT 0
 ,PRIMARY KEY (id)
 ,CONSTRAINT user_login UNIQUE (pseudo)
 );
@@ -83,7 +83,56 @@ CREATE TABLE possesion
 );
 
 --
+-- inserts for media type
+--
+INSERT INTO media_type (label) VALUES 
+('Animation'),
+('Animation série'),
+('Documentaire'),
+('Émission TV'),
+('Film'),
+('Série TV'),
+('Bande dessinée'),
+('Comic'),
+('Livre'),
+('Manga'),
+('Presse'),
+('Album'),
+('Album live'),
+('Compilation'),
+('Jeu vidéo'),
+('Peinture'),
+('Fond d’écran'),
+('Gravure');
+
+--
+-- inserts for publisher 
+--
+INSERT INTO publisher (denomination) VALUES
+('Evil Corp.'),
+('Metal Records'),
+('Studio Ghibli'),
+('VALVe'),
+('id Software'),
+('Motörhead-sued Motörhead label'),
+('BLU Corp.'),
+('RED Corp.'),
+('Weyland-Yutani'),
+('CyberDyne Systems'),
+('Black Mesa'),
+('Aperture Science');
+
+--
+-- inserts for user
+--
+INSERT INTO user (pseudo, pwd, firstName, lastName, isAdmin) VALUES
+('louis','lemmy-ftw','Louis','Prud’homme',true),
+('melanie','chocolat','Mélanie','Marques',false),
+('sebastien','ghost-ftw','Sébastien','Bernard',true),
+('anil','rince-colon','Anil','Devadas',true);
+
+--
 -- What remains
 --
 
-COMMIT; 
+COMMIT;
