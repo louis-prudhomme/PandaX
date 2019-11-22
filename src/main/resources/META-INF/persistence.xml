@@ -9,6 +9,7 @@
     <class>fr.efrei.pandax.model.business.Publisher</class>
     <class>fr.efrei.pandax.model.business.Possesion</class>
     <class>fr.efrei.pandax.model.business.User</class>
+    <class>fr.efrei.pandax.model.business.Possession</class>
     <properties>
       <property name="hibernate.connection.url" value="jdbc:mysql://localhost:8889/pandax"/>
       <property name="hibernate.connection.user" value="jee"/>

@@ -26,18 +26,18 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author melaniemarques
  */
 @Entity
-@Table(name = "possesion")
+@Table(name = "possession")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Possesion.findAll", query = "SELECT p FROM Possesion p"),
-    @NamedQuery(name = "Possesion.findByUser", query = "SELECT p FROM Possesion p WHERE p.possesionPK.user = :user"),
-    @NamedQuery(name = "Possesion.findByMedia", query = "SELECT p FROM Possesion p WHERE p.possesionPK.media = :media"),
-    @NamedQuery(name = "Possesion.findByDateAcquired", query = "SELECT p FROM Possesion p WHERE p.dateAcquired = :dateAcquired")})
-public class Possesion implements Serializable {
+    @NamedQuery(name = "Possession.findAll", query = "SELECT p FROM Possession p"),
+    @NamedQuery(name = "Possession.findByUser", query = "SELECT p FROM Possession p WHERE p.possessionPK.user = :user"),
+    @NamedQuery(name = "Possession.findByMedia", query = "SELECT p FROM Possession p WHERE p.possessionPK.media = :media"),
+    @NamedQuery(name = "Possession.findByDateAcquired", query = "SELECT p FROM Possession p WHERE p.dateAcquired = :dateAcquired")})
+public class Possession implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected PossesionPK possesionPK;
+    protected PossessionPK possessionPK;
     @Basic(optional = false)
     @NotNull
     @Column(name = "date_acquired")
@@ -50,28 +50,28 @@ public class Possesion implements Serializable {
     @ManyToOne(optional = false)
     private Media media1;
 
-    public Possesion() {
+    public Possession() {
     }
 
-    public Possesion(PossesionPK possesionPK) {
-        this.possesionPK = possesionPK;
+    public Possession(PossessionPK possessionPK) {
+        this.possessionPK = possessionPK;
     }
 
-    public Possesion(PossesionPK possesionPK, Date dateAcquired) {
-        this.possesionPK = possesionPK;
+    public Possession(PossessionPK possessionPK, Date dateAcquired) {
+        this.possessionPK = possessionPK;
         this.dateAcquired = dateAcquired;
     }
 
-    public Possesion(int user, int media) {
-        this.possesionPK = new PossesionPK(user, media);
+    public Possession(int user, int media) {
+        this.possessionPK = new PossessionPK(user, media);
     }
 
-    public PossesionPK getPossesionPK() {
-        return possesionPK;
+    public PossessionPK getPossessionPK() {
+        return possessionPK;
     }
 
-    public void setPossesionPK(PossesionPK possesionPK) {
-        this.possesionPK = possesionPK;
+    public void setPossessionPK(PossessionPK possessionPK) {
+        this.possessionPK = possessionPK;
     }
 
     public Date getDateAcquired() {
@@ -101,18 +101,18 @@ public class Possesion implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (possesionPK != null ? possesionPK.hashCode() : 0);
+        hash += (possessionPK != null ? possessionPK.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Possesion)) {
+        if (!(object instanceof Possession)) {
             return false;
         }
-        Possesion other = (Possesion) object;
-        if ((this.possesionPK == null && other.possesionPK != null) || (this.possesionPK != null && !this.possesionPK.equals(other.possesionPK))) {
+        Possession other = (Possession) object;
+        if ((this.possessionPK == null && other.possessionPK != null) || (this.possessionPK != null && !this.possessionPK.equals(other.possessionPK))) {
             return false;
         }
         return true;
@@ -120,7 +120,7 @@ public class Possesion implements Serializable {
 
     @Override
     public String toString() {
-        return "fr.efrei.pandax.model.business.Possesion[ possesionPK=" + possesionPK + " ]";
+        return "fr.efrei.pandax.model.business.Possession[ possessionPK=" + possessionPK + " ]";
     }
     
 }

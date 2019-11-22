@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
  * @author melaniemarques
  */
 @Embeddable
-public class PossesionPK implements Serializable {
+public class PossessionPK implements Serializable {
 
     @Basic(optional = false)
     @NotNull
@@ -27,10 +27,10 @@ public class PossesionPK implements Serializable {
     @Column(name = "media")
     private int media;
 
-    public PossesionPK() {
+    public PossessionPK() {
     }
 
-    public PossesionPK(int user, int media) {
+    public PossessionPK(int user, int media) {
         this.user = user;
         this.media = media;
     }
@@ -62,10 +62,10 @@ public class PossesionPK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PossesionPK)) {
+        if (!(object instanceof PossessionPK)) {
             return false;
         }
-        PossesionPK other = (PossesionPK) object;
+        PossessionPK other = (PossessionPK) object;
         if (this.user != other.user) {
             return false;
         }
@@ -77,7 +77,7 @@ public class PossesionPK implements Serializable {
 
     @Override
     public String toString() {
-        return "fr.efrei.pandax.model.business.PossesionPK[ user=" + user + ", media=" + media + " ]";
+        return "fr.efrei.pandax.model.business.PossessionPK[ user=" + user + ", media=" + media + " ]";
     }
     
 }

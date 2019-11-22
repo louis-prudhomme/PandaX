@@ -78,9 +78,12 @@ public class Media implements Serializable {
     @Column(name = "city")
     private String city;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "media1")
-    private Collection<Possesion> possesionCollection;
+    private Collection<Possession> possessionCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "media1")
     private Collection<Comment> commentCollection;
+    @JoinColumn(name = "user", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private MediaType user;
     @JoinColumn(name = "publisher", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Publisher publisher;
@@ -153,12 +156,12 @@ public class Media implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Possesion> getPossesionCollection() {
-        return possesionCollection;
+    public Collection<Possession> getPossessionCollection() {
+        return possessionCollection;
     }
 
-    public void setPossesionCollection(Collection<Possesion> possesionCollection) {
-        this.possesionCollection = possesionCollection;
+    public void setPossessionCollection(Collection<Possession> possessionCollection) {
+        this.possessionCollection = possessionCollection;
     }
 
     @XmlTransient
@@ -168,6 +171,14 @@ public class Media implements Serializable {
 
     public void setCommentCollection(Collection<Comment> commentCollection) {
         this.commentCollection = commentCollection;
+    }
+
+    public MediaType getUser() {
+        return user;
+    }
+
+    public void setUser(MediaType user) {
+        this.user = user;
     }
 
     public Publisher getPublisher() {

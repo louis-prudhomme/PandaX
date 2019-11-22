@@ -47,8 +47,10 @@ public class MediaType implements Serializable {
     @Size(min = 1, max = 128)
     @Column(name = "label")
     private String label;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mediaType")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Collection<Media> mediaCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mediaType")
+    private Collection<Media> mediaCollection1;
 
     public MediaType() {
     }
@@ -85,6 +87,15 @@ public class MediaType implements Serializable {
 
     public void setMediaCollection(Collection<Media> mediaCollection) {
         this.mediaCollection = mediaCollection;
+    }
+
+    @XmlTransient
+    public Collection<Media> getMediaCollection1() {
+        return mediaCollection1;
+    }
+
+    public void setMediaCollection1(Collection<Media> mediaCollection1) {
+        this.mediaCollection1 = mediaCollection1;
     }
 
     @Override

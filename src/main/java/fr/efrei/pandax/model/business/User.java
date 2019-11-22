@@ -71,7 +71,7 @@ public class User implements Serializable {
     @Column(name = "is_admin")
     private boolean isAdmin;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1")
-    private Collection<Possesion> possesionCollection;
+    private Collection<Possession> possessionCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1")
     private Collection<Comment> commentCollection;
 
@@ -140,12 +140,12 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Possesion> getPossesionCollection() {
-        return possesionCollection;
+    public Collection<Possession> getPossessionCollection() {
+        return possessionCollection;
     }
 
-    public void setPossesionCollection(Collection<Possesion> possesionCollection) {
-        this.possesionCollection = possesionCollection;
+    public void setPossessionCollection(Collection<Possession> possessionCollection) {
+        this.possessionCollection = possessionCollection;
     }
 
     @XmlTransient
