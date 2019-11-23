@@ -196,7 +196,9 @@
 								"exec": [
 									"pm.test(\"Can request a media type\", function () {",
 									"    pm.response.to.have.status(200);",
-									"});"
+									"});",
+									"",
+									"pm.collectionVariables.set(\"lastMediaType\", pm.response.stream.toString());"
 								],
 								"type": "text/javascript"
 							}
@@ -375,7 +377,7 @@
 							"urlencoded": [
 								{
 									"key": "publisher",
-									"value": "{{testPublisher}}",
+									"value": "{{publisherTest}}",
 									"type": "text"
 								}
 							]
@@ -402,7 +404,9 @@
 								"exec": [
 									"pm.test(\"Can request a media type\", function () {",
 									"    pm.response.to.have.status(200);",
-									"});"
+									"});",
+									"",
+									"pm.collectionVariables.set(\"lastPublisher\", pm.response.stream.toString());"
 								],
 								"type": "text/javascript"
 							}
@@ -418,13 +422,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{url}}/publisher/{{lastMediaTypeId}}",
+							"raw": "{{url}}/publisher/{{lastPublisherId}}",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"publisher",
-								"{{lastMediaTypeId}}"
+								"{{lastPublisherId}}"
 							]
 						}
 					},
@@ -443,7 +447,7 @@
 									"});",
 									"",
 									"pm.test(\"Body matches string\", function () {",
-									"    pm.expect(pm.response.text()).to.include(\"/mediatype/\");",
+									"    pm.expect(pm.response.text()).to.include(\"/publisher/\");",
 									"});"
 								],
 								"type": "text/javascript"
@@ -519,6 +523,218 @@
 			"protocolProfileBehavior": {}
 		},
 		{
+			"name": "User",
+			"item": [
+				{
+					"name": "User – Create one",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "53003437-0327-4870-87f3-bb4f86c4443e",
+								"exec": [
+									"let user = '{'",
+									"+'\"pseudo\":\"user test\",'",
+									"+'\"pwd\":\"test\",'",
+									"+'\"firstName\":\"test\",'",
+									"+'\"lastName\":\"test\",'",
+									"+'\"isAdmin\":\"1\"'",
+									"+'}'",
+									"",
+									"pm.collectionVariables.set(\"userTest\", user);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "51039724-1d5b-4e47-b310-2f0335362f88",
+								"exec": [
+									"pm.test(\"Can create user\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Returned a path\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"/user/\");",
+									"});",
+									"",
+									"pm.test(\"Return path is well formed\", function () {",
+									"    pm.expect(pm.response.stream.toString().split(\"/\").length).to.equal(3);",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"lastUserId\", pm.response.stream.toString().split(\"/\")[2]);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "user",
+									"value": "{{userTest}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User – Get one",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8aff33e-e53f-45c3-922e-0c3c3d10d55f",
+								"exec": [
+									"pm.test(\"Can request a user\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"lastUser\", pm.response.stream.toString());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/user/{{lastUserId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"{{lastUserId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User – Delete one",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a0e3ec86-bbb8-4844-881e-62bc23fb7590",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"/user/\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/user/{{lastUserId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"{{lastUserId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User – Get all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8aff33e-e53f-45c3-922e-0c3c3d10d55f",
+								"exec": [
+									"pm.test(\"Request succeeds\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "Medias",
 			"item": [
 				{
@@ -529,37 +745,18 @@
 							"script": {
 								"id": "3cbd8481-61b2-4dca-8ccc-741bea743993",
 								"exec": [
-									"let mediaType = '{'",
-									"+ '\"id\":\"1\",'",
-									"+ '\"label\":\"Animation\"'",
-									"+'}'",
-									"",
-									"let user = '{'",
-									"+'\"id\":\"5\",'",
-									"+'\"pseudo\":\"panda\",'",
-									"+'\"pwd\":\"panda\",'",
-									"+'\"firstName\":\"Xi\",'",
-									"+'\"lastName\":\"Jinping\",'",
-									"+'\"isAdmin\":\"1\"'",
-									"+'}'",
-									"",
-									"let publisher = '{'",
-									"+'\"id\":\"11\",'",
-									"+'\"denomination\":\"Metal Records\"'",
-									"+'}'",
-									"",
 									"let media = '{'",
 									"    + '\"title\" : \"Kung Fu Panda\",'",
 									"    + '\"published\" : \"2019-11-11\",'",
 									"    + '\"city\" : \"KungFuLand\",'",
 									"    + '\"descript\" : \"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",'",
 									"    + '\"imageUrl\" : \"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",'",
-									"    + '\"user\" : '+user+','",
-									"    + '\"publisher\" :'+publisher+','",
-									"    +'\"mediaType\" : '+mediaType",
+									"    + '\"user\" : ' + pm.collectionVariables.get(\"lastUser\") + ','",
+									"    + '\"publisher\" :' + pm.collectionVariables.get(\"lastPublisher\") + ','",
+									"    + '\"mediaType\" : ' + pm.collectionVariables.get(\"lastMediaType\")",
 									"    + '}'",
 									"",
-									"pm.collectionVariables.set(\"media\", media);"
+									"pm.collectionVariables.set(\"mediaTest\", media);"
 								],
 								"type": "text/javascript"
 							}
@@ -610,7 +807,7 @@
 							"urlencoded": [
 								{
 									"key": "media",
-									"value": "{{media}}",
+									"value": "{{mediaTest}}",
 									"type": "text"
 								}
 							]
@@ -623,7 +820,8 @@
 							"path": [
 								"media"
 							]
-						}
+						},
+						"description": "In order for this request to work, the POST and GET from MediaType, Publisher and User must be launched before"
 					},
 					"response": []
 				},
@@ -635,7 +833,7 @@
 							"script": {
 								"id": "f8aff33e-e53f-45c3-922e-0c3c3d10d55f",
 								"exec": [
-									"pm.test(\"Can log and request token\", function () {",
+									"pm.test(\"Can get a media\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
@@ -778,76 +976,112 @@
 	],
 	"variable": [
 		{
-			"id": "e632b8c2-b0b3-4dca-9d67-0a050c51fdfc",
+			"id": "e1f1dce3-6300-4a6f-9c60-c00302637d5f",
 			"key": "url",
 			"value": "localhost:8080/PandaX",
 			"type": "string"
 		},
 		{
-			"id": "a73ec852-2ab1-4865-b399-2092e3ab1e5f",
+			"id": "0aa9d794-39aa-4c7a-aae7-9f348ca0b034",
 			"key": "token",
 			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1IiwiZXhwIjoxNTc0ODk5MjczLCJpYXQiOjE1NzQ0NjcyNzMsImlzcyI6IlBhbmRhWCBSRVNUIEFQSSIsInJvbCI6IkFETUlOIiwibmFtIjoicGFuZGEifQ.SRQUeklIA2WyoEC93G6uCuBResRdygOTW_2mumpLpSDg_H4m_vGiu3i3AYzCvK3rBhKRXr7DAsJfBphKK7reqQ",
 			"type": "string"
 		},
 		{
-			"id": "86215038-3963-440e-b06b-8f9e223c8412",
+			"id": "3ae99e34-13fe-446f-9272-5369020f37e2",
 			"key": "login",
 			"value": "panda",
 			"type": "string"
 		},
 		{
-			"id": "166d3984-0266-453f-8837-cdfcf61d9ece",
+			"id": "fea5ea85-737f-47af-950e-69aa73a36008",
 			"key": "password",
 			"value": "panda",
 			"type": "string"
 		},
 		{
-			"id": "12bb29c0-e4a3-4e50-92df-cc462095db03",
+			"id": "8e2f4420-f4c5-48d5-a5f7-eee1dd6b6488",
 			"key": "media",
 			"value": "{\"title\" : \"Kung Fu Panda\",\"published\" : \"2019-11-11\",\"city\" : \"KungFuLand\",\"descript\" : \"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",\"imageUrl\" : \"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",\"user\" : {\"id\":\"5\",\"pseudo\":\"panda\",\"pwd\":\"panda\",\"firstName\":\"Xi\",\"lastName\":\"Jinping\",\"isAdmin\":\"1\"},\"publisher\" :{\"id\":\"11\",\"denomination\":\"Metal Records\"},\"mediaType\" : {\"id\":\"1\",\"label\":\"Animation\"}}",
 			"type": "string"
 		},
 		{
-			"id": "0fe1cf78-1b08-4c4c-a2d7-f926867266eb",
+			"id": "d2d81ee3-c941-4fb4-a640-6c0362be16ff",
 			"key": "deleteId",
 			"value": "3",
 			"type": "string"
 		},
 		{
-			"id": "809eea4a-d205-48f8-9637-5bca5c89af22",
+			"id": "31acc13f-c522-468d-8138-90adeaadcd0c",
 			"key": "mediaId",
 			"value": "4",
 			"type": "string"
 		},
 		{
-			"id": "baae22f4-d7ab-40a2-aab3-1f88d223a484",
+			"id": "a7efc34b-3124-4b41-bf0a-9cd06114aabf",
 			"key": "mediaType",
 			"value": "{\"label\":\"Test media type\"}",
 			"type": "string"
 		},
 		{
-			"id": "78c17f4a-e514-42ec-9fda-48f07f358087",
+			"id": "7e1725a1-ce49-497c-910a-fc7dbd32ef86",
 			"key": "lastMediaTypeId",
 			"value": "23",
 			"type": "string"
 		},
 		{
-			"id": "b9fabb41-cd54-4c94-b203-2fd259542096",
+			"id": "08397af2-c869-4799-9131-caccec458084",
 			"key": "publisherTest",
 			"value": "{\"denomination\":\"Test publisher\"}",
 			"type": "string"
 		},
 		{
-			"id": "e4231bea-70fc-4e7b-a0fb-68d1fba83bcc",
+			"id": "dbd2f602-6184-477c-839a-66e27fcba957",
 			"key": "lastPublisherId",
-			"value": "13",
+			"value": "19",
 			"type": "string"
 		},
 		{
-			"id": "bc11a673-1f3d-4b92-8990-166ca72b0eb0",
+			"id": "001099f4-f540-4708-81dd-6b48104a745d",
 			"key": "mediaTypeTest",
 			"value": "{\"label\":\"Test media type\"}",
 			"type": "string"
+		},
+		{
+			"id": "0cc8d8b9-6158-41dc-82d4-874640bca163",
+			"key": "userTest",
+			"value": "{\"pseudo\":\"user test\",\"pwd\":\"test\",\"firstName\":\"test\",\"lastName\":\"test\",\"isAdmin\":\"1\"}",
+			"type": "string"
+		},
+		{
+			"id": "9f102340-72fd-43d7-90e8-e52c7469243d",
+			"key": "lastUserId",
+			"value": "6",
+			"type": "string"
+		},
+		{
+			"id": "f5c96daf-4c24-4863-991d-7fd2a658ff59",
+			"key": "mediaTest",
+			"value": "{\"title\" : \"Kung Fu Panda\",\"published\" : \"2019-11-11\",\"city\" : \"KungFuLand\",\"descript\" : \"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",\"imageUrl\" : \"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",\"user\" : css\">body {font-family:Tahoma,Arial,sans-serif;} h1, h2, h3, b {color:white;background-color:#525D76;} h1 {font-size:22px;} h2 {font-size:16px;} h3 {font-size:14px;} p {font-size:12px;} a {color:black;} .line {height:1px;background-color:#525D76;border:none;}<,\"publisher\" :null,\"mediaType\" : undefined}",
+			"type": "string"
+		},
+		{
+			"id": "c9713849-990e-449a-b22f-c24c3c35befe",
+			"key": "lastMediaId",
+			"value": "css\">body {font-family:Tahoma,Arial,sans-serif;} h1, h2, h3, b {color:white;background-color:#525D76;} h1 {font-size:22px;} h2 {font-size:16px;} h3 {font-size:14px;} p {font-size:12px;} a {color:black;} .line {height:1px;background-color:#525D76;border:none;}<",
+			"type": "string"
+		},
+		{
+			"id": "7742f30f-9cc2-413c-9778-c8f1a77aae16",
+			"key": "lastUser",
+			"value": "css\">body {font-family:Tahoma,Arial,sans-serif;} h1, h2, h3, b {color:white;background-color:#525D76;} h1 {font-size:22px;} h2 {font-size:16px;} h3 {font-size:14px;} p {font-size:12px;} a {color:black;} .line {height:1px;background-color:#525D76;border:none;}<",
+			"type": "string"
+		},
+		{
+			"id": "75f30d6c-0631-4364-af09-709b5ba383d4",
+			"key": "lastPublisher",
+			"value": null,
+			"type": "any"
 		}
 	],
 	"protocolProfileBehavior": {}
