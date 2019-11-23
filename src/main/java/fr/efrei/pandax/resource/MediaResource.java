@@ -21,7 +21,7 @@ public class MediaResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllMedia() {
+    public Response getAll() {
         //todo document that shit
         List<Media> medias = new MediaDAO().getAll();
         return Response.ok(new GenericEntity<>(medias) {}).build();
@@ -29,7 +29,7 @@ public class MediaResource {
     
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response createMedia(@FormParam("media")Media m) {
+    public Response createOne(@FormParam("media")Media m) {
         m = new MediaDAO().create(m);
         return Response.ok("/media/" + m.getId()).build();
     }
@@ -54,7 +54,7 @@ public class MediaResource {
 
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response updateMedia(@FormParam("media")Media m) {
+    public Response updateOne(@FormParam("media")Media m) {
         m = new MediaDAO().modify(m);
         return Response.ok("/media/" + m.getId()).build();
     }

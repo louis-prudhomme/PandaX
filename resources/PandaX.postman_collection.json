@@ -1,191 +1,12 @@
 {
 	"info": {
-		"_postman_id": "fc81d568-d5e4-4737-99f0-2d6f0950c362",
+		"_postman_id": "e782b8b2-541d-4d92-9f5d-44bbf61f34c3",
 		"name": "PandaX",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Medias",
-			"item": [
-				{
-					"name": "Media – Get all",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "f8aff33e-e53f-45c3-922e-0c3c3d10d55f",
-								"exec": [
-									"pm.test(\"Can log and request token\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"let media = '{'",
-									"    + '\"name\" : \"raj\"'",
-									"    + '}';",
-									"    ",
-									"console.log(media);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{url}}/media",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"media"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Media – Create one",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "3cbd8481-61b2-4dca-8ccc-741bea743993",
-								"exec": [
-									"let mediaType = '{'",
-									"+ '\"id\":\"1\",'",
-									"+ '\"label\":\"Animation\"'",
-									"+'}'",
-									"",
-									"let user = '{'",
-									"+'\"id\":\"5\",'",
-									"+'\"pseudo\":\"panda\",'",
-									"+'\"pwd\":\"panda\",'",
-									"+'\"firstName\":\"Xi\",'",
-									"+'\"lastName\":\"Jinping\",'",
-									"+'\"isAdmin\":\"1\"'",
-									"+'}'",
-									"",
-									"let publisher = '{'",
-									"+'\"id\":\"11\",'",
-									"+'\"denomination\":\"Metal Records\"'",
-									"+'}'",
-									"",
-									"let media = '{'",
-									"    + '\"title\" : \"Kung Fu Panda\",'",
-									"    + '\"published\" : \"2019-11-11\",'",
-									"    + '\"city\" : \"KungFuLand\",'",
-									"    + '\"descript\" : \"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",'",
-									"    + '\"imageUrl\" : \"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",'",
-									"    + '\"user\" : '+user+','",
-									"    + '\"publisher\" :'+publisher+','",
-									"    +'\"mediaType\" : '+mediaType",
-									"    + '}'",
-									"",
-									"pm.collectionVariables.set(\"media\", media);"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "382afe47-2d71-42a8-bf12-c9ddb04027d8",
-								"exec": [
-									"pm.test(\"Can create media\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"type": "text",
-								"value": "{{token}}"
-							},
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/x-www-form-urlencoded"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "media",
-									"value": "{{media}}",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{url}}/media",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"media"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Media – Delete one",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"type": "text"
-							},
-							{
-								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1IiwiZXhwIjoxNTc0ODQ4OTM5LCJpYXQiOjE1NzQ0MTY5MzksImlzcyI6IlBhbmRhWCBSRVNUIEFQSSIsInJvbCI6IkFETUlOIiwibmFtIjoicGFuZGEifQ.QtIbW9jr75g_ktOZieim1yAJEqwgKtntrtu156wmZw8YRF5xSauFt3mA38qm0PGyBOsRAetsA0H53u6ZQFKNdQ",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
-						},
-						"url": {
-							"raw": "{{url}}/media/{{deleteId}}",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"media",
-								"{{deleteId}}"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Security - token",
+			"name": "Security",
 			"item": [
 				{
 					"name": "Auth – Obtain token",
@@ -284,6 +105,653 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "MediaType",
+			"item": [
+				{
+					"name": "MediaType – Create one",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "53003437-0327-4870-87f3-bb4f86c4443e",
+								"exec": [
+									"let mediaTypeTest = '{'",
+									"+ '\"label\":\"Test media type\"'",
+									"+'}'",
+									"",
+									"pm.collectionVariables.set(\"mediaTypeTest\", mediaTypeTest);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "51039724-1d5b-4e47-b310-2f0335362f88",
+								"exec": [
+									"pm.test(\"Can create media type\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Returned a path\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"/mediatype/\");",
+									"});",
+									"",
+									"pm.test(\"Return path is well formed\", function () {",
+									"    pm.expect(pm.response.stream.toString().split(\"/\").length).to.equal(3);",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"lastMediaTypeId\", pm.response.stream.toString().split(\"/\")[2]);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mediatype",
+									"value": "{{mediaTypeTest}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/mediatype",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"mediatype"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MediaType – Get one",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8aff33e-e53f-45c3-922e-0c3c3d10d55f",
+								"exec": [
+									"pm.test(\"Can request a media type\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/mediatype/{{lastMediaTypeId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"mediatype",
+								"{{lastMediaTypeId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MediaType – Delete one",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a0e3ec86-bbb8-4844-881e-62bc23fb7590",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"/mediatype/\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/mediatype/{{lastMediaTypeId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"mediatype",
+								"{{lastMediaTypeId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MediaType – Get all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8aff33e-e53f-45c3-922e-0c3c3d10d55f",
+								"exec": [
+									"pm.test(\"Request succeeds\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/mediatype",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"mediatype"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Publisher",
+			"item": [
+				{
+					"name": "Publisher – Create one",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "53003437-0327-4870-87f3-bb4f86c4443e",
+								"exec": [
+									"let publisher = '{'",
+									"+'\"denomination\":\"Test publisher\"'",
+									"+'}'",
+									"",
+									"pm.collectionVariables.set(\"publisherTest\", publisher);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "51039724-1d5b-4e47-b310-2f0335362f88",
+								"exec": [
+									"pm.test(\"Can create media type\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Returned a path\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"/publisher/\");",
+									"});",
+									"",
+									"pm.test(\"Return path is well formed\", function () {",
+									"    pm.expect(pm.response.stream.toString().split(\"/\").length).to.equal(3);",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"lastPublisherId\", pm.response.stream.toString().split(\"/\")[2]);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "publisher",
+									"value": "{{testPublisher}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/publisher",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"publisher"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Publisher – Get one",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8aff33e-e53f-45c3-922e-0c3c3d10d55f",
+								"exec": [
+									"pm.test(\"Can request a media type\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/publisher/{{lastMediaTypeId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"publisher",
+								"{{lastMediaTypeId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Publisher – Delete one",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a0e3ec86-bbb8-4844-881e-62bc23fb7590",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"/mediatype/\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/publisher/{{lastPublisherId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"publisher",
+								"{{lastPublisherId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Publisher – Get all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8aff33e-e53f-45c3-922e-0c3c3d10d55f",
+								"exec": [
+									"pm.test(\"Request succeeds\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/publisher",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"publisher"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Medias",
+			"item": [
+				{
+					"name": "Media – Create one",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3cbd8481-61b2-4dca-8ccc-741bea743993",
+								"exec": [
+									"let mediaType = '{'",
+									"+ '\"id\":\"1\",'",
+									"+ '\"label\":\"Animation\"'",
+									"+'}'",
+									"",
+									"let user = '{'",
+									"+'\"id\":\"5\",'",
+									"+'\"pseudo\":\"panda\",'",
+									"+'\"pwd\":\"panda\",'",
+									"+'\"firstName\":\"Xi\",'",
+									"+'\"lastName\":\"Jinping\",'",
+									"+'\"isAdmin\":\"1\"'",
+									"+'}'",
+									"",
+									"let publisher = '{'",
+									"+'\"id\":\"11\",'",
+									"+'\"denomination\":\"Metal Records\"'",
+									"+'}'",
+									"",
+									"let media = '{'",
+									"    + '\"title\" : \"Kung Fu Panda\",'",
+									"    + '\"published\" : \"2019-11-11\",'",
+									"    + '\"city\" : \"KungFuLand\",'",
+									"    + '\"descript\" : \"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",'",
+									"    + '\"imageUrl\" : \"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",'",
+									"    + '\"user\" : '+user+','",
+									"    + '\"publisher\" :'+publisher+','",
+									"    +'\"mediaType\" : '+mediaType",
+									"    + '}'",
+									"",
+									"pm.collectionVariables.set(\"media\", media);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "382afe47-2d71-42a8-bf12-c9ddb04027d8",
+								"exec": [
+									"pm.test(\"Can create media\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Returned a path\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"/media/\");",
+									"});",
+									"",
+									"pm.test(\"Return path is well formed\", function () {",
+									"    pm.expect(pm.response.stream.toString().split(\"/\").length).to.equal(3);",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"lastMediaId\", pm.response.stream.toString().split(\"/\")[2]);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "media",
+									"value": "{{media}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/media",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"media"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Media – Get one",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8aff33e-e53f-45c3-922e-0c3c3d10d55f",
+								"exec": [
+									"pm.test(\"Can log and request token\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/media/{{lastMediaId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"media",
+								"{{lastMediaId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Media – Delete one",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a0e3ec86-bbb8-4844-881e-62bc23fb7590",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"/media/\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/media/{{lastMediaId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"media",
+								"{{lastMediaId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Media – Get all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8aff33e-e53f-45c3-922e-0c3c3d10d55f",
+								"exec": [
+									"pm.test(\"Request succeeds\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/media",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"media"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"event": [
@@ -310,39 +778,75 @@
 	],
 	"variable": [
 		{
-			"id": "db006523-d317-47b4-ad1c-af68f416891b",
+			"id": "e632b8c2-b0b3-4dca-9d67-0a050c51fdfc",
 			"key": "url",
 			"value": "localhost:8080/PandaX",
 			"type": "string"
 		},
 		{
-			"id": "d6fa0bf6-a518-4f49-99ef-752bc2bd5501",
+			"id": "a73ec852-2ab1-4865-b399-2092e3ab1e5f",
 			"key": "token",
-			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTc0ODg5NTI0LCJpYXQiOjE1NzQ0NTc1MjQsImlzcyI6IlBhbmRhWCBSRVNUIEFQSSIsInJvbCI6IlVTRVIiLCJuYW0iOiJtZWxhbmllIn0.BzbMy2kJa7qLvk1U272GrK7Fafba8rKJkiji8v8sXo-P7Py7vjsOQa4CGNUMlg8fLpARunxnM_Inh2lwDU6yKA",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1IiwiZXhwIjoxNTc0ODk5MjczLCJpYXQiOjE1NzQ0NjcyNzMsImlzcyI6IlBhbmRhWCBSRVNUIEFQSSIsInJvbCI6IkFETUlOIiwibmFtIjoicGFuZGEifQ.SRQUeklIA2WyoEC93G6uCuBResRdygOTW_2mumpLpSDg_H4m_vGiu3i3AYzCvK3rBhKRXr7DAsJfBphKK7reqQ",
 			"type": "string"
 		},
 		{
-			"id": "f6df69a4-d400-499c-b178-8809aaf5490e",
+			"id": "86215038-3963-440e-b06b-8f9e223c8412",
 			"key": "login",
-			"value": "melanie",
+			"value": "panda",
 			"type": "string"
 		},
 		{
-			"id": "bb442480-f2df-4009-85ff-e933a71fd04e",
+			"id": "166d3984-0266-453f-8837-cdfcf61d9ece",
 			"key": "password",
-			"value": "chocolat",
+			"value": "panda",
 			"type": "string"
 		},
 		{
-			"id": "1df47616-8d29-4827-b8fe-d7292e1028c0",
+			"id": "12bb29c0-e4a3-4e50-92df-cc462095db03",
 			"key": "media",
 			"value": "{\"title\" : \"Kung Fu Panda\",\"published\" : \"2019-11-11\",\"city\" : \"KungFuLand\",\"descript\" : \"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",\"imageUrl\" : \"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",\"user\" : {\"id\":\"5\",\"pseudo\":\"panda\",\"pwd\":\"panda\",\"firstName\":\"Xi\",\"lastName\":\"Jinping\",\"isAdmin\":\"1\"},\"publisher\" :{\"id\":\"11\",\"denomination\":\"Metal Records\"},\"mediaType\" : {\"id\":\"1\",\"label\":\"Animation\"}}",
 			"type": "string"
 		},
 		{
-			"id": "0b30fe05-3905-438d-85ed-823d98448e9c",
+			"id": "0fe1cf78-1b08-4c4c-a2d7-f926867266eb",
 			"key": "deleteId",
 			"value": "3",
+			"type": "string"
+		},
+		{
+			"id": "809eea4a-d205-48f8-9637-5bca5c89af22",
+			"key": "mediaId",
+			"value": "4",
+			"type": "string"
+		},
+		{
+			"id": "baae22f4-d7ab-40a2-aab3-1f88d223a484",
+			"key": "mediaType",
+			"value": "{\"label\":\"Test media type\"}",
+			"type": "string"
+		},
+		{
+			"id": "78c17f4a-e514-42ec-9fda-48f07f358087",
+			"key": "lastMediaTypeId",
+			"value": "23",
+			"type": "string"
+		},
+		{
+			"id": "b9fabb41-cd54-4c94-b203-2fd259542096",
+			"key": "publisherTest",
+			"value": "{\"denomination\":\"Test publisher\"}",
+			"type": "string"
+		},
+		{
+			"id": "e4231bea-70fc-4e7b-a0fb-68d1fba83bcc",
+			"key": "lastPublisherId",
+			"value": "13",
+			"type": "string"
+		},
+		{
+			"id": "bc11a673-1f3d-4b92-8990-166ca72b0eb0",
+			"key": "mediaTypeTest",
+			"value": "{\"label\":\"Test media type\"}",
 			"type": "string"
 		}
 	],
