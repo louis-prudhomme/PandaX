@@ -24,25 +24,38 @@ public class MediaResource {
     public Response getAllMedia() {
         //todo document that shit
         List<Media> medias = new MediaDAO().getAll();
-        return Response.ok(new GenericEntity<List<Media>>(medias) {}).build();
+        return Response.ok(new GenericEntity<>(medias) {}).build();
     }
     
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response putMedia(@FormParam("media")Media m) {
-        new MediaDAO().create(m);
-        //todo return path of created resource like GET /media/{id}
-        return Response.ok().build();
+    public Response createMedia(@FormParam("media")Media m) {
+        m = new MediaDAO().create(m);
+        return Response.ok("/media/" + m.getId()).build();
     }
-    
+
     @DELETE
     @Path("/{id}")
     @Secured(Role.ADMIN)
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteOne(@PathParam("id")int id) {
-    	MediaDAO md = new MediaDAO();
-    	md.delete(md.read(id));    
-        return Response.ok().build();
+        MediaDAO md = new MediaDAO();
+        md.delete(md.read(id));
+        return Response.ok("/media/").build();
     }
-    
+
+    @GET
+    @Path("/{id}")
+    @Secured
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getOne(@PathParam("id")int id) {
+        return Response.ok(new MediaDAO().read(id)).build();
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public Response updateMedia(@FormParam("media")Media m) {
+        m = new MediaDAO().modify(m);
+        return Response.ok("/media/" + m.getId()).build();
+    }
 }

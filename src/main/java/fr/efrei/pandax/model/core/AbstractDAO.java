@@ -69,24 +69,28 @@ public class AbstractDAO<T> {
      * Modifies the specified entity from the database.
      * @param managedObject entity to modify.
      */
-    public void modify(T managedObject) {
+    public T modify(T managedObject) {
         openEntityManager();
         em.getTransaction().begin();
         em.merge(managedObject);
         em.getTransaction().commit();
+        em.flush();
         closeEntityManager();
+        return managedObject;
     }
 
     /**
      * Creates the specified entity from the database.
      * @param managedObject entity to create.
      */
-    public void create(T managedObject) {
+    public T create(T managedObject) {
         openEntityManager();
         em.getTransaction().begin();
         em.persist(managedObject);
+        em.flush();
         em.getTransaction().commit();
         closeEntityManager();
+        return managedObject;
     }
 
     /**

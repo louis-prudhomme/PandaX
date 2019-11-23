@@ -44,8 +44,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
         Jwt jwt = checkJwt(authorizationHeader);
         // if the jwt is valid
         if(jwt == null) {
-            //todo return another error code
-            context.abortWith(Response.status(Response.Status.FORBIDDEN).build());
+            context.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
             return;
         }
 
