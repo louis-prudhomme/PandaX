@@ -11,10 +11,10 @@
     <class>fr.efrei.pandax.model.business.User</class>
 
     <properties>
-      <property name="hibernate.connection.url" value="jdbc:mysql://localhost:8889/pandax"/>
-      <property name="hibernate.connection.user" value="jee"/>
+      <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/pandax"/>
+      <property name="hibernate.connection.user" value="test"/>
       <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-      <property name="hibernate.connection.password" value="jee"/>
+      <property name="hibernate.connection.password" value="password"/>
     </properties>
   </persistence-unit>
 </persistence>

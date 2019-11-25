@@ -70,8 +70,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
      * @return if the provided JWT is valid, a {@link Jwt} object ; otherwise, null.
      */
     private Jwt checkJwt(String encodedJwt) {
-        try
-        {
+        try {
             return Jwts.parser().setSigningKey(new TokenHelper().generateSecretKey()).parse(encodedJwt);
         } catch (JwtException e) {
             return null;
