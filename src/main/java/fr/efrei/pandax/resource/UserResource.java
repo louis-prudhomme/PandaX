@@ -1,5 +1,6 @@
 package fr.efrei.pandax.resource;
 
+import fr.efrei.pandax.model.business.Comment;
 import fr.efrei.pandax.model.business.User;
 import fr.efrei.pandax.model.core.CommentDAO;
 import fr.efrei.pandax.model.core.UserDAO;
@@ -55,6 +56,14 @@ public class UserResource {
         return Response.ok("/user/" + user.getId()).build();
     }
 
+    @GET
+    @Path("/{id}/comment")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllComment(@PathParam("id")int id) {
+        List<Comment> comments = new CommentDAO().getByUser(id);
+        return Response.ok(new GenericEntity<>(comments){}).build();
+    }
+    
     @GET
     @Path("{idUser}/media/{idMedia}/comment")
     @Produces(MediaType.APPLICATION_JSON)
