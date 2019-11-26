@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Can generically read, delete, update, create and get all records of a generic type.
  * @param <T> Generic type that will be queried in database. Should be a fr.efrei.pandax.model.business class.
  */
-public class AbstractDAO<T> {
+public abstract class AbstractDAO<T> {
     /**
      * Target class managed by the DAO.
      */
