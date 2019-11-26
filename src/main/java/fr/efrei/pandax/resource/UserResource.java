@@ -1,5 +1,6 @@
 package fr.efrei.pandax.resource;
 
+import fr.efrei.pandax.model.business.Media;
 import fr.efrei.pandax.model.business.User;
 import fr.efrei.pandax.model.core.UserDAO;
 import fr.efrei.pandax.security.Role;
@@ -50,5 +51,15 @@ public class UserResource {
     public Response updateOne(@FormParam("user") User user) {
         user = new UserDAO().modify(user);
         return Response.ok("/user/" + user.getId()).build();
+    }
+
+    //possessions :
+
+    @GET
+    @Path("/{id}/media")
+    @Produces(APPLICATION_JSON)
+    public Response getUserPossession(@PathParam("id") int id){
+        List<Media> allPossessions = new UserDAO().getAllPossessions(id);
+        return Response.ok(new GenericEntity<>(allPossessions) {}).build();
     }
 }

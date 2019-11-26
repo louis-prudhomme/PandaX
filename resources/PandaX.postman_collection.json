@@ -902,6 +902,47 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "User - Get all Possessions",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/user/{{lastUserId}}/media",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"{{lastUserId}}",
+								"media"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -1213,127 +1254,127 @@
 	],
 	"variable": [
 		{
-			"id": "f6238ff0-0c20-490e-9f02-1298be913208",
+			"id": "4e287947-2e55-4907-8472-76a14a679c2b",
 			"key": "url",
 			"value": "localhost:8080/PandaX",
 			"type": "string"
 		},
 		{
-			"id": "e616ae83-c66a-4d83-aad8-aac3da0dc8a3",
+			"id": "20b48ec4-473d-40bb-8585-6335f822c23d",
 			"key": "token",
 			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1IiwiZXhwIjoxNTc1MjA4MjU5LCJpYXQiOjE1NzQ3NzYyNTksImlzcyI6IlBhbmRhWCBSRVNUIEFQSSIsInJvbCI6IkFETUlOIiwibmFtIjoicGFuZGEifQ.o42w8WRE4D50nkOVZhUU3KoAfuUd_X7sGmlVE81d2TTSyp5QLntZA3RuyVBn3nlyB9l5m1c1BP5KvXgaT1qIiA",
 			"type": "string"
 		},
 		{
-			"id": "652d5c55-8408-4c2c-9cec-66f15f8d2475",
+			"id": "ac4bd4f1-d76a-4815-bd94-d2290047c9fd",
 			"key": "login",
 			"value": "panda",
 			"type": "string"
 		},
 		{
-			"id": "01ab60d5-80cb-4a48-917c-a322d3bf1dde",
+			"id": "5dcdebd4-114e-4dd8-b9e6-ab328c90c9e7",
 			"key": "password",
 			"value": "panda",
 			"type": "string"
 		},
 		{
-			"id": "5d135cb8-7cc2-462b-bb18-861b9b1094c3",
+			"id": "8878a689-c406-408c-9ac0-c3c57ecc3974",
 			"key": "media",
 			"value": "{\"title\" : \"Kung Fu Panda\",\"published\" : \"2019-11-11\",\"city\" : \"KungFuLand\",\"descript\" : \"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",\"imageUrl\" : \"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",\"user\" : {\"id\":\"5\",\"pseudo\":\"panda\",\"pwd\":\"panda\",\"firstName\":\"Xi\",\"lastName\":\"Jinping\",\"isAdmin\":\"1\"},\"publisher\" :{\"id\":\"11\",\"denomination\":\"Metal Records\"},\"mediaType\" : {\"id\":\"1\",\"label\":\"Animation\"}}",
 			"type": "string"
 		},
 		{
-			"id": "5e797bd8-cb26-445e-b283-0238c8af590e",
+			"id": "9e607afe-a12d-4b05-9224-395a28452045",
 			"key": "deleteId",
 			"value": "3",
 			"type": "string"
 		},
 		{
-			"id": "2c127464-236f-47d0-8626-3bddefad0eb4",
+			"id": "33f2666a-5c5a-47ac-89dd-6881e8e18fe2",
 			"key": "mediaId",
 			"value": "4",
 			"type": "string"
 		},
 		{
-			"id": "32b618a6-23f1-4662-958e-f6615224777e",
+			"id": "ed256c11-e3b5-4b64-94b3-58674d7955f3",
 			"key": "mediaType",
 			"value": "{\"label\":\"Test media type\"}",
 			"type": "string"
 		},
 		{
-			"id": "b9ece183-b12a-4c31-97ea-4c490c7e4e73",
+			"id": "6b7453b5-9ccb-483d-80b3-cb2cf95fe294",
 			"key": "lastMediaTypeId",
 			"value": "21",
 			"type": "string"
 		},
 		{
-			"id": "7b1b8f06-d177-45e3-aa88-73c6ee2595b8",
+			"id": "493fcc8d-43e7-4cd7-807e-675a5a651e15",
 			"key": "publisherTest",
 			"value": "{\"denomination\":\"Test publisher\"}",
 			"type": "string"
 		},
 		{
-			"id": "85ad8ab3-a1ea-4115-990c-0c01859c4464",
+			"id": "9684ebfc-1840-499b-be17-5be382ef7236",
 			"key": "lastPublisherId",
 			"value": "14",
 			"type": "string"
 		},
 		{
-			"id": "8182e6fc-1b1f-406d-8a69-7412c38f4bbf",
+			"id": "54ed22a3-f0a8-43ce-95e5-fbe03ef7850f",
 			"key": "mediaTypeTest",
 			"value": "{\"label\":\"Test media type\"}",
 			"type": "string"
 		},
 		{
-			"id": "91021c9d-ed4b-4e12-827f-15091f2f1235",
+			"id": "623e175f-1348-40a9-bcec-08bafb6342dc",
 			"key": "userTest",
 			"value": "{\"pseudo\":\"user test\",\"pwd\":\"test\",\"firstName\":\"test\",\"lastName\":\"test\",\"isAdmin\":\"1\"}",
 			"type": "string"
 		},
 		{
-			"id": "d5988311-1b96-4065-986d-9571dde87bd7",
+			"id": "17323af0-b94f-432a-af70-7ee99f269371",
 			"key": "lastUserId",
 			"value": "7",
 			"type": "string"
 		},
 		{
-			"id": "bceda0c4-689e-4c74-96e8-1a0a10db107e",
+			"id": "5e543615-6a2c-4bf4-a01a-b5ca81a7b979",
 			"key": "mediaTest",
 			"value": "{\"title\" : \"Kung Fu Panda\",\"published\" : \"2019-11-11\",\"city\" : \"KungFuLand\",\"descript\" : \"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",\"imageUrl\" : \"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",\"user\" : {\"admin\":false,\"firstName\":\"test\",\"id\":7,\"lastName\":\"test\",\"pseudo\":\"user test\",\"pwd\":\"test\"},\"publisher\" :{\"denomination\":\"Test publisher\",\"id\":14},\"mediaType\" : {\"id\":21,\"label\":\"Test media type\"}}",
 			"type": "string"
 		},
 		{
-			"id": "73be78e1-b8e4-4d8f-a490-05c9dc02f0c3",
+			"id": "2a7d481b-fa13-40d8-a55e-a0da29e23b39",
 			"key": "lastMediaId",
 			"value": "1",
 			"type": "string"
 		},
 		{
-			"id": "3e344b7d-f15e-42f9-8250-62636f419ef2",
+			"id": "2d5d90bb-efa3-4af1-925c-4db385b70901",
 			"key": "lastUser",
 			"value": "{\"admin\":false,\"firstName\":\"test\",\"id\":7,\"lastName\":\"test\",\"pseudo\":\"updated pseudo\",\"pwd\":\"updated pseudo\"}",
 			"type": "string"
 		},
 		{
-			"id": "cd64aab3-e4cd-4caa-b812-673dbab4773f",
+			"id": "c59a9bdf-867d-44f2-8d41-e7abd9760441",
 			"key": "lastPublisher",
 			"value": "{\"denomination\":\"updated publisher\",\"id\":14,\"label\":\"updated publisher\"}",
 			"type": "string"
 		},
 		{
-			"id": "50df99ea-a186-40cf-b556-11c69279c05b",
+			"id": "0f2a66ff-5b03-40d3-8eba-9a143d3a7e37",
 			"key": "lastMediaType",
 			"value": "{\"id\":21,\"label\":\"updated type\"}",
 			"type": "string"
 		},
 		{
-			"id": "6408519e-4413-41e3-a13a-85804855814f",
+			"id": "2e942a06-7469-48f0-8c51-f8d29333df2f",
 			"key": "mediaToChange",
 			"value": "{\"id\" : 1,\"title\" : \"Kung Fu Panda 2 Updated\",\"published\" : \"2019-11-11\",\"city\" : \"KungFuLand\",\"descript\" : \"Lord Shen, the scion of a peacock clan that rules Gongmen City in ancient China, seeks to weaponize his family s recently invented fireworks. After discovering from the court s goat soothsayer that a warrior of black-and-white will defeat him if he does not change his ways, Shen leads an army of wolves to exterminate the panda population to avert the prophecy. Shens parents are horrified by this atrocity and exile him as punishment.\",\"imageUrl\" : \"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\"}",
 			"type": "string"
 		},
 		{
-			"id": "2d673b26-1f56-4080-928e-b5e1b912faaa",
+			"id": "9e0420b7-0630-4e7d-9423-0e1869d32450",
 			"key": "lastMedia",
 			"value": "{\"city\":\"KungFuLand\",\"descript\":\"Lord Shen, the scion of a peacock clan that rules Gongmen City in ancient China, seeks to weaponize his family s recently invented fireworks. After discovering from the court s goat soothsayer that a warrior of black-and-white will defeat him if he does not change his ways, Shen leads an army of wolves to exterminate the panda population to avert the prophecy. Shen s parents are horrified by this atrocity and exile him as punishment.\",\"id\":1,\"imageUrl\":\"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",\"mediaType\":{\"id\":21,\"label\":\"Test media type\"},\"published\":\"2019-11-11T00:00:00+01:00\",\"publisher\":{\"denomination\":\"Test publisher\",\"id\":14},\"title\":\"Kung Fu Panda 2 updated\",\"user\":{\"admin\":false,\"firstName\":\"test\",\"id\":7,\"lastName\":\"test\",\"pseudo\":\"user test\",\"pwd\":\"test\"}}",
 			"type": "string"

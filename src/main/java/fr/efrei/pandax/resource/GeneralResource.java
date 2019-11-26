@@ -1,10 +1,14 @@
 package fr.efrei.pandax.resource;
 
+import fr.efrei.pandax.model.business.Media;
+import fr.efrei.pandax.model.business.PossessionPK;
+import fr.efrei.pandax.model.core.UserDAO;
 import fr.efrei.pandax.security.Secured;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 /**
  * Default-case rest entry, useless except for verification purposes
