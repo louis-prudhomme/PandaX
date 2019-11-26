@@ -37,8 +37,8 @@ public class PandaxConverterProvider implements ParamConverterProvider {
             return (ParamConverter<T>) new MediaTypeConverter();
         } else if(type == Publisher.class) {
             return (ParamConverter<T>) new PublisherConverter();
-        } else if(type == Publisher.class) {
-            return (ParamConverter<T>) new PublisherConverter();
+        } else if(type == Comment.class) {
+            return (ParamConverter<T>) new CommentConverter();
         } else if(type == Publisher.class) {
             return (ParamConverter<T>) new PublisherConverter();
         } else {
