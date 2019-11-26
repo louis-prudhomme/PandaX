@@ -2,7 +2,6 @@ package fr.efrei.pandax.resource.converter;
 
 import com.google.gson.Gson;
 import fr.efrei.pandax.model.business.Comment;
-import fr.efrei.pandax.model.business.Media;
 
 import javax.ws.rs.ext.ParamConverter;
 
