@@ -4,6 +4,8 @@ import fr.efrei.pandax.model.business.Comment;
 import fr.efrei.pandax.model.business.CommentPK;
 import fr.efrei.pandax.model.core.CommentDAO;
 import fr.efrei.pandax.security.Secured;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;

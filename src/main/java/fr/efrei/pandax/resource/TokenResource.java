@@ -3,10 +3,9 @@ package fr.efrei.pandax.resource;
 import fr.efrei.pandax.model.business.User;
 import fr.efrei.pandax.model.core.UserDAO;
 import fr.efrei.pandax.security.Role;
-import fr.efrei.pandax.security.TokenHelper;
+import fr.efrei.pandax.security.SecurityHelper;
 import io.jsonwebtoken.*;
 
-import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -35,9 +34,9 @@ public class TokenResource {
         User u = new UserDAO().checkCredentials(login, password);
 
         //todo add more claims ?
-        String token = Jwts.builder().signWith(new TokenHelper().generateSecretKey())
+        String token = Jwts.builder().signWith(new SecurityHelper().generateSecretKey())
                 .setSubject(String.valueOf(u.getId()))
-                .setExpiration(new TokenHelper().generateExpirationDate())
+                .setExpiration(new SecurityHelper().generateExpirationDate())
                 .setIssuedAt(new Date())
                 .setIssuer(getConstants().getProperty(PROP_APP_NAME))
                 .claim("rol", u.isAdmin() ? Role.ADMIN : Role.USER)

@@ -7,6 +7,7 @@ import fr.efrei.pandax.model.core.CommentDAO;
 import fr.efrei.pandax.model.core.UserDAO;
 import fr.efrei.pandax.security.Role;
 import fr.efrei.pandax.security.Secured;
+import fr.efrei.pandax.security.SecurityHelper;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -14,9 +15,11 @@ import java.util.List;
 
 import static javax.ws.rs.core.MediaType.*;
 
-@Secured(Role.ADMIN)
+@Secured
 @Path("user")
 public class UserResource {
+    SecurityHelper securityHelper;
+
     @Context
     UriInfo uriInfo;
 
@@ -28,19 +31,31 @@ public class UserResource {
     }
 
     @POST
+    @Secured(Role.ADMIN)
     @Consumes(APPLICATION_FORM_URLENCODED)
     public Response createOne(@FormParam("user") User user) {
         user = new UserDAO().create(user);
-        return Response.ok("/user/" + user.getId()).build();
+        return Response
+                .ok(uriInfo.getBaseUriBuilder()
+                        .path(UserResource.class)
+                        .path(UserResource.class, "getOne")
+                        .build(user.getId()).toString())
+                .build();
     }
 
     @DELETE
     @Path("/{id}")
+    @Secured(Role.ADMIN)
     @Produces(APPLICATION_JSON)
     public Response deleteOne(@PathParam("id")int id) {
         UserDAO dao = new UserDAO();
         dao.delete(dao.read(id));
-        return Response.ok("/user/").build();
+        return Response
+                .ok(uriInfo.getBaseUriBuilder()
+                        .path(UserResource.class)
+                        .path(UserResource.class, "getAll")
+                        .build().toString())
+                .build();
     }
 
     @GET
@@ -53,8 +68,16 @@ public class UserResource {
     @PUT
     @Consumes(APPLICATION_FORM_URLENCODED)
     public Response updateOne(@FormParam("user") User user) {
+        if(!securityHelper.isIncomingUserAdmin() &&
+                !securityHelper.isIncomingUserExpected(user.getId()))
+            return Response.status(Response.Status.FORBIDDEN).build();
         user = new UserDAO().modify(user);
-        return Response.ok("/user/" + user.getId()).build();
+        return Response
+                .ok(uriInfo.getBaseUriBuilder()
+                        .path(UserResource.class)
+                        .path(UserResource.class, "getOne")
+                        .build(user.getId()).toString())
+                .build();
     }
 
     @GET

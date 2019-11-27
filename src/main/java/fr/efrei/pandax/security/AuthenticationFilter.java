@@ -71,7 +71,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
      */
     private Jwt checkJwt(String encodedJwt) {
         try {
-            return Jwts.parser().setSigningKey(new TokenHelper().generateSecretKey()).parse(encodedJwt);
+            return Jwts.parser().setSigningKey(new SecurityHelper().generateSecretKey()).parse(encodedJwt);
         } catch (JwtException e) {
             return null;
         }
