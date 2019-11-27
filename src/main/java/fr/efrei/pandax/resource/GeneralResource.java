@@ -1,14 +1,10 @@
 package fr.efrei.pandax.resource;
 
-import fr.efrei.pandax.model.business.Media;
-import fr.efrei.pandax.model.business.PossessionPK;
-import fr.efrei.pandax.model.core.UserDAO;
 import fr.efrei.pandax.security.Secured;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 /**
  * Default-case rest entry, useless except for verification purposes
@@ -20,7 +16,6 @@ public class GeneralResource {
     /**
      * Allows one to test if the application responds correctly.
      * It should respond with "Pong !".
-     * Test with : curl localhost:8080/PandaX_war_exploded
      * @return "Pong !"
      */
     @GET
@@ -32,7 +27,6 @@ public class GeneralResource {
     /**
      * Allows one to test if the application reacts correctly with security.
      * Responds with "Pong !" if the provided {@link String}-represented JWT is valid.
-     * Test with : curl localhost:8080/PandaX_war_exploded -X POST -H 'Authorization: <token>'
      * @return "Pong !"
      */
     @POST

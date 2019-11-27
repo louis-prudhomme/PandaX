@@ -1,5 +1,7 @@
 package fr.efrei.pandax.model.business;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -38,34 +40,44 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
     @Column(name = "pseudo")
     private String pseudo;
+
     @Basic(optional = false)
     @NotNull
+    @Expose(serialize = false, deserialize = true)
     @Size(min = 1, max = 128)
     @Column(name = "pwd")
     private String pwd;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
     @Column(name = "first_name")
     private String firstName;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
     @Column(name = "last_name")
     private String lastName;
+
     @Basic(optional = false)
     @NotNull
+    @Expose(serialize = false, deserialize = true)
     @Column(name = "is_admin")
     private boolean isAdmin;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1")
     private Collection<Possession> possessionCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Collection<Comment> commentCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Collection<Media> mediaCollection;
 
