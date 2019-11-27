@@ -2,18 +2,7 @@ package fr.efrei.pandax.model.business;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -23,56 +12,75 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Comment.findAll", query = "SELECT c FROM Comment c"),
-    @NamedQuery(name = "Comment.findByUser", query = "SELECT c FROM Comment c WHERE c.commentPK.user = :user"),
-    @NamedQuery(name = "Comment.findByMedia", query = "SELECT c FROM Comment c WHERE c.commentPK.media = :media"),
-    @NamedQuery(name = "Comment.findById", query = "SELECT c FROM Comment c WHERE c.commentPK.id = :id"),
+    @NamedQuery(name = "Comment.findByUser", query = "SELECT c FROM Comment c WHERE c.user.id = :user"),
+    @NamedQuery(name = "Comment.findByMedia", query = "SELECT c FROM Comment c WHERE c.media.id = :media"),
+    @NamedQuery(name = "Comment.findByMediaAndUser", query = "SELECT c FROM Comment c WHERE c.media.id = :media AND c.user.id = :user"),
+    @NamedQuery(name = "Comment.findByPk", query = "SELECT c FROM Comment c WHERE c.media.id = :media AND c.user.id = :user AND c.id = :id"),
     @NamedQuery(name = "Comment.findByDateMade", query = "SELECT c FROM Comment c WHERE c.dateMade = :dateMade")})
 public class Comment implements Serializable {
-
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected CommentPK commentPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "date_made")
     @Temporal(TemporalType.DATE)
-    private Date dateMade;
+    private Date dateMade = new Date();
+
     @Basic(optional = false)
     @NotNull
     @Lob
     @Size(min = 1, max = 65535)
     @Column(name = "content")
     private String content;
-    @JoinColumn(name = "user", referencedColumnName = "id", insertable = false, updatable = false)
+
+    @JoinColumn(name = "user", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private User user1;
-    @JoinColumn(name = "media", referencedColumnName = "id", insertable = false, updatable = false)
+    private User user;
+
+    @JoinColumn(name = "media", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Media media1;
+    private Media media;
 
     public Comment() {
     }
 
-    public Comment(CommentPK commentPK) {
-        this.commentPK = commentPK;
-    }
-
-    public Comment(CommentPK commentPK, Date dateMade, String content) {
-        this.commentPK = commentPK;
+    public Comment(Date dateMade, String content) {
         this.dateMade = dateMade;
         this.content = content;
     }
 
-    public Comment(int user, int media, int id) {
-        this.commentPK = new CommentPK(user, media, id);
+    public Comment(Integer id, Date dateMade, String content) {
+        this.id = id;
+        this.dateMade = dateMade;
+        this.content = content;
     }
 
-    public CommentPK getCommentPK() {
-        return commentPK;
+    public Comment(Integer id, Date dateMade, String content, User user, Media media) {
+        this.id = id;
+        this.dateMade = dateMade;
+        this.content = content;
+        this.user = user;
+        this.media = media;
     }
 
-    public void setCommentPK(CommentPK commentPK) {
-        this.commentPK = commentPK;
+    public Comment(Date dateMade, String content, User user, Media media) {
+        this.dateMade = dateMade;
+        this.content = content;
+        this.user = user;
+        this.media = media;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Date getDateMade() {
@@ -91,26 +99,26 @@ public class Comment implements Serializable {
         this.content = content;
     }
 
-    public User getUser1() {
-        return user1;
+    public User getUser() {
+        return user;
     }
 
-    public void setUser1(User user1) {
-        this.user1 = user1;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Media getMedia1() {
-        return media1;
+    public Media getMedia() {
+        return media;
     }
 
-    public void setMedia1(Media media1) {
-        this.media1 = media1;
+    public void setMedia(Media media) {
+        this.media = media;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (commentPK != null ? commentPK.hashCode() : 0);
+        hash += id;
         return hash;
     }
 
@@ -121,15 +129,13 @@ public class Comment implements Serializable {
             return false;
         }
         Comment other = (Comment) object;
-        if ((this.commentPK == null && other.commentPK != null) || (this.commentPK != null && !this.commentPK.equals(other.commentPK))) {
-            return false;
-        }
+
         return true;
     }
 
     @Override
     public String toString() {
-        return "fr.efrei.pandax.model.business.Comment[ commentPK=" + commentPK + " ]";
+        return "fr.efrei.pandax.model.business.Comment[ id=" + id + " ]";
     }
     
 }

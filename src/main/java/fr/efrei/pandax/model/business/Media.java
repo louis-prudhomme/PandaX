@@ -43,42 +43,52 @@ public class Media implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
     @Column(name = "title")
     private String title;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "published")
     @Temporal(TemporalType.DATE)
     private Date published;
+
     @Basic(optional = false)
     @NotNull
     @Lob
     @Size(min = 1, max = 65535)
     @Column(name = "descript")
     private String descript;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
     @Column(name = "image_url")
     private String imageUrl;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
     @Column(name = "city")
     private String city;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "media1")
     private Collection<Possession> possessionCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "media1")
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "media")
     private Collection<Comment> commentCollection;
+
     @JoinColumn(name = "user", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User user;
+
     @JoinColumn(name = "publisher", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Publisher publisher;
+
     @JoinColumn(name = "media_type", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private MediaType mediaType;

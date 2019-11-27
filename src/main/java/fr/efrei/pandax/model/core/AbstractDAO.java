@@ -101,7 +101,7 @@ public abstract class AbstractDAO<T> {
         TypedQuery<T> query = em.createNamedQuery(managedKlazz.getSimpleName() + ".findAll", managedKlazz);
         ArrayList<T> all = new ArrayList<>(query.getResultList());
         closeEntityManager();
-        return all; 
+        return all;
     }
 
     protected void openEntityManager() {
