@@ -64,7 +64,7 @@ public class User implements Serializable {
     private boolean isAdmin;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1")
     private Collection<Possession> possessionCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Collection<Comment> commentCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Collection<Media> mediaCollection;

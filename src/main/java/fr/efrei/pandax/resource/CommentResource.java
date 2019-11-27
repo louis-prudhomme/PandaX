@@ -27,7 +27,7 @@ public class CommentResource {
     @Path("{idComment}/media/{idMedia}/user/{idUser}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getOne(@PathParam("idComment")int idComment, @PathParam("idMedia")int idMedia, @PathParam("idUser")int idUser) {
-        Comment c = new CommentDAO().getByPk(new CommentPK(idUser, idMedia, idComment));
+        Comment c = new CommentDAO().getByPk(idComment, idMedia, idUser);
         return Response.ok(c).build();
     }
 
@@ -36,11 +36,10 @@ public class CommentResource {
     @Produces(MediaType.TEXT_PLAIN)
     public Response deleteOne(@PathParam("idComment")int idComment, @PathParam("idMedia")int idMedia, @PathParam("idUser")int idUser) {
         CommentDAO dao = new CommentDAO();
-        dao.delete(dao.getByPk(new CommentPK(idUser, idMedia, idComment)));
+        dao.delete(dao.getByPk(idComment, idMedia, idUser));
         return Response
                 .ok(uriInfo.getBaseUriBuilder()
                         .path(CommentResource.class)
-                        .path(CommentResource.class, "getAll")
                         .build()
                         .toString())
                 .build();
@@ -56,9 +55,9 @@ public class CommentResource {
                 .ok(uriInfo.getBaseUriBuilder()
                         .path(CommentResource.class)
                         .path(CommentResource.class, "getOne")
-                        .build(c.getCommentPK().getId(),
-                                c.getCommentPK().getMedia(),
-                                c.getCommentPK().getUser())
+                        .build(c.getId(),
+                                c.getMedia().getId(),
+                                c.getUser().getId())
                         .toString())
                 .build();
     }
@@ -68,14 +67,14 @@ public class CommentResource {
     @Produces(MediaType.TEXT_PLAIN)
     public Response createOne(@FormParam("comment")Comment c) {
         CommentDAO dao = new CommentDAO();
-        dao.create(c);
+        c = dao.create(c);
         return Response
                 .ok(uriInfo.getBaseUriBuilder()
                         .path(CommentResource.class)
                         .path(CommentResource.class, "getOne")
-                        .build(c.getCommentPK().getId(),
-                                c.getCommentPK().getMedia(),
-                                c.getCommentPK().getUser())
+                        .build(c.getId(),
+                                c.getMedia().getId(),
+                                c.getUser().getId())
                         .toString())
                 .build();
     }

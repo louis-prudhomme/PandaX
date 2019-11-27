@@ -43,10 +43,12 @@ public class CommentDAO extends AbstractDAO<Comment> {
         return comments;
     }
 
-    public Comment getByPk(CommentPK pk) {
+    public Comment getByPk(int idComment, int idMedia, int idUser) {
         openEntityManager();
         TypedQuery<Comment> query = em.createNamedQuery("Comment.findByPk", Comment.class);
-        query.setParameter("pk", pk);
+        query.setParameter("id", idComment);
+        query.setParameter("media", idMedia);
+        query.setParameter("user", idUser);
         Comment c = query.getSingleResult();
         closeEntityManager();
         return c;
