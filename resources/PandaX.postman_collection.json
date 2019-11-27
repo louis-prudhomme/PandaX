@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "21b1cd8e-bcb6-4ff1-8486-2fbac30175cd",
+		"_postman_id": "f6fa2a6c-477f-41ae-b1b1-49444f6a050d",
 		"name": "PandaX",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -140,10 +140,11 @@
 									"});",
 									"",
 									"pm.test(\"Return path is well formed\", function () {",
-									"    pm.expect(pm.response.stream.toString().split(\"/\").length).to.equal(6);",
+									"    pm.expect(pm.response.stream.toString().split(\"/\").length).to.equal(3);",
 									"});",
 									"",
-									"pm.collectionVariables.set(\"lastMediaTypeId\", pm.response.stream.toString().split(\"/\")[5]);"
+									"pm.collectionVariables.set(\"lastMediaTypeId\", pm.response.stream.toString().split(\"/\")[2]);",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -448,10 +449,10 @@
 									"});",
 									"",
 									"pm.test(\"Return path is well formed\", function () {",
-									"    pm.expect(pm.response.stream.toString().split(\"/\").length).to.equal(6);",
+									"    pm.expect(pm.response.stream.toString().split(\"/\").length).to.equal(3);",
 									"});",
 									"",
-									"pm.collectionVariables.set(\"lastPublisherId\", pm.response.stream.toString().split(\"/\")[5]);"
+									"pm.collectionVariables.set(\"lastPublisherId\", pm.response.stream.toString().split(\"/\")[2]);"
 								],
 								"type": "text/javascript"
 							}
@@ -1134,7 +1135,11 @@
 									"pm.test(\"Can get a media\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
-									"pm.collectionVariables.set(\"lastMedia\", pm.response.stream.toString());"
+									"pm.collectionVariables.set(\"lastMedia\", pm.response.stream.toString());",
+									"",
+									"pm.collectionVariables.set(\"lastMediaCity\",JSON.parse(pm.collectionVariables.get(\"lastMedia\")).city);",
+									"",
+									"pm.collectionVariables.set(\"lastMediaTitle\",JSON.parse(pm.collectionVariables.get(\"lastMedia\")).title);"
 								],
 								"type": "text/javascript"
 							}
@@ -1303,6 +1308,69 @@
 							],
 							"path": [
 								"media"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Media - get by city",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/media/?city={{lastMediaCity}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"media",
+								""
+							],
+							"query": [
+								{
+									"key": "city",
+									"value": "{{lastMediaCity}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Media - get by title",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/media/?title={{lastMediaTitle}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"media",
+								""
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "{{lastMediaTitle}}"
+								}
 							]
 						}
 					},
@@ -1587,147 +1655,159 @@
 	],
 	"variable": [
 		{
-			"id": "1ee4f10d-3aa0-4c76-8d70-5eb41e209cb9",
+			"id": "f95e0cb7-3d6b-43ee-a8e7-af5e19eb2f8c",
 			"key": "url",
 			"value": "localhost:8080/PandaX",
 			"type": "string"
 		},
 		{
-			"id": "5af7c96c-392c-4c9a-ad6b-53183566bd69",
+			"id": "fa9adcc4-7afe-45a4-b362-3c56fd1f5563",
 			"key": "token",
-			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1IiwiZXhwIjoxNTc1MzEwOTgwLCJpYXQiOjE1NzQ4Nzg5ODAsImlzcyI6IlBhbmRhWCBSRVNUIEFQSSIsInJvbCI6IkFETUlOIiwibmFtIjoicGFuZGEifQ.sVmkBvRX3o_rfsKffN7kKo4GtOw2wxy16TkQh6jrpK2ezO-5M0v4SuXbC1Zc817vsCIuOaNEAQhGQWWeKbm04w",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1IiwiZXhwIjoxNTc1MzE2NTMxLCJpYXQiOjE1NzQ4ODQ1MzEsImlzcyI6IlBhbmRhWCBSRVNUIEFQSSIsInJvbCI6IkFETUlOIiwibmFtIjoicGFuZGEifQ.xXk7Ra_lA8nUkdXVFnsMkiaDQwXIOHCFr3-dQycI43Ia4Vrbv2AlLu7-FJ1HxPMH3WhcAqJkeGmutMbFvPGwNw",
 			"type": "string"
 		},
 		{
-			"id": "a54d5d2a-cc95-49fc-bb7b-275a9bb8124e",
+			"id": "4ae43056-c877-4342-a6bb-4560507a34bd",
 			"key": "login",
 			"value": "panda",
 			"type": "string"
 		},
 		{
-			"id": "abc4a9a5-6830-4c39-bad1-9b6295a0cff6",
+			"id": "ef2b2089-15ce-45cf-bbdf-eea1f846861e",
 			"key": "password",
 			"value": "panda",
 			"type": "string"
 		},
 		{
-			"id": "1c644fb7-d366-41e9-ad78-99689601a40b",
+			"id": "3d8ad48f-28b1-4b4d-9c38-262325500352",
 			"key": "media",
 			"value": "{\"title\" : \"Kung Fu Panda\",\"published\" : \"2019-11-11\",\"city\" : \"KungFuLand\",\"descript\" : \"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",\"imageUrl\" : \"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",\"user\" : {\"id\":\"5\",\"pseudo\":\"panda\",\"pwd\":\"panda\",\"firstName\":\"Xi\",\"lastName\":\"Jinping\",\"isAdmin\":\"1\"},\"publisher\" :{\"id\":\"11\",\"denomination\":\"Metal Records\"},\"mediaType\" : {\"id\":\"1\",\"label\":\"Animation\"}}",
 			"type": "string"
 		},
 		{
-			"id": "f97defc9-8e03-4e58-83cb-f6bf23706d8a",
+			"id": "275ad83f-a0db-4da9-9e24-d0cbdc0348f8",
 			"key": "deleteId",
 			"value": "3",
 			"type": "string"
 		},
 		{
-			"id": "a8739948-4559-4b9e-a014-4fbce798c661",
+			"id": "f114c4fe-a9f4-48ff-b835-329e3582d5ae",
 			"key": "mediaId",
 			"value": "4",
 			"type": "string"
 		},
 		{
-			"id": "46507c52-eee4-48ce-83b7-ad61b585af7b",
+			"id": "d1d90a11-0a00-4cde-b221-b709fafb005c",
 			"key": "mediaType",
 			"value": "{\"label\":\"Test media type\"}",
 			"type": "string"
 		},
 		{
-			"id": "5d5de81d-09bf-4d10-8ef0-09abdeffb57a",
+			"id": "cb45a379-a29f-4a4a-a486-975d99307da2",
 			"key": "lastMediaTypeId",
-			"value": "23",
+			"value": "28",
 			"type": "string"
 		},
 		{
-			"id": "d5e7bc33-facd-4dc7-8294-aee6c225b72d",
+			"id": "b3020e7a-4f28-47e6-a58d-d6660d1e16df",
 			"key": "publisherTest",
 			"value": "{\"denomination\":\"Test publisher\"}",
 			"type": "string"
 		},
 		{
-			"id": "10358de3-84cb-4ea8-8c24-c5df01273d23",
+			"id": "41908c42-de16-4bfc-ac1a-f423e4fb899d",
 			"key": "lastPublisherId",
-			"value": "17",
+			"value": "14",
 			"type": "string"
 		},
 		{
-			"id": "7631d3b7-eee8-40ef-a16b-02a121acfe20",
+			"id": "a79558db-49b4-4866-8033-5ca4bee383fe",
 			"key": "mediaTypeTest",
 			"value": "{\"label\":\"Test media type\"}",
 			"type": "string"
 		},
 		{
-			"id": "4cecb580-ca96-48aa-bc62-125c2c9e6b4a",
+			"id": "bafc3348-76a0-4495-9463-fcb3883f1d8d",
 			"key": "userTest",
 			"value": "{\"pseudo\":\"user test\",\"pwd\":\"test\",\"firstName\":\"test\",\"lastName\":\"test\",\"isAdmin\":\"1\"}",
 			"type": "string"
 		},
 		{
-			"id": "7fbb82a0-aaad-4ee4-aab1-dbeb3192f030",
+			"id": "a92877c9-77a3-469a-9f21-edf8afcef264",
 			"key": "lastUserId",
-			"value": "10",
+			"value": "7",
 			"type": "string"
 		},
 		{
-			"id": "9d5a9c46-7cfb-4fcf-9102-c53818f0040a",
+			"id": "e204b47f-f9bb-484c-b4c9-ec121cb0e8a2",
 			"key": "mediaTest",
-			"value": "{\"title\" : \"Kung Fu Panda\",\"published\" : \"2019-11-11\",\"city\" : \"KungFuLand\",\"descript\" : \"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",\"imageUrl\" : \"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",\"user\" : {\"admin\":false,\"firstName\":\"test\",\"id\":10,\"lastName\":\"test\",\"pseudo\":\"user test\",\"pwd\":\"test\"},\"publisher\" :{\"denomination\":\"Test publisher\",\"id\":17},\"mediaType\" : {\"id\":23,\"label\":\"Test media type\"}}",
+			"value": "{\"title\" : \"Kung Fu Panda\",\"published\" : \"2019-11-11\",\"city\" : \"KungFuLand\",\"descript\" : \"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",\"imageUrl\" : \"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",\"user\" : {\"admin\":false,\"firstName\":\"test\",\"id\":6,\"lastName\":\"test\",\"pseudo\":\"user test\",\"pwd\":\"test\"},\"publisher\" :{\"denomination\":\"Test publisher\",\"id\":14},\"mediaType\" : {\"id\":28,\"label\":\"Test media type\"}}",
 			"type": "string"
 		},
 		{
-			"id": "49df1252-9400-427f-965c-8969aadf898b",
+			"id": "ec11c224-2103-45bf-92ec-dc378854f815",
 			"key": "lastMediaId",
-			"value": "2",
+			"value": "1",
 			"type": "string"
 		},
 		{
-			"id": "4c1a2e29-55a4-49e3-b679-9444ffdedb58",
+			"id": "2cc2ede7-a5ae-43a1-8cad-7aaecfdb28db",
 			"key": "lastUser",
-			"value": "{\"admin\":false,\"firstName\":\"test\",\"id\":10,\"lastName\":\"test\",\"pseudo\":\"user test\",\"pwd\":\"test\"}",
+			"value": "{\"admin\":false,\"firstName\":\"test\",\"id\":7,\"lastName\":\"test\",\"pseudo\":\"user test\",\"pwd\":\"test\"}",
 			"type": "string"
 		},
 		{
-			"id": "1bc331ad-20c6-4027-bf4a-94d17e36f5b0",
+			"id": "f06e78f6-f36e-4175-87f1-444b05041f85",
 			"key": "lastPublisher",
-			"value": "{\"denomination\":\"Test publisher\",\"id\":17}",
+			"value": "{\"denomination\":\"Test publisher\",\"id\":14}",
 			"type": "string"
 		},
 		{
-			"id": "45ed2614-0674-4977-bcc1-10c7445acbaf",
+			"id": "ac2928e8-5937-4931-8b1d-3c1cdcef70f1",
 			"key": "lastMediaType",
-			"value": "{\"id\":23,\"label\":\"Test media type\"}",
+			"value": "{\"id\":28,\"label\":\"Test media type\"}",
 			"type": "string"
 		},
 		{
-			"id": "4317cbd7-7eb9-413d-8729-da24ed2d1e9c",
+			"id": "5523cf22-ab32-4c46-8d67-0b8be6dfc311",
 			"key": "mediaToChange",
 			"value": "{\"id\" : 1,\"title\" : \"Kung Fu Panda 2 Updated\",\"published\" : \"2019-11-11\",\"city\" : \"KungFuLand\",\"descript\" : \"Lord Shen, the scion of a peacock clan that rules Gongmen City in ancient China, seeks to weaponize his family s recently invented fireworks. After discovering from the court s goat soothsayer that a warrior of black-and-white will defeat him if he does not change his ways, Shen leads an army of wolves to exterminate the panda population to avert the prophecy. Shens parents are horrified by this atrocity and exile him as punishment.\",\"imageUrl\" : \"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\"}",
 			"type": "string"
 		},
 		{
-			"id": "5c519959-496b-4aa2-bd7c-3dcd3e7dc453",
+			"id": "32e719de-67fe-4214-8c50-678fac63ae16",
 			"key": "lastMedia",
-			"value": "{\"city\":\"KungFuLand\",\"descript\":\"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",\"id\":2,\"imageUrl\":\"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",\"mediaType\":{\"id\":23,\"label\":\"Test media type\"},\"published\":\"2019-11-11T00:00:00+01:00\",\"publisher\":{\"denomination\":\"Test publisher\",\"id\":17},\"title\":\"Kung Fu Panda\",\"user\":{\"admin\":false,\"firstName\":\"test\",\"id\":10,\"lastName\":\"test\",\"pseudo\":\"user test\",\"pwd\":\"test\"}}",
+			"value": "{\"city\":\"KungFuLand\",\"descript\":\"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",\"id\":1,\"imageUrl\":\"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",\"mediaType\":{\"id\":28,\"label\":\"Test media type\"},\"published\":\"2019-11-11T00:00:00+01:00\",\"publisher\":{\"denomination\":\"Test publisher\",\"id\":14},\"title\":\"Kung Fu Panda\",\"user\":{\"admin\":false,\"firstName\":\"test\",\"id\":6,\"lastName\":\"test\",\"pseudo\":\"user test\",\"pwd\":\"test\"}}",
 			"type": "string"
 		},
 		{
-			"id": "b544296d-03c7-4f31-9853-a071d6b11176",
+			"id": "15cb399a-c10a-4fe4-99b6-646842055154",
 			"key": "lastCommentId",
 			"value": "h1><hr class=\"line\" ",
 			"type": "string"
 		},
 		{
-			"id": "8eba5541-64f9-41a4-97ff-b8d3e6980edb",
+			"id": "c596ddba-17fd-47e8-bc43-99a4bf1155cc",
 			"key": "lastComment",
-			"value": "[{\"city\":\"KungFuLand\",\"descript\":\"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",\"id\":2,\"imageUrl\":\"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",\"mediaType\":{\"id\":23,\"label\":\"Test media type\"},\"published\":\"2019-11-11T00:00:00+01:00\",\"publisher\":{\"denomination\":\"Test publisher\",\"id\":17},\"title\":\"Kung Fu Panda\",\"user\":{\"admin\":false,\"firstName\":\"test\",\"id\":10,\"lastName\":\"test\",\"pseudo\":\"user test\",\"pwd\":\"test\"}}]",
+			"value": "<!doctype html><html lang=\"fr\"><head><title>État HTTP 404 – Non trouvé</title><style type=\"text/css\">h1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} h2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} h3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} body {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} b {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} p {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;} a {color:black;} a.name {color:black;} .line {height:1px;background-color:#525D76;border:none;}</style></head><body><h1>État HTTP 404 – Non trouvé</h1><hr class=\"line\" /><p><b>Type</b> Rapport d'état</p><p><b>message</b> Not Found</p><p><b>description</b> La ressource demandée n'est pas disponible.</p><hr class=\"line\" /><h3>Apache Tomcat/8.5.47</h3></body></html>",
 			"type": "string"
 		},
 		{
-			"id": "6cc73e87-f017-48dd-aae4-d3b91bfa948c",
+			"id": "0441a1dd-3a7f-4086-bd3a-29981046610c",
 			"key": "commentTest",
-			"value": "{    \"content\": \"test\",    \"media\": {\"city\":\"KungFuLand\",\"descript\":\"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",\"id\":1,\"imageUrl\":\"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",\"mediaType\":{\"id\":19,\"label\":\"Test media type\"},\"published\":\"2019-11-11T00:00:00+01:00\",\"publisher\":{\"denomination\":\"Test publisher\",\"id\":13},\"title\":\"Kung Fu Panda\",\"user\":{\"admin\":false,\"firstName\":\"test\",\"id\":6,\"lastName\":\"test\",\"pseudo\":\"user test\",\"pwd\":\"test\"}},    \"user\": {\"admin\":false,\"firstName\":\"test\",\"id\":6,\"lastName\":\"test\",\"pseudo\":\"user test\",\"pwd\":\"test\"}}",
+			"value": "{    \"content\": \"test\",    \"media\": {\"city\":\"KungFuLand\",\"descript\":\"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",\"id\":1,\"imageUrl\":\"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",\"mediaType\":{\"id\":28,\"label\":\"Test media type\"},\"published\":\"2019-11-11T00:00:00+01:00\",\"publisher\":{\"denomination\":\"Test publisher\",\"id\":14},\"title\":\"Kung Fu Panda\",\"user\":{\"admin\":false,\"firstName\":\"test\",\"id\":6,\"lastName\":\"test\",\"pseudo\":\"user test\",\"pwd\":\"test\"}},    \"user\": {\"admin\":false,\"firstName\":\"test\",\"id\":7,\"lastName\":\"test\",\"pseudo\":\"user test\",\"pwd\":\"test\"}}",
+			"type": "string"
+		},
+		{
+			"id": "5eb63aae-bb96-4c69-abb5-e60cd7c11ec6",
+			"key": "lastMediaCity",
+			"value": "KungFuLand",
+			"type": "string"
+		},
+		{
+			"id": "8db7d8e6-186c-4237-a450-1ad155aa9b81",
+			"key": "lastMediaTitle",
+			"value": "Kung Fu Panda",
 			"type": "string"
 		}
 	],

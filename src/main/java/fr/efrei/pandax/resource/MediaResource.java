@@ -9,11 +9,13 @@ import fr.efrei.pandax.security.Secured;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Secured
 @Path("media")
 public class MediaResource {
+    private List<Media> medias;
     @Context
     UriInfo uriInfo;
     /**
@@ -23,9 +25,21 @@ public class MediaResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAll() {
-        //todo document that shit
-        List<Media> medias = new MediaDAO().getAll();
+    public Response getAll(
+            @DefaultValue("null") @QueryParam("city") String city,
+            @DefaultValue("null") @QueryParam("title") String title
+    ) {
+
+        if(city.equals("null") && title.equals("null")){
+            medias = new MediaDAO().getAll();
+        }else if(city.equals("null") && !title.equals("null")){
+            medias = new MediaDAO().getMediaByTitle(title);
+        }else if(!city.equals("null") && title.equals("null")){
+            medias = new MediaDAO().getMediaByCity(city);
+        }else if(!city.equals("null") && !title.equals("null")){
+            medias = new MediaDAO().getMediaByCity(city);
+            medias.addAll(new MediaDAO().getMediaByTitle(title));
+        }
         return Response.ok(new GenericEntity<>(medias) {}).build();
     }
     
@@ -105,4 +119,5 @@ public class MediaResource {
                     .build(idComment, idMedia, idUser))
                 .build();
     }
+
 }
