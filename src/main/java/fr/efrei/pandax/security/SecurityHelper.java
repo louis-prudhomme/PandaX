@@ -5,7 +5,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,9 +16,6 @@ import static fr.efrei.pandax.utils.Constants.*;
  * It essentially generates some utilities to ease its usage.
  */
 public class SecurityHelper {
-    @Context
-    HttpHeaders headers;
-
     /**
      * Generates an expiration date, which is a {@link Date} pointing in the future.
      * The time skew is defined in the application properties file.
@@ -47,8 +43,9 @@ public class SecurityHelper {
      * @param expectedId for the user
      * @return true if the user is allowed
      */
-    public boolean isIncomingUserExpected(int expectedId) {
+    private boolean isIncomingUserExpected(HttpHeaders headers, int expectedId) {
         return Integer.parseInt(Jwts.parser()
+                .setSigningKey(generateSecretKey())
                 .parseClaimsJws(headers
                     .getRequestHeader(HttpHeaders.AUTHORIZATION)
                     .get(0))
@@ -60,12 +57,17 @@ public class SecurityHelper {
      * Checks if the user originating the request is an admin
      * @return true if the user is an admin
      */
-    public boolean isIncomingUserAdmin() {
+    private boolean isIncomingUserAdmin(HttpHeaders headers) {
         return Role.fromString(Jwts.parser()
+                .setSigningKey(generateSecretKey())
                 .parseClaimsJws(headers
                     .getRequestHeader(HttpHeaders.AUTHORIZATION)
                     .get(0))
                 .getBody()
                 .get("rol", String.class)) == Role.ADMIN;
+    }
+
+    public boolean isIncomingUserAlien(HttpHeaders headers, int expectedId) {
+        return !isIncomingUserAdmin(headers) && !isIncomingUserExpected(headers, expectedId);
     }
 }

@@ -4,6 +4,7 @@ import fr.efrei.pandax.model.business.Comment;
 import fr.efrei.pandax.model.business.CommentPK;
 import fr.efrei.pandax.model.core.CommentDAO;
 import fr.efrei.pandax.security.Secured;
+import fr.efrei.pandax.security.SecurityHelper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
@@ -17,6 +18,11 @@ import java.util.List;
 public class CommentResource {
     @Context
     UriInfo uriInfo;
+
+    @Context
+    private HttpHeaders headers;
+
+    SecurityHelper securityHelper = new SecurityHelper();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -38,7 +44,12 @@ public class CommentResource {
     @Produces(MediaType.TEXT_PLAIN)
     public Response deleteOne(@PathParam("idComment")int idComment, @PathParam("idMedia")int idMedia, @PathParam("idUser")int idUser) {
         CommentDAO dao = new CommentDAO();
-        dao.delete(dao.getByPk(idComment, idMedia, idUser));
+        Comment c = dao.getByPk(idComment, idMedia, idUser);
+
+        if(securityHelper.isIncomingUserAlien(headers, c.getUser().getId()))
+            return Response.status(Response.Status.FORBIDDEN).build();
+
+        dao.delete(c);
         return Response
                 .ok(uriInfo.getBaseUriBuilder()
                         .path(CommentResource.class)
@@ -51,6 +62,9 @@ public class CommentResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
     public Response updateOne(@FormParam("comment")Comment c) {
+        if(securityHelper.isIncomingUserAlien(headers, c.getUser().getId()))
+            return Response.status(Response.Status.FORBIDDEN).build();
+
         CommentDAO dao = new CommentDAO();
         dao.modify(c);
         return Response
@@ -68,6 +82,9 @@ public class CommentResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
     public Response createOne(@FormParam("comment")Comment c) {
+        if(securityHelper.isIncomingUserAlien(headers, c.getUser().getId()))
+            return Response.status(Response.Status.FORBIDDEN).build();
+
         CommentDAO dao = new CommentDAO();
         c = dao.create(c);
         return Response

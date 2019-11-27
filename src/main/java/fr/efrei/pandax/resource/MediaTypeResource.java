@@ -23,11 +23,11 @@ public class MediaTypeResource {
     UriInfo uriInfo;
 
     @GET
-    @Secured({Role.USER, Role.ADMIN})
+    @Secured
     @Produces(APPLICATION_JSON)
     public Response getAll() {
         List<MediaType> all = new MediaTypeDAO().getAll();
-        return Response.ok(new GenericEntity<>(all) {}).build();
+        return Response.ok(new GenericEntity<>(all) { }).build();
     }
 
     @POST
@@ -51,14 +51,13 @@ public class MediaTypeResource {
         return Response
                 .ok(uriInfo.getBaseUriBuilder()
                     .path(MediaTypeResource.class)
-                    .path(MediaTypeResource.class, "getAll")
                     .build().toString())
                 .build();
     }
 
     @GET
     @Path("/{id}")
-    @Secured({Role.USER, Role.ADMIN})
+    @Secured
     @Produces(APPLICATION_JSON)
     public Response getOne(@PathParam("id")int id) {
         return Response.ok(
@@ -68,7 +67,7 @@ public class MediaTypeResource {
 
     @PUT
     @Consumes(APPLICATION_FORM_URLENCODED)
-    public Response updateOne(@FormParam("mediatype")MediaType type) {
+    public Response updateOne(@FormParam("mediatype") MediaType type) {
         type = new MediaTypeDAO().modify(type);
         return Response
                 .ok(uriInfo.getBaseUriBuilder()
@@ -84,6 +83,7 @@ public class MediaTypeResource {
      * @return an {@link List} of all matching {@link Media}
      */
     @GET
+    @Secured
     @Path("/{idMediaType}/media")
     public Response getMediaForType(@PathParam("idMediaType")int idMedia) {
         List<Media> media = new MediaDAO().getAllForType(idMedia);

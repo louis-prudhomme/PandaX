@@ -18,7 +18,7 @@ public class PublisherResource {
     UriInfo uriInfo;
 
     @GET
-    @Secured({Role.USER, Role.ADMIN})
+    @Secured
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
         List<Publisher> all = new PublisherDAO().getAll();
@@ -46,14 +46,13 @@ public class PublisherResource {
         return Response
                 .ok(uriInfo.getBaseUriBuilder()
                     .path(PublisherResource.class)
-                    .path(PublisherResource.class, "getAll")
                     .build().toString())
                 .build();
     }
 
     @GET
     @Path("/{id}")
-    @Secured({Role.USER, Role.ADMIN})
+    @Secured
     @Produces(MediaType.APPLICATION_JSON)
     public Response getOne(@PathParam("id")int id) {
         return Response.ok(new PublisherDAO().read(id)).build();
@@ -77,6 +76,7 @@ public class PublisherResource {
      * @return an {@link List} of all matching {@link Media}
      */
     @GET
+    @Secured
     @Path("/{idPublisher}/media")
     public Response getMediaForType(@PathParam("idPublisher")int idMedia) {
         List<Media> media = new MediaDAO().getAllForPublisher(idMedia);

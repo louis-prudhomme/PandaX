@@ -18,10 +18,13 @@ import static javax.ws.rs.core.MediaType.*;
 @Secured
 @Path("user")
 public class UserResource {
-    SecurityHelper securityHelper;
+    private SecurityHelper securityHelper = new SecurityHelper();
 
     @Context
-    UriInfo uriInfo;
+    private HttpHeaders headers;
+
+    @Context
+    private UriInfo uriInfo;
 
     @GET
     @Produces(APPLICATION_JSON)
@@ -33,7 +36,7 @@ public class UserResource {
     @POST
     @Secured(Role.ADMIN)
     @Consumes(APPLICATION_FORM_URLENCODED)
-    public Response createOne(@FormParam("user") User user) {
+    public Response createOne(@FormParam("user")User user) {
         user = new UserDAO().create(user);
         return Response
                 .ok(uriInfo.getBaseUriBuilder()
@@ -53,7 +56,6 @@ public class UserResource {
         return Response
                 .ok(uriInfo.getBaseUriBuilder()
                         .path(UserResource.class)
-                        .path(UserResource.class, "getAll")
                         .build().toString())
                 .build();
     }
@@ -67,10 +69,10 @@ public class UserResource {
 
     @PUT
     @Consumes(APPLICATION_FORM_URLENCODED)
-    public Response updateOne(@FormParam("user") User user) {
-        if(!securityHelper.isIncomingUserAdmin() &&
-                !securityHelper.isIncomingUserExpected(user.getId()))
+    public Response updateOne(@FormParam("user") User user, @Context HttpHeaders headers) {
+        if(securityHelper.isIncomingUserAlien(headers, user.getId()))
             return Response.status(Response.Status.FORBIDDEN).build();
+
         user = new UserDAO().modify(user);
         return Response
                 .ok(uriInfo.getBaseUriBuilder()
@@ -83,7 +85,7 @@ public class UserResource {
     @GET
     @Path("/{id}/media")
     @Produces(APPLICATION_JSON)
-    public Response getUserPossession(@PathParam("id") int id) {
+    public Response getUserPossession(@PathParam("id")int id) {
         List<Media> allPossessions = new UserDAO().getAllPossessions(id);
         return Response.ok(new GenericEntity<>(allPossessions) {}).build();
     }
@@ -93,7 +95,7 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllComment(@PathParam("id")int id) {
         List<Comment> comments = new CommentDAO().getByUser(id);
-        return Response.ok(new GenericEntity<>(comments){}).build();
+        return Response.ok(new GenericEntity<>(comments) {}).build();
     }
     
     @GET
