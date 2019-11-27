@@ -33,7 +33,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Media.findByTitle", query = "SELECT m FROM Media m WHERE m.title = :title"),
     @NamedQuery(name = "Media.findByPublished", query = "SELECT m FROM Media m WHERE m.published = :published"),
     @NamedQuery(name = "Media.findByImageUrl", query = "SELECT m FROM Media m WHERE m.imageUrl = :imageUrl"),
-    @NamedQuery(name = "Media.findByCity", query = "SELECT m FROM Media m WHERE m.city = :city")})
+    @NamedQuery(name = "Media.findByCity", query = "SELECT m FROM Media m WHERE m.city = :city"),
+    @NamedQuery(name = "Media.findByUser", query = "SELECT m FROM Media m WHERE m.id in (SELECT p.possessionPK.media FROM Possession p WHERE p.possessionPK.user = :user)")})
 public class Media implements Serializable {
 
     private static final long serialVersionUID = 1L;
