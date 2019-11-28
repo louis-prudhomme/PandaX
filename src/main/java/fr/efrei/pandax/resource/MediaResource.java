@@ -25,26 +25,14 @@ public class MediaResource {
     UriInfo uriInfo;
 
     /**
-     * Returns all the {@link Media} in database.
+     * Returns all the {@link Media} in database with regard to any parameter.
      * @return list of all {@link Media}
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAll(
-            @DefaultValue("null") @QueryParam("city")String city,
-            @DefaultValue("null") @QueryParam("title")String title
-    ) {
-
-        if(city.equals("null") && title.equals("null")){
-            medias = new MediaDAO().getAll();
-        }else if(city.equals("null") && !title.equals("null")){
-            medias = new MediaDAO().getMediaByTitle(title);
-        }else if(!city.equals("null") && title.equals("null")){
-            medias = new MediaDAO().getMediaByCity(city);
-        }else if(!city.equals("null") && !title.equals("null")){
-            medias = new MediaDAO().getMediaByCity(city);
-            medias.addAll(new MediaDAO().getMediaByTitle(title));
-        }
+    public Response getAll(@QueryParam("title")@DefaultValue("")String title,
+                           @QueryParam("city")@DefaultValue("")String city) {
+        medias = new MediaDAO().getAll(title, city);
         return Response.ok(new GenericEntity<>(medias) {}).build();
     }
     

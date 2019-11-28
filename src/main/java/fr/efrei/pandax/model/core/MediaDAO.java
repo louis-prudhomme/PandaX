@@ -3,34 +3,33 @@ package fr.efrei.pandax.model.core;
 import fr.efrei.pandax.model.business.Media;
 import fr.efrei.pandax.model.business.MediaType;
 import fr.efrei.pandax.model.business.Publisher;
+import org.hibernate.criterion.MatchMode;
 
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
 public class MediaDAO extends AbstractDAO<Media> {
-    private TypedQuery<Media> mediaQuery;
-
     public MediaDAO(){
         super(Media.class);
     }
 
-    public ArrayList<Media> getMediaByCity(String city){
+    /**
+     * Returns a {@link List} of all the {@link Media}.
+     * Allows parameter matching for {@link Media#title} and {@link Media#city}
+     * @param title complete or approximate {@link Media#title}
+     * @param city complete or approximate {@link Media#city}
+     * @return {@link List} of all the matching {@link Media}
+     */
+    public List<Media> getAll(String title, String city) {
         openEntityManager();
-         mediaQuery= em.createNamedQuery("Media.findByCity", Media.class);
-        mediaQuery.setParameter("city", city);
-        ArrayList<Media> mediaList = (ArrayList<Media>) mediaQuery.getResultList();
-        closeEntityManager();
-        return mediaList;
-    }
-
-    public ArrayList<Media> getMediaByTitle(String title){
-        openEntityManager();
-        mediaQuery = em.createNamedQuery("Media.findByTitle", Media.class);
-        mediaQuery.setParameter("title", title);
-        ArrayList<Media> mediaList = (ArrayList<Media>) mediaQuery.getResultList();
+        TypedQuery<Media> mediaQuery = em.createNamedQuery("Media.findAll", Media.class);
+        mediaQuery.setParameter("city",
+                MatchMode.ANYWHERE.toMatchString(city));
+        mediaQuery.setParameter("title",
+                MatchMode.ANYWHERE.toMatchString(title));
+        List<Media> mediaList = mediaQuery.getResultList();
         closeEntityManager();
         return mediaList;
     }

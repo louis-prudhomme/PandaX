@@ -26,20 +26,18 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "media")
 @NamedQueries({
-    @NamedQuery(name = "Media.findAll", query = "SELECT m FROM Media m"),
+    @NamedQuery(name = "Media.findAll", query = "SELECT m FROM Media m "  +
+            "WHERE m.title LIKE :title " +
+            "AND m.city LIKE :city"),
     @NamedQuery(name = "Media.findById", query = "SELECT m FROM Media m " +
             "WHERE m.id = :id"),
-    @NamedQuery(name = "Media.findByTitle", query = "SELECT m FROM Media m " +
-            "WHERE m.title = :title"),
     @NamedQuery(name = "Media.findByUser", query = "SELECT m FROM Media m " +
             "WHERE m.id in " +
             "(SELECT p.possessionPK.media FROM Possession p WHERE p.possessionPK.user = :user)"),
     @NamedQuery(name = "Media.findByMediaType", query = "SELECT m FROM Media m " +
             "WHERE m.mediaType.id = :mediaType"),
     @NamedQuery(name = "Media.findByPublisher", query = "SELECT m FROM Media m " +
-            "WHERE m.publisher.id = :publisher"),
-    @NamedQuery(name = "Media.findByCity", query = "SELECT m FROM Media m " +
-            "WHERE m.city = :city")})
+            "WHERE m.publisher.id = :publisher")})
 public class Media implements Serializable, IDTO {
     private static final long serialVersionUID = 1L;
 
