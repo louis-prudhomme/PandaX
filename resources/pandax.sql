@@ -65,8 +65,7 @@ CREATE TABLE comment
 ,id int(32) NOT NULL AUTO_INCREMENT
 ,date_made date NOT NULL
 ,content text NOT NULL
-,KEY (id)
-,PRIMARY KEY (user, media, id)
+,PRIMARY KEY (id)
 ,FOREIGN KEY (user) REFERENCES user(id)
 ,FOREIGN KEY (media) REFERENCES media(id)
 );

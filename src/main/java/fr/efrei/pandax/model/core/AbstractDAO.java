@@ -61,6 +61,7 @@ public abstract class AbstractDAO<T> {
             managedObject = em.merge(managedObject);
         }
         em.remove(managedObject);
+        em.flush();
         em.getTransaction().commit();
         closeEntityManager();
     }
@@ -73,6 +74,7 @@ public abstract class AbstractDAO<T> {
         openEntityManager();
         em.getTransaction().begin();
         em.merge(managedObject);
+        em.flush();
         em.getTransaction().commit();
         closeEntityManager();
         return managedObject;

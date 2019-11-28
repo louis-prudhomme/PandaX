@@ -23,26 +23,29 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Publisher.findAll", query = "SELECT p FROM Publisher p"),
-    @NamedQuery(name = "Publisher.findById", query = "SELECT p FROM Publisher p WHERE p.id = :id"),
-    @NamedQuery(name = "Publisher.findByDenomination", query = "SELECT p FROM Publisher p WHERE p.denomination = :denomination")})
+    @NamedQuery(name = "Publisher.findById", query = "SELECT p FROM Publisher p " +
+            "WHERE p.id = :id"),
+    @NamedQuery(name = "Publisher.findByDenomination", query = "SELECT p FROM Publisher p " +
+            "WHERE p.denomination = :denomination")})
 public class Publisher implements Serializable {
-
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
     @Column(name = "denomination")
     private String denomination;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "publisher")
     private Collection<Media> mediaCollection;
 
-    public Publisher() {
-    }
+    public Publisher() {}
 
     public Publisher(Integer id) {
         this.id = id;

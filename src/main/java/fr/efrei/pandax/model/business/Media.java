@@ -21,24 +21,28 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "media")
 @NamedQueries({
     @NamedQuery(name = "Media.findAll", query = "SELECT m FROM Media m"),
-    @NamedQuery(name = "Media.findById", query = "SELECT m FROM Media m WHERE m.id = :id"),
-    @NamedQuery(name = "Media.findByTitle", query = "SELECT m FROM Media m WHERE m.title = :title"),
-    @NamedQuery(name = "Media.findByPublished", query = "SELECT m FROM Media m WHERE m.published = :published"),
-    @NamedQuery(name = "Media.findByUser", query = "SELECT m FROM Media m WHERE m.id in " +
+    @NamedQuery(name = "Media.findById", query = "SELECT m FROM Media m " +
+            "WHERE m.id = :id"),
+    @NamedQuery(name = "Media.findByTitle", query = "SELECT m FROM Media m " +
+            "WHERE m.title = :title"),
+    @NamedQuery(name = "Media.findByUser", query = "SELECT m FROM Media m " +
+            "WHERE m.id in " +
             "(SELECT p.possessionPK.media FROM Possession p WHERE p.possessionPK.user = :user)"),
-    @NamedQuery(name = "Media.findByMediaType", query = "SELECT m FROM Media m WHERE m.mediaType.id = :mediaType"),
-    @NamedQuery(name = "Media.findByPublisher", query = "SELECT m FROM Media m WHERE m.publisher.id = :publisher"),
-    @NamedQuery(name = "Media.findByCity", query = "SELECT m FROM Media m WHERE m.city = :city")})
+    @NamedQuery(name = "Media.findByMediaType", query = "SELECT m FROM Media m " +
+            "WHERE m.mediaType.id = :mediaType"),
+    @NamedQuery(name = "Media.findByPublisher", query = "SELECT m FROM Media m " +
+            "WHERE m.publisher.id = :publisher"),
+    @NamedQuery(name = "Media.findByCity", query = "SELECT m FROM Media m " +
+            "WHERE m.city = :city")})
 public class Media implements Serializable {
-
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -94,8 +98,7 @@ public class Media implements Serializable {
     @ManyToOne(optional = false)
     private MediaType mediaType;
 
-    public Media() {
-    }
+    public Media() {}
 
     public Media(Integer id) {
         this.id = id;

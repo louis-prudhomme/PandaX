@@ -14,35 +14,35 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "possession")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Possession.findAll", query = "SELECT p FROM Possession p"),
-    @NamedQuery(name = "Possession.findByUser", query = "SELECT p FROM Possession p WHERE p.possessionPK.user = :user"),
-    @NamedQuery(name = "Possession.findByMedia", query = "SELECT p FROM Possession p WHERE p.possessionPK.media = :media"),
-    @NamedQuery(name = "Possession.findByDateAcquired", query = "SELECT p FROM Possession p WHERE p.dateAcquired = :dateAcquired")})
+    @NamedQuery(name = "Possession.findByUser", query = "SELECT p FROM Possession p " +
+            "WHERE p.possessionPK.user = :user"),
+    @NamedQuery(name = "Possession.findByMedia", query = "SELECT p FROM Possession p " +
+            "WHERE p.possessionPK.media = :media")})
 public class Possession implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected PossessionPK possessionPK;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "date_acquired")
     @Temporal(TemporalType.DATE)
     private Date dateAcquired;
+
     @JoinColumn(name = "user", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private User user1;
+
     @JoinColumn(name = "media", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Media media1;
 
-    public Possession() {
-    }
+    public Possession() {}
 
     public Possession(PossessionPK possessionPK) {
         this.possessionPK = possessionPK;

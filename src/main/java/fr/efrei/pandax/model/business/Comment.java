@@ -5,20 +5,24 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "comment")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Comment.findAll", query = "SELECT c FROM Comment c"),
-    @NamedQuery(name = "Comment.findByUser", query = "SELECT c FROM Comment c WHERE c.user.id = :user"),
-    @NamedQuery(name = "Comment.findByMedia", query = "SELECT c FROM Comment c WHERE c.media.id = :media"),
-    @NamedQuery(name = "Comment.findByMediaAndUser", query = "SELECT c FROM Comment c WHERE c.media.id = :media AND c.user.id = :user"),
-    @NamedQuery(name = "Comment.findByPk", query = "SELECT c FROM Comment c WHERE c.media.id = :media AND c.user.id = :user AND c.id = :id"),
-    @NamedQuery(name = "Comment.findByDateMade", query = "SELECT c FROM Comment c WHERE c.dateMade = :dateMade")})
+    @NamedQuery(name = "Comment.findById", query = "SELECT m FROM Media m " +
+            "WHERE m.id = :id"),
+    @NamedQuery(name = "Comment.findByUser", query = "SELECT c FROM Comment c " +
+            "WHERE c.user.id = :user"),
+    @NamedQuery(name = "Comment.findByMedia", query = "SELECT c FROM Comment c " +
+            "WHERE c.media.id = :media"),
+    @NamedQuery(name = "Comment.findByMediaAndUser", query = "SELECT c FROM Comment c " +
+            "WHERE c.media.id = :media AND c.user.id = :user"),
+    @NamedQuery(name = "Comment.findByPk", query = "SELECT c FROM Comment c " +
+            "WHERE c.media.id = :media AND c.user.id = :user AND c.id = :id")})
 public class Comment implements Serializable {
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -46,8 +50,7 @@ public class Comment implements Serializable {
     @ManyToOne(optional = false)
     private Media media;
 
-    public Comment() {
-    }
+    public Comment() {}
 
     public Comment(Date dateMade, String content) {
         this.dateMade = dateMade;
@@ -129,7 +132,9 @@ public class Comment implements Serializable {
             return false;
         }
         Comment other = (Comment) object;
-
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
         return true;
     }
 

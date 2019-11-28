@@ -4,9 +4,7 @@ import fr.efrei.pandax.model.business.Media;
 import fr.efrei.pandax.model.business.User;
 
 import javax.ejb.Stateless;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
 import java.util.List;
 
 @Stateless

@@ -25,16 +25,13 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
-    @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
-    @NamedQuery(name = "User.findByPseudo", query = "SELECT u FROM User u WHERE u.pseudo = :pseudo"),
-    @NamedQuery(name = "User.findByPwd", query = "SELECT u FROM User u WHERE u.pwd = :pwd"),
-    @NamedQuery(name = "User.findByFirstName", query = "SELECT u FROM User u WHERE u.firstName = :firstName"),
-    @NamedQuery(name = "User.findByLastName", query = "SELECT u FROM User u WHERE u.lastName = :lastName"),
-    @NamedQuery(name = "User.findByIsAdmin", query = "SELECT u FROM User u WHERE u.isAdmin = :isAdmin"),
-    @NamedQuery(name = "User.checkCred", query = "SELECT u FROM User u WHERE u.pseudo = :pseudo AND u.pwd = :pwd")})
+    @NamedQuery(name = "User.findById", query = "SELECT u FROM User u " +
+            "WHERE u.id = :id"),
+    @NamedQuery(name = "User.checkCred", query = "SELECT u FROM User u " +
+            "WHERE u.pseudo = :pseudo AND u.pwd = :pwd")})
 public class User implements Serializable {
-
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -81,8 +78,7 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Collection<Media> mediaCollection;
 
-    public User() {
-    }
+    public User() { }
 
     public User(Integer id) {
         this.id = id;

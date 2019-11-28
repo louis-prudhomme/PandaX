@@ -20,11 +20,12 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "media_type")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "MediaType.findAll", query = "SELECT m FROM MediaType m"),
-    @NamedQuery(name = "MediaType.findById", query = "SELECT m FROM MediaType m WHERE m.id = :id"),
-    @NamedQuery(name = "MediaType.findByLabel", query = "SELECT m FROM MediaType m WHERE m.label = :label")})
+    @NamedQuery(name = "MediaType.findById", query = "SELECT m FROM MediaType m " +
+            "WHERE m.id = :id"),
+    @NamedQuery(name = "MediaType.findByLabel", query = "SELECT m FROM MediaType m " +
+            "WHERE m.label = :label")})
 public class MediaType implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,8 +42,7 @@ public class MediaType implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "mediaType")
     private Collection<Media> mediaCollection;
 
-    public MediaType() {
-    }
+    public MediaType() {}
 
     public MediaType(Integer id) {
         this.id = id;

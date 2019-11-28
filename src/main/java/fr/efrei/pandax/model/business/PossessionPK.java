@@ -13,6 +13,7 @@ public class PossessionPK implements Serializable {
     @NotNull
     @Column(name = "user")
     private int user;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "media")
