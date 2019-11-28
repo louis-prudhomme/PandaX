@@ -31,4 +31,6 @@ public class UserDAO extends AbstractDAO<User> {
         closeEntityManager();
         return mediaList;
     }
+
+
 }
