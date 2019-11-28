@@ -130,6 +130,9 @@ public class UserResource {
     @Path("{idUser}/media/{idMedia}")
     @Consumes(APPLICATION_FORM_URLENCODED)
     public Response createOnePossession(@PathParam("idUser")int idUser, @PathParam("idMedia") int idMedia){
+        if(securityHelper.isIncomingUserAlien(headers, idUser))
+            return Response.status(Response.Status.FORBIDDEN).build();
+
         Possession possession = new Possession();
         possession.setPossessionPK(new PossessionPK(idUser,idMedia));
         new PossessionDAO().create(possession);
@@ -145,6 +148,9 @@ public class UserResource {
     @Path("{idUser}/media/{idMedia}")
     @Produces(APPLICATION_JSON)
     public Response deleteOnePossession(@PathParam("idUser")int idUser, @PathParam("idMedia") int idMedia) {
+        if(securityHelper.isIncomingUserAlien(headers, idUser))
+            return Response.status(Response.Status.FORBIDDEN).build();
+
         PossessionDAO dao = new PossessionDAO();
         dao.deletePossession(dao.readPossession(idUser,idMedia));
         return Response
