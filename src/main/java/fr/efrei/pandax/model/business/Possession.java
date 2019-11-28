@@ -4,17 +4,7 @@ import jdk.jshell.spi.ExecutionControl;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -24,7 +14,9 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "Possession.findByUser", query = "SELECT p FROM Possession p " +
             "WHERE p.possessionPK.user = :user"),
     @NamedQuery(name = "Possession.findByMedia", query = "SELECT p FROM Possession p " +
-            "WHERE p.possessionPK.media = :media")})
+            "WHERE p.possessionPK.media = :media"),
+    @NamedQuery(name = "Possession.findByUserAndMedia", query = "SELECT p FROM Possession p WHERE p.possessionPK.user =:user and p.possessionPK.media =:media")})
+
 public class Possession implements Serializable, IDTO {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -91,6 +83,10 @@ public class Possession implements Serializable, IDTO {
         this.media1 = media1;
     }
 
+    @PrePersist
+    public void setPossessionDate() {
+        this.dateAcquired = new Date();
+    }
     @Override
     public Integer getId() {
         throw new UnsupportedOperationException();

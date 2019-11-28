@@ -1,9 +1,8 @@
 package fr.efrei.pandax.resource;
 
-import fr.efrei.pandax.model.business.Media;
-import fr.efrei.pandax.model.business.Comment;
-import fr.efrei.pandax.model.business.User;
+import fr.efrei.pandax.model.business.*;
 import fr.efrei.pandax.model.core.CommentDAO;
+import fr.efrei.pandax.model.core.PossessionDAO;
 import fr.efrei.pandax.model.core.UserDAO;
 import fr.efrei.pandax.security.Role;
 import fr.efrei.pandax.security.Secured;
@@ -11,6 +10,7 @@ import fr.efrei.pandax.security.SecurityHelper;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 import static javax.ws.rs.core.MediaType.*;
@@ -70,6 +70,7 @@ public class UserResource {
     @PUT
     @Consumes(APPLICATION_FORM_URLENCODED)
     public Response updateOne(@FormParam("user") User user, @Context HttpHeaders headers) {
+        //TODO
         if(securityHelper.isIncomingUserAlien(headers, user.getId()))
             return Response.status(Response.Status.FORBIDDEN).build();
 
@@ -121,4 +122,33 @@ public class UserResource {
                     .build(idComment, idMedia, idUser))
                 .build();
     }
+
+    @POST
+    @Path("{idUser}/media/{idMedia}")
+    @Consumes(APPLICATION_FORM_URLENCODED)
+    public Response createOnePossession(@PathParam("idUser")int idUser, @PathParam("idMedia") int idMedia){
+        Possession possession = new Possession();
+        possession.setPossessionPK(new PossessionPK(idUser,idMedia));
+        new PossessionDAO().create(possession);
+        return Response
+                .ok(uriInfo.getBaseUriBuilder()
+                        .path(UserResource.class)
+                        .path(UserResource.class, "getUserPossession")
+                        .build(possession.getPossessionPK().getUser(), possession.getPossessionPK().getMedia()).toString())
+                .build();
+    }
+
+    @DELETE
+    @Path("{idUser}/media/{idMedia}")
+    @Produces(APPLICATION_JSON)
+    public Response deleteOnePossession(@PathParam("idUser")int idUser, @PathParam("idMedia") int idMedia) {
+        PossessionDAO dao = new PossessionDAO();
+        dao.deletePossession(dao.readPossession(idUser,idMedia));
+        return Response
+                .ok(uriInfo.getBaseUriBuilder()
+                        .path(UserResource.class)
+                        .build().toString())
+                .build();
+    }
 }
+
