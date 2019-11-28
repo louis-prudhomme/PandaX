@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
             "WHERE u.id = :id"),
     @NamedQuery(name = "User.checkCred", query = "SELECT u FROM User u " +
             "WHERE u.pseudo = :pseudo AND u.pwd = :pwd")})
-public class User implements Serializable {
+public class User implements Serializable, IDTO {
     private static final long serialVersionUID = 1L;
 
     @Id

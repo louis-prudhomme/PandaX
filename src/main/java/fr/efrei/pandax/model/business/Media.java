@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
             "WHERE m.publisher.id = :publisher"),
     @NamedQuery(name = "Media.findByCity", query = "SELECT m FROM Media m " +
             "WHERE m.city = :city")})
-public class Media implements Serializable {
+public class Media implements Serializable, IDTO {
     private static final long serialVersionUID = 1L;
 
     @Id

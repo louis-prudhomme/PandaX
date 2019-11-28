@@ -20,7 +20,7 @@ import javax.validation.constraints.Size;
             "WHERE c.media.id = :media AND c.user.id = :user"),
     @NamedQuery(name = "Comment.findByPk", query = "SELECT c FROM Comment c " +
             "WHERE c.media.id = :media AND c.user.id = :user AND c.id = :id")})
-public class Comment implements Serializable {
+public class Comment implements Serializable, IDTO {
     private static final long serialVersionUID = 1L;
 
     @Id

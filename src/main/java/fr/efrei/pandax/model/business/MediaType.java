@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
             "WHERE m.id = :id"),
     @NamedQuery(name = "MediaType.findByLabel", query = "SELECT m FROM MediaType m " +
             "WHERE m.label = :label")})
-public class MediaType implements Serializable {
+public class MediaType implements Serializable, IDTO {
 
     private static final long serialVersionUID = 1L;
     @Id

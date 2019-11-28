@@ -1,5 +1,7 @@
 package fr.efrei.pandax.model.business;
 
+import jdk.jshell.spi.ExecutionControl;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -23,7 +25,7 @@ import javax.validation.constraints.NotNull;
             "WHERE p.possessionPK.user = :user"),
     @NamedQuery(name = "Possession.findByMedia", query = "SELECT p FROM Possession p " +
             "WHERE p.possessionPK.media = :media")})
-public class Possession implements Serializable {
+public class Possession implements Serializable, IDTO {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected PossessionPK possessionPK;
@@ -87,6 +89,11 @@ public class Possession implements Serializable {
 
     public void setMedia1(Media media1) {
         this.media1 = media1;
+    }
+
+    @Override
+    public Integer getId() {
+        throw new UnsupportedOperationException();
     }
 
     @Override

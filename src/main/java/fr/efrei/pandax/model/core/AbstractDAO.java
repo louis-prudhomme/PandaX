@@ -1,5 +1,7 @@
 package fr.efrei.pandax.model.core;
 
+import fr.efrei.pandax.model.business.IDTO;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
  * Can generically read, delete, update, create and get all records of a generic type.
  * @param <T> Generic type that will be queried in database. Should be a fr.efrei.pandax.model.business class.
  */
-public abstract class AbstractDAO<T> {
+public abstract class AbstractDAO<T extends IDTO> {
     /**
      * Target class managed by the DAO.
      */
@@ -57,9 +59,7 @@ public abstract class AbstractDAO<T> {
     public void delete(T managedObject) {
         openEntityManager();
         em.getTransaction().begin();
-        if (!em.contains(managedObject)) {
-            managedObject = em.merge(managedObject);
-        }
+        managedObject = em.find(managedKlazz, managedObject.getId());
         em.remove(managedObject);
         em.flush();
         em.getTransaction().commit();

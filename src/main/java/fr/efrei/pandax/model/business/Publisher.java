@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
             "WHERE p.id = :id"),
     @NamedQuery(name = "Publisher.findByDenomination", query = "SELECT p FROM Publisher p " +
             "WHERE p.denomination = :denomination")})
-public class Publisher implements Serializable {
+public class Publisher implements Serializable, IDTO {
     private static final long serialVersionUID = 1L;
 
     @Id
