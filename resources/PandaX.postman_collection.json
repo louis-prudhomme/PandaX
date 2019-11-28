@@ -140,10 +140,10 @@
 									"});",
 									"",
 									"pm.test(\"Return path is well formed\", function () {",
-									"    pm.expect(pm.response.stream.toString().split(\"/\").length).to.equal(3);",
+									"    pm.expect(pm.response.stream.toString().split(\"/\").length).to.equal(6);",
 									"});",
 									"",
-									"pm.collectionVariables.set(\"lastMediaTypeId\", pm.response.stream.toString().split(\"/\")[2]);",
+									"pm.collectionVariables.set(\"lastMediaTypeId\", pm.response.stream.toString().split(\"/\")[5]);",
 									""
 								],
 								"type": "text/javascript"
@@ -449,10 +449,10 @@
 									"});",
 									"",
 									"pm.test(\"Return path is well formed\", function () {",
-									"    pm.expect(pm.response.stream.toString().split(\"/\").length).to.equal(3);",
+									"    pm.expect(pm.response.stream.toString().split(\"/\").length).to.equal(6);",
 									"});",
 									"",
-									"pm.collectionVariables.set(\"lastPublisherId\", pm.response.stream.toString().split(\"/\")[2]);"
+									"pm.collectionVariables.set(\"lastPublisherId\", pm.response.stream.toString().split(\"/\")[5]);"
 								],
 								"type": "text/javascript"
 							}
@@ -1231,13 +1231,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{url}}/media/1",
+							"raw": "{{url}}/media/{{lastMediaId}}",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"media",
-								"1"
+								"{{lastMediaId}}"
 							]
 						}
 					},
@@ -1683,27 +1683,129 @@
 	],
 	"variable": [
 		{
-			"id": "803b68aa-8ddc-473d-aaad-8d57c5837b2c",
+			"id": "fa79c92f-4af9-4307-aa2d-600cfca38ae5",
 			"key": "url",
 			"value": "localhost:8080/PandaX",
 			"type": "string"
 		},
 		{
-			"id": "97a0580d-e8f0-48a6-857a-1422461bcc1e",
+			"id": "b1f24144-b496-441d-9af1-2484d0892d0e",
 			"key": "token",
-			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTc1MzI4Nzg3LCJpYXQiOjE1NzQ4OTY3ODcsImlzcyI6IlBhbmRhWCBSRVNUIEFQSSIsInJvbCI6IlVTRVIiLCJuYW0iOiJtZWxhbmllIn0.OS04pwCKxiKO3m_DymP84IE5ORPBW3EljpXyK9iCqqN8zxEPVn-vebOv_j3ou6mjfJQQhvTFI7RhMAYqj0fKHA",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1IiwiZXhwIjoxNTc1MzMyMTY2LCJpYXQiOjE1NzQ5MDAxNjYsImlzcyI6IlBhbmRhWCBSRVNUIEFQSSIsInJvbCI6IkFETUlOIiwibmFtIjoicGFuZGEifQ.qnb17IQr-8axU_V9XFUS1rCWif6c3K4joHmgzXOv3qozLar4uM2l_AQ4d-B3hG_Hf19fcIqhZgKz4NZFIxwyPg",
 			"type": "string"
 		},
 		{
-			"id": "9bbc543e-fd08-4223-b5c7-82b715e35749",
+			"id": "4a5c63d8-3cd2-441d-9f9b-af8a6144a1c0",
 			"key": "login",
-			"value": "melanie",
+			"value": "panda",
 			"type": "string"
 		},
 		{
-			"id": "91050f3c-d105-4d6a-888a-d987ea029742",
+			"id": "0278c36c-5960-4e7b-873c-301d52ea8c10",
 			"key": "password",
-			"value": "chocolat",
+			"value": "panda",
+			"type": "string"
+		},
+		{
+			"id": "cfcb8cbb-4c57-431c-bfb4-d264b15e4aee",
+			"key": "mediaTypeTest",
+			"value": "{\"label\":\"Test media type\"}",
+			"type": "string"
+		},
+		{
+			"id": "79a81826-8852-44da-9a9e-62feb4b112c2",
+			"key": "lastMediaTypeId",
+			"value": "19",
+			"type": "string"
+		},
+		{
+			"id": "2dca99a2-a54f-4634-9353-60f6ce8daf78",
+			"key": "lastMediaType",
+			"value": "http://localhost:8080/PandaX/comment",
+			"type": "string"
+		},
+		{
+			"id": "c47c9540-670c-4467-94e5-d99ec4955c96",
+			"key": "publisherTest",
+			"value": "{\"denomination\":\"Test publisher\"}",
+			"type": "string"
+		},
+		{
+			"id": "4e2afb58-c82e-47f2-86df-f70195935c5e",
+			"key": "lastPublisherId",
+			"value": "13",
+			"type": "string"
+		},
+		{
+			"id": "33c5d277-429d-4549-9061-a06720d8f9f2",
+			"key": "lastPublisher",
+			"value": "{\"denomination\":\"updated publisher\",\"id\":13}",
+			"type": "string"
+		},
+		{
+			"id": "d9fb7bed-8ec0-4428-af5b-a4fd9d7b817b",
+			"key": "userTest",
+			"value": "{\"pseudo\":\"user test\",\"pwd\":\"test\",\"firstName\":\"test\",\"lastName\":\"test\",\"isAdmin\":\"1\"}",
+			"type": "string"
+		},
+		{
+			"id": "915b3aa6-4e33-484d-bc65-1a7359535321",
+			"key": "lastUserId",
+			"value": "6",
+			"type": "string"
+		},
+		{
+			"id": "c13e76ba-a762-4e3a-a21d-50d6ce8cdbe3",
+			"key": "lastUser",
+			"value": "{\"admin\":false,\"firstName\":\"test\",\"id\":6,\"lastName\":\"test\",\"pseudo\":\"updated pseudo\",\"pwd\":\"test\"}",
+			"type": "string"
+		},
+		{
+			"id": "40291d83-17af-457f-bc55-2f10b70f35c8",
+			"key": "mediaTest",
+			"value": "{\"title\" : \"Kung Fu Panda\",\"published\" : \"2019-11-11\",\"city\" : \"KungFuLand\",\"descript\" : \"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",\"imageUrl\" : \"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",\"user\" : {\"admin\":false,\"firstName\":\"test\",\"id\":6,\"lastName\":\"test\",\"pseudo\":\"user test\",\"pwd\":\"test\"},\"publisher\" :{\"denomination\":\"Test publisher\",\"id\":13},\"mediaType\" : {\"id\":19,\"label\":\"Test media type\"}}",
+			"type": "string"
+		},
+		{
+			"id": "9e15be36-d7cf-4aae-af53-578f94fe0f8a",
+			"key": "lastMediaId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"id": "246d7282-c21c-436a-a43a-cdfde8f657a5",
+			"key": "lastMedia",
+			"value": "{\"city\":\"KungFuLand\",\"descript\":\"Lord Shen, the scion of a peacock clan that rules Gongmen City in ancient China, seeks to weaponize his family s recently invented fireworks. After discovering from the court s goat soothsayer that a warrior of black-and-white will defeat him if he does not change his ways, Shen leads an army of wolves to exterminate the panda population to avert the prophecy. Shen s parents are horrified by this atrocity and exile him as punishment.\",\"id\":1,\"imageUrl\":\"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",\"mediaType\":{\"id\":19,\"label\":\"Test media type\"},\"published\":\"2019-11-11T00:00:00+01:00\",\"publisher\":{\"denomination\":\"Test publisher\",\"id\":13},\"title\":\"Kung Fu Panda 2 updated\",\"user\":{\"admin\":false,\"firstName\":\"test\",\"id\":6,\"lastName\":\"test\",\"pseudo\":\"user test\",\"pwd\":\"test\"}}",
+			"type": "string"
+		},
+		{
+			"id": "a325569e-ecf3-40f1-b334-618c3855e64d",
+			"key": "lastMediaCity",
+			"value": "KungFuLand",
+			"type": "string"
+		},
+		{
+			"id": "f88a8e85-75cf-4023-a378-bed5e60907cc",
+			"key": "lastMediaTitle",
+			"value": "Kung Fu Panda",
+			"type": "string"
+		},
+		{
+			"id": "9266e2fe-cddb-4093-b4da-15dd87fc56de",
+			"key": "commentTest",
+			"value": "{    \"content\": \"test\",    \"media\": {\"city\":\"KungFuLand\",\"descript\":\"In the Valley of Peace, a land in ancient China inhabited by anthropomorphic animals, Po Ping the giant panda is a kung fu fanatic who idolizes the Furious Five – Tigress, Monkey, Mantis, Viper, and Crane – a quintet of kung fu masters trained by Master Shifu, the red panda. However, Po is unable to pursue his dream of learning kung fu as he helps his adoptive father, Mr. Ping the goose, in his noodle restaurant.\",\"id\":1,\"imageUrl\":\"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",\"mediaType\":{\"id\":19,\"label\":\"Test media type\"},\"published\":\"2019-11-11T00:00:00+01:00\",\"publisher\":{\"denomination\":\"Test publisher\",\"id\":13},\"title\":\"Kung Fu Panda\",\"user\":{\"admin\":false,\"firstName\":\"test\",\"id\":6,\"lastName\":\"test\",\"pseudo\":\"user test\",\"pwd\":\"test\"}},    \"user\": {\"admin\":false,\"firstName\":\"test\",\"id\":6,\"lastName\":\"test\",\"pseudo\":\"user test\",\"pwd\":\"test\"}}",
+			"type": "string"
+		},
+		{
+			"id": "f1cf2d27-e2da-4e1d-bd8d-73aef65c7b75",
+			"key": "lastCommentId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"id": "7d3d27da-a703-4b8e-99c7-216e3478685c",
+			"key": "lastComment",
+			"value": "[{\"city\":\"KungFuLand\",\"descript\":\"Lord Shen, the scion of a peacock clan that rules Gongmen City in ancient China, seeks to weaponize his family s recently invented fireworks. After discovering from the court s goat soothsayer that a warrior of black-and-white will defeat him if he does not change his ways, Shen leads an army of wolves to exterminate the panda population to avert the prophecy. Shen s parents are horrified by this atrocity and exile him as punishment.\",\"id\":1,\"imageUrl\":\"http://fr.web.img5.acsta.net/c_215_290/medias/nmedia/18/36/20/29/18944269.jpg\",\"mediaType\":{\"id\":19,\"label\":\"updated type\"},\"published\":\"2019-11-11T00:00:00+01:00\",\"publisher\":{\"denomination\":\"updated publisher\",\"id\":13},\"title\":\"Kung Fu Panda 2 updated\",\"user\":{\"admin\":false,\"firstName\":\"test\",\"id\":6,\"lastName\":\"test\",\"pseudo\":\"updated pseudo\",\"pwd\":\"test\"}}]",
 			"type": "string"
 		}
 	],
