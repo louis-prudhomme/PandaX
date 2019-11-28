@@ -3,7 +3,6 @@
   <persistence-unit name="my_persistence_unit" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <class>fr.efrei.pandax.model.business.Comment</class>
-    <class>fr.efrei.pandax.model.business.CommentPK</class>
     <class>fr.efrei.pandax.model.business.Media</class>
     <class>fr.efrei.pandax.model.business.MediaType</class>
     <class>fr.efrei.pandax.model.business.Publisher</class>

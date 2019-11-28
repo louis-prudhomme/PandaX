@@ -1,7 +1,5 @@
 package fr.efrei.pandax.model.business;
 
-import jdk.jshell.spi.ExecutionControl;
-
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;

@@ -1,4 +1,3 @@
-
 package fr.efrei.pandax.model.core;
 
 import fr.efrei.pandax.model.business.Publisher;

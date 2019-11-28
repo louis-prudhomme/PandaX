@@ -7,7 +7,9 @@ import fr.efrei.pandax.model.core.UserDAO;
 import fr.efrei.pandax.security.Role;
 import fr.efrei.pandax.security.Secured;
 import fr.efrei.pandax.security.SecurityHelper;
+import org.hibernate.exception.ConstraintViolationException;
 
+import javax.persistence.PersistenceException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import javax.ws.rs.core.MediaType;
@@ -37,7 +39,8 @@ public class UserResource {
     @Secured(Role.ADMIN)
     @Consumes(APPLICATION_FORM_URLENCODED)
     public Response createOne(@FormParam("user")User user) {
-        user = new UserDAO().create(user);
+        UserDAO dao = new UserDAO();
+        user = dao.create(user);
         return Response
                 .ok(uriInfo.getBaseUriBuilder()
                         .path(UserResource.class)
