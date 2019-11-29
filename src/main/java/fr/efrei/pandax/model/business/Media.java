@@ -96,6 +96,9 @@ public class Media implements Serializable, IDTO {
     @ManyToOne(optional = false)
     private MediaType mediaType;
 
+    /**
+     * default constructor
+     */
     public Media() {}
 
     public Media(Integer id) {
