@@ -31,8 +31,9 @@ public class MediaResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll(@QueryParam("title")@DefaultValue("")String title,
-                           @QueryParam("city")@DefaultValue("")String city) {
-        medias = new MediaDAO().getAll(title, city);
+                           @QueryParam("city")@DefaultValue("")String city,
+                           @QueryParam("resume")@DefaultValue("")String resume) {
+        medias = new MediaDAO().getAll(title, city, resume);
         return Response.ok(new GenericEntity<>(medias) {}).build();
     }
     

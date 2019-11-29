@@ -14,6 +14,9 @@
       <property name="hibernate.connection.user" value="test"/>
       <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
       <property name="hibernate.connection.password" value="password"/>
+      <!-- hibernate search -->
+      <property name="hibernate.search.default.directory_provider" value="filesystem"/>
+      <property name="hibernate.search.default.indexBase" value="./lucene/indexes"/>
     </properties>
   </persistence-unit>
 </persistence>

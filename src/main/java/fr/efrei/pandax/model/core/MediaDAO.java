@@ -20,15 +20,18 @@ public class MediaDAO extends AbstractDAO<Media> {
      * Allows parameter matching for {@link Media#title} and {@link Media#city}
      * @param title complete or approximate {@link Media#title}
      * @param city complete or approximate {@link Media#city}
+     * @param descript complete or approximate {@link Media#descript}
      * @return {@link List} of all the matching {@link Media}
      */
-    public List<Media> getAll(String title, String city) {
+    public List<Media> getAll(String title, String city, String descript) {
         openEntityManager();
         TypedQuery<Media> mediaQuery = em.createNamedQuery("Media.findAll", Media.class);
-        mediaQuery.setParameter("city",
-                MatchMode.ANYWHERE.toMatchString(city));
         mediaQuery.setParameter("title",
                 MatchMode.ANYWHERE.toMatchString(title));
+        mediaQuery.setParameter("city",
+                MatchMode.ANYWHERE.toMatchString(city));
+        mediaQuery.setParameter("descript",
+                MatchMode.ANYWHERE.toMatchString(descript));
         List<Media> mediaList = mediaQuery.getResultList();
         closeEntityManager();
         return mediaList;

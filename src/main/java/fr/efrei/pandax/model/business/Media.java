@@ -1,5 +1,8 @@
 package fr.efrei.pandax.model.business;
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -24,11 +27,13 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
+@Indexed
 @Table(name = "media")
 @NamedQueries({
     @NamedQuery(name = "Media.findAll", query = "SELECT m FROM Media m "  +
-            "WHERE m.title LIKE :title " +
-            "AND m.city LIKE :city"),
+            "WHERE lower(m.title) LIKE lower(:title) " +
+            "AND lower(m.city) LIKE lower(:city) " +
+            "AND lower(m.descript) LIKE lower(:descript)"),
     @NamedQuery(name = "Media.findById", query = "SELECT m FROM Media m " +
             "WHERE m.id = :id"),
     @NamedQuery(name = "Media.findByUser", query = "SELECT m FROM Media m " +
@@ -62,6 +67,7 @@ public class Media implements Serializable, IDTO {
     @Basic(optional = false)
     @NotNull
     @Lob
+    @Field
     @Size(min = 1, max = 65535)
     @Column(name = "descript")
     private String descript;
