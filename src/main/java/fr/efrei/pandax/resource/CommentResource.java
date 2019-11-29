@@ -75,6 +75,11 @@ public class CommentResource {
                 .build();
     }
 
+    /**
+     *
+     * @param c
+     * @return
+     */
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)

@@ -5,14 +5,19 @@ import fr.efrei.pandax.model.business.Possession;
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 
+/**
+ * This class serves as an access to database-stored {@link Possession} entities.
+ */
 @Stateless
 public class PossessionDAO extends AbstractDAO<Possession> {
-    private TypedQuery<Possession> PossessionQuery;
-
     public PossessionDAO(){
         super(Possession.class);
     }
 
+    /**
+     * Reads the entity corresponding to the provided {@param id1, @param id2} in the database.
+     * @return the corresponding entity
+     */
     public Possession readPossession(int idUser, int idMedia){
         openEntityManager();
         TypedQuery<Possession> query = em.createNamedQuery("Possession.findByUserAndMedia", Possession.class);
@@ -23,6 +28,11 @@ public class PossessionDAO extends AbstractDAO<Possession> {
         return x;
     }
 
+
+    /**
+     * Deletes the {@link Possession} corresponding to the provided {@param id1, @param id2} in the database.
+     * @param possession the {@link Possession} to delete.
+     */
     public void deletePossession(Possession possession) {
         openEntityManager();
         em.getTransaction().begin();

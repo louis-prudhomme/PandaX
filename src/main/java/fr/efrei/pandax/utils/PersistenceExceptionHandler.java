@@ -8,6 +8,11 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
+/**
+ * This class handles all the {@link PersistenceException} arising in our application.
+ * It returns appropriate HTTP codes for each error.
+ * Registered in web.xml
+ */
 @Provider
 public class PersistenceExceptionHandler implements ExceptionMapper<PersistenceException> {
     @Override

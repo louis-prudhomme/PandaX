@@ -8,12 +8,10 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 
-//todo refactor open/close with lambda ?
-
 /**
  * Represents an general Database Access Object.
  * Can generically read, delete, update, create and get all records of a generic type.
- * @param <T> Generic type that will be queried in database. Should be a fr.efrei.pandax.model.business class.
+ * @param <T> Generic type that will be queried in database. Must implement {@link IDTO}.
  */
 public abstract class AbstractDAO<T extends IDTO> {
     /**
@@ -22,7 +20,7 @@ public abstract class AbstractDAO<T extends IDTO> {
     private Class<T> managedKlazz;
 
     /**
-     * FUK U TOMCAT
+     * DITTO
      */
     private EntityManagerFactory emf;
     /**
@@ -106,11 +104,17 @@ public abstract class AbstractDAO<T extends IDTO> {
         return all;
     }
 
+    /**
+     * Opens connection to the database
+     */
     protected void openEntityManager() {
         emf = Persistence.createEntityManagerFactory("my_persistence_unit");
         em = emf.createEntityManager();
     }
 
+    /**
+     * Opens connection to the database
+     */
     protected void closeEntityManager() {
         em.close();
         emf.close();

@@ -17,14 +17,23 @@ public class PublisherResource {
     @Context
     UriInfo uriInfo;
 
+    /**
+     * Returns all the {@link fr.efrei.pandax.model.business.Publisher} in database.
+     * @return list of all {@link fr.efrei.pandax.model.business.Publisher}
+     */
     @GET
     @Secured
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
         List<Publisher> all = new PublisherDAO().getAll();
-        return Response.ok(new GenericEntity<>(all) {}).build();
+        return Response.ok(new GenericEntity<>(all) { }).build();
     }
 
+    /**
+     * Adds a {@link fr.efrei.pandax.model.business.Publisher} to the database through the request /publisher/{id}
+     * @param p : user generated {@link fr.efrei.pandax.model.business.Publisher}
+     * @return request for the {@link fr.efrei.pandax.model.business.Publisher} creation
+     */
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response createOne(@FormParam("publisher")Publisher p) {
@@ -37,6 +46,11 @@ public class PublisherResource {
                 .build();
     }
 
+    /**
+     * Deletes a {@link fr.efrei.pandax.model.business.Publisher} from the database through the request /publisher/{id}
+     * @param id
+     * @return request for the {@link fr.efrei.pandax.model.business.Publisher} deletion
+     */
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -50,6 +64,11 @@ public class PublisherResource {
                 .build();
     }
 
+    /**
+     * Searches for the {@link fr.efrei.pandax.model.business.Publisher} with the corresponding id
+     * @param id
+     * @return Corresponding {@link fr.efrei.pandax.model.business.Publisher} item
+     */
     @GET
     @Path("/{id}")
     @Secured
@@ -58,6 +77,11 @@ public class PublisherResource {
         return Response.ok(new PublisherDAO().read(id)).build();
     }
 
+    /**
+     * Modifies a {@link fr.efrei.pandax.model.business.Publisher} from the database through the request /publisher/{id}
+     * @param p : user generated {@link fr.efrei.pandax.model.business.Publisher}
+     * @return request for the {@link fr.efrei.pandax.model.business.Publisher} modification
+     */
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response updateOne(@FormParam("publisher")Publisher p) {
@@ -81,7 +105,7 @@ public class PublisherResource {
     public Response getMediaForType(@PathParam("idPublisher")int idMedia) {
         List<Media> media = new MediaDAO().getAllForPublisher(idMedia);
         return Response.ok(
-                new GenericEntity<>(media) {})
+                new GenericEntity<>(media) { })
                 .build();
     }
 }

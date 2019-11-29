@@ -67,6 +67,12 @@ public class SecurityHelper {
                 .get("rol", String.class)) == Role.ADMIN;
     }
 
+    /**
+     * Checks if the user is either an admin or has the {@link fr.efrei.pandax.model.business.User#id} providied
+     * @param headers {@link HttpHeaders} of the request
+     * @param expectedId {@link fr.efrei.pandax.model.business.User#id} to check against
+     * @return true if allowed
+     */
     public boolean isIncomingUserAlien(HttpHeaders headers, int expectedId) {
         return !isIncomingUserAdmin(headers) && !isIncomingUserExpected(headers, expectedId);
     }

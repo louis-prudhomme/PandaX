@@ -30,10 +30,8 @@ public class TokenResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response getToken(@FormParam("login")String login, @FormParam("password")String password) {
-        //todo handle wrong credentials
         User u = new UserDAO().checkCredentials(login, password);
 
-        //todo add more claims ?
         String token = Jwts.builder().signWith(new SecurityHelper().generateSecretKey())
                 .setSubject(String.valueOf(u.getId()))
                 .setExpiration(new SecurityHelper().generateExpirationDate())

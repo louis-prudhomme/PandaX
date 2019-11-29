@@ -36,7 +36,12 @@ public class MediaResource {
         medias = new MediaDAO().getAll(title, city, resume);
         return Response.ok(new GenericEntity<>(medias) {}).build();
     }
-    
+
+    /**
+     * Adds a {@link fr.efrei.pandax.model.business.Media} to the database through the request /media/{id}
+     * @param m : user generated {@link fr.efrei.pandax.model.business.Media}
+     * @return request for the {@link fr.efrei.pandax.model.business.Media} creation
+     */
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
@@ -53,6 +58,11 @@ public class MediaResource {
                 .build();
     }
 
+    /**
+     * Deletes a {@link fr.efrei.pandax.model.business.Media} from the database through the request /media/{id}
+     * @param id is the {@link Media#id}
+     * @return request for the {@link fr.efrei.pandax.model.business.Media} deletion
+     */
     @DELETE
     @Path("/{id}")
     @Secured
@@ -72,6 +82,11 @@ public class MediaResource {
                 .build();
     }
 
+    /**
+     * Searches for the {@link fr.efrei.pandax.model.business.Media} with the corresponding id
+     * @param id is the {@link Media#id}
+     * @return Corresponding {@link fr.efrei.pandax.model.business.Media} item
+     */
     @GET
     @Path("/{id}")
     @Secured
@@ -80,6 +95,11 @@ public class MediaResource {
         return Response.ok(new MediaDAO().read(id)).build();
     }
 
+    /**
+     * Modifies a {@link fr.efrei.pandax.model.business.Media} from the database through the request /media/{id}
+     * @param m : user generated {@link fr.efrei.pandax.model.business.Media}
+     * @return request for the {@link fr.efrei.pandax.model.business.Media} modification
+     */
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
@@ -96,6 +116,11 @@ public class MediaResource {
                 .build();
     }
 
+    /**
+     * Obtains all {@link Comment} for a specific {@link Media}
+     * @param id is the {@link Media#id}
+     * @return a list of all relevant {@link Comment}
+     */
     @GET
     @Path("/{id}/comment")
     @Produces(MediaType.APPLICATION_JSON)
@@ -104,6 +129,12 @@ public class MediaResource {
         return Response.ok(new GenericEntity<>(comments) {}).build();
     }
 
+    /**
+     * Obtains all {@link Comment} for a specific {@link Media} and a specific      * @param idMedia is the {@link fr.efrei.pandax.model.business.User#id}
+     * @param idMedia is the {@link Media#id}
+     * @param idUser is the {@link fr.efrei.pandax.model.business.User#id}
+     * @return a list of all relevant {@link Comment}
+     */
     @GET
     @Path("{idMedia}/user/{idUser}/comment")
     @Produces(MediaType.APPLICATION_JSON)
@@ -112,6 +143,13 @@ public class MediaResource {
         return Response.ok(new GenericEntity<>(comments) {}).build();
     }
 
+    /**
+     * Obtains a particuliar comment for this particuliar {@link Media}
+     * @param idComment is the {@link Comment#id}
+     * @param idMedia is the {@link Media#id}
+     * @param idUser is the {@link fr.efrei.pandax.model.business.User#id}
+     * @return corresponding {@link Comment}
+     */
     @GET
     @Path("{idMedia}/user/{idUser}/comment/{idComment}")
     @Produces(MediaType.APPLICATION_JSON)

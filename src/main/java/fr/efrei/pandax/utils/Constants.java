@@ -1,6 +1,7 @@
 package fr.efrei.pandax.utils;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -40,8 +41,8 @@ public class Constants {
     private Constants() {
         properties = new Properties();
         try {
-            properties.load(this.getClass().getClassLoader()
-                    .getResourceAsStream(PROP_FILE_LOCATION));
+            properties.load(Objects.requireNonNull(this.getClass().getClassLoader()
+                    .getResourceAsStream(PROP_FILE_LOCATION)));
         } catch (IOException e) {
             e.printStackTrace();
         }
