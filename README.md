@@ -2,39 +2,36 @@
 
 Because this is our REST project !! \o/
 
-# Features
+This is the project we have been asked to realize for our **Application Interoperability with Web Services** course @ Efrei Paris.
 
-Users can query and display the medias by
-- categories
-- keyword
-- city
-- user
+It is a fairly simple application we created in about two weeks ; it essentially is a user media repository REST API in which users can add their possessions and comments.
 
-Medias have
-- a user who submitted it
-- a name
-- a description
-- a mark
-- comments
+The name comes from the passion of one of the team’s members for the namesaked-animal (with a touch of bullshit-marketing-reclame-lookscool slapped on it).
 
-Users have
-- a name
-- a city
-- credentials
+# Tech
+
+We made several choices regarding our technical stack ;
+- Use Maven to ease interoperability between team members, OSes and IDEs
+- Use Java 11, the current Java LTS version (plz drop 1.8 people, it’s already ded)
+- Use Tomcat > 8.5 (this was a part of our assignement)
+- Use Hibernate as a JPA provider
+- Use [JJWT](https://github.com/jwtk/jjwt) as our JWT provider
+- Use Postman
+- Use MySQL
+- Use JAX-RS
 
 # The work that remains
 
-- [ ] Part I – Attack of the Configs
+- [x] Part I – Attack of the Configs
   - [x] Build the database
     - [x] design it
     - [x] put the script on git
   - [x] implement jpa
   - [x] implement security tokens
-  - [ ] postman test for the general use case
-- [ ] Part II – Revenge of the REST
-  - [ ] plan routes
-  - [ ] implement rest routes
-    - [ ] there is more to do in this section but i have no idea on how to divide it
+  - [x] postman test for the general use case
+- [x] Part II – Revenge of the REST
+  - [x] plan routes
+  - [x] implement rest routes
 
 # Guidelines (trespassers will be shot)
 
